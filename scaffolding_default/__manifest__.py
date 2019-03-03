@@ -21,27 +21,20 @@
     'name': 'scaffolding',
     'version': '11.0.0.0.0',
     'license': 'Other OSI approved licence',
-    'category': 'Tools',
-    'summary': 'Customizacion para scaffolding',
+    'category': 'Default Application',
+    'summary': 'Customizacion for scaffolding',
     'author': 'jeo Software',
     'depends': [
+        # basic applications
         'sale_management',
         'account_invoicing',
         'purchase',
 
-        # para la localizacion argentina
-        'l10n_ar_base',  # esto se instala solo
-        'l10n_ar_account',  # esto se instala solo
-        'l10n_ar_afipws_fe',  # Factura Electrónica Argentina
-        'l10n_ar_aeroo_einvoice',  # impresion de factura electronica aeroo
-        'l10n_ar_account_vat_ledger_citi',
-        'account_debt_management',
-        'l10n_ar_aeroo_payment_group',
+        # minimum modules for argentinian localizacion + utilities + fixes
+        'standard_depends',
 
-        # utilitarios
-        'auto_backup',  # poner el backup en: /var/odoo/backups/
+        # utilitarios adicionales
         'backend_theme',
-        'due_payments_argentina_fix'
     ],
     'data': [
     ],
@@ -52,9 +45,22 @@
     'auto_install': False,
     'images': [],
 
+    #
+    # Here begins docker-odoo-environment manifest
+    # --------------------------------------------
+
+    # if Enterprise it installs in a different directory than community
+    'Enterprise': False,
+
+    # port where odoo starts serving pages
     'port': '8069',
+
+    # syntax version of repos and images
+    'version': 1,
+
+    # example repos version 1
     'repos': [
-        {'usr': 'jobiols', 'repo': 'cl-vhing', 'branch': '11.0'},
+        {'usr': 'jobiols', 'repo': 'cl-scaffolding', 'branch': '11.0'},
         {'usr': 'jobiols', 'repo': 'odoo-addons', 'branch': '11.0'},
         {'usr': 'jobiols', 'repo': 'rafi16jan-backend-theme',
          'branch': '11.0'},
@@ -73,10 +79,28 @@
         {'usr': 'jobiols', 'repo': 'oca-web', 'branch': '11.0'},
         {'usr': 'jobiols', 'repo': 'oca-server-tools', 'branch': '11.0'},
     ],
+
+    # example images version 1
     'docker': [
         {'name': 'odoo', 'usr': 'jobiols', 'img': 'odoo-jeo', 'ver': '11.0'},
         {'name': 'postgres', 'usr': 'postgres', 'ver': '11.1-alpine'},
         {'name': 'nginx', 'usr': 'nginx', 'ver': 'latest'},
         {'name': 'aeroo', 'usr': 'adhoc', 'img': 'aeroo-docs'},
+    ],
+
+    # example repos version 2
+    # Note that the branch of the repo to download is taken from the module
+    # version
+    'repositories': [
+        'https://github.com/jobiols/cl-scaffolding.git',
+        'https://github.com/jobiols/odoo-addons.git',
+        'https://github.com/jobiols/adhoc-odoo-argentina.git',
+    ],
+
+    # example images version 2
+    'images': [
+        {'img': 'jobiols/odoo-jeo:11.0', 'name': 'odoo'},
+        {'img': 'postgres:11.1-alpine', 'name': 'postgres'},
+        {'img': 'adhoc/aeroo', 'name': 'aeroo'},
     ]
 }
