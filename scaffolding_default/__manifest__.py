@@ -56,7 +56,7 @@
     'port': '8069',
 
     # syntax version of repos and images
-    'version': 1,
+    'env_ver': 1,
 
     # example repos version 1
     'repos': [
