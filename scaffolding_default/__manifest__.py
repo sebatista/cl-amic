@@ -22,7 +22,7 @@
     'version': '11.0.0.0.0',
     'license': 'Other OSI approved licence',
     'category': 'Default Application',
-    'summary': 'Customizacion for scaffolding',
+    'summary': 'Customization for scaffolding',
     'author': 'jeo Software',
     'depends': [
         # basic applications
