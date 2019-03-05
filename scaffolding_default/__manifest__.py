@@ -91,14 +91,14 @@
     # example repos version 2
     # Note that the branch of the repo to download is taken from the module
     # version
-    'repositories': [
+    'git-repos': [
         'https://github.com/jobiols/cl-scaffolding.git',
         'https://github.com/jobiols/odoo-addons.git',
         'https://github.com/jobiols/adhoc-odoo-argentina.git',
     ],
 
     # example images version 2
-    'images': [
+    'docker-images': [
         {'img': 'jobiols/odoo-jeo:11.0', 'name': 'odoo'},
         {'img': 'postgres:11.1-alpine', 'name': 'postgres'},
         {'img': 'adhoc/aeroo', 'name': 'aeroo'},
