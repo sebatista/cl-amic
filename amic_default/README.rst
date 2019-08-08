@@ -1,4 +1,4 @@
-.. |customer| replace:: scaffolding
+.. |customer| replace:: amic
 
 .. |company| replace:: jeo Soft
 
