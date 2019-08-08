@@ -1,4 +1,4 @@
-dist: "trusty"
+dist: "stretch"
 sudo: false
 cache: pip
 
