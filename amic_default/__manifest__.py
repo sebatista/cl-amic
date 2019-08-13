@@ -29,6 +29,7 @@
         'sale_management',
         'account_invoicing',
         'purchase',
+        'mrp',
 
         # minimum modules for argentinian localizacion + utilities + fixes
         'standard_depends_ce',
