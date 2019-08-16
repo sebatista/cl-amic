@@ -36,6 +36,8 @@
 
         # utilitarios adicionales
         'backend_theme',
+        # permite nombres de producto distintos para cada cliente
+        'customer_product_names',
     ],
     'data': [
     ],
