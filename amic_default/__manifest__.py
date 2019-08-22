@@ -87,6 +87,7 @@
         {'usr': 'jobiols', 'repo': 'oca-social', 'branch': '11.0'},
         {'usr': 'jobiols', 'repo': 'oca-server-ux', 'branch': '11.0'},
         {'usr': 'jobiols', 'repo': 'oca-server-brand', 'branch': '11.0'},
+        {'usr': 'oca', 'repo': 'manufacture', 'branch': '11.0'},
     ],
 
     'docker': [
