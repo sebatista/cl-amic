@@ -6,6 +6,5 @@
   Sphinx documentation (which may include this file as a "quick start"
   section). ]
 
-To use this module, you need to:
+Al cargar un lote se debera crear o elegir uno.
 
-#. Go to ...

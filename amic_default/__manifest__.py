@@ -35,7 +35,9 @@
         'standard_depends_ce',
 
         # utilitarios adicionales
-        'backend_theme',
+        'backend_theme_v11',
+
+        # desarrollo especifico para amic
         # permite nombres de producto distintos para cada cliente
         'customer_product_names',
     ],
@@ -48,45 +50,34 @@
     'auto_install': False,
     'images': [],
 
-    #
-    # Here begins docker-odoo-environment manifest
-    # --------------------------------------------
-
-    # if Enterprise it installs in a different directory than community
-    'Enterprise': False,
-
     # port where odoo starts serving pages
     'port': '8069',
-
-    # syntax version of repos and images
-    'env_ver': 1,
 
     # example repos version 1
     'repos': [
         {'usr': 'jobiols', 'repo': 'cl-amic', 'branch': '11.0'},
         {'usr': 'jobiols', 'repo': 'odoo-addons', 'branch': '11.0'},
-        {'usr': 'jobiols', 'repo': 'rafi16jan-backend-theme',
-         'branch': '11.0'},
 
-        {'usr': 'jobiols', 'repo': 'adhoc-odoo-argentina', 'branch': '11.0'},
-        {'usr': 'jobiols', 'repo': 'adhoc-argentina-sale', 'branch': '11.0'},
-        {'usr': 'jobiols', 'repo': 'adhoc-account-financial-tools',
+        {'usr': 'ingadhoc', 'repo': 'odoo-argentina', 'branch': '11.0'},
+        {'usr': 'ingadhoc', 'repo': 'argentina-sale', 'branch': '11.0'},
+        {'usr': 'ingadhoc', 'repo': 'account-financial-tools',
          'branch': '11.0'},
-        {'usr': 'jobiols', 'repo': 'adhoc-account-payment', 'branch': '11.0'},
-        {'usr': 'jobiols', 'repo': 'adhoc-miscellaneous', 'branch': '11.0'},
-        {'usr': 'jobiols', 'repo': 'adhoc-argentina-reporting',
+        {'usr': 'ingadhoc', 'repo': 'account-payment', 'branch': '11.0'},
+        {'usr': 'ingadhoc', 'repo': 'miscellaneous', 'branch': '11.0'},
+        {'usr': 'ingadhoc', 'repo': 'argentina-reporting',
          'branch': '11.0'},
-        {'usr': 'jobiols', 'repo': 'adhoc-reporting-engine', 'branch': '11.0'},
-        {'usr': 'jobiols', 'repo': 'adhoc-aeroo_reports', 'branch': '11.0'},
-        {'usr': 'jobiols', 'repo': 'adhoc-sale', 'branch': '11.0'},
-        {'usr': 'jobiols', 'repo': 'adhoc-odoo-support', 'branch': '11.0'},
-        {'usr': 'jobiols', 'repo': 'adhoc-product', 'branch': '11.0'},
-        {'usr': 'jobiols', 'repo': 'oca-partner-contact', 'branch': '11.0'},
-        {'usr': 'jobiols', 'repo': 'oca-web', 'branch': '11.0'},
-        {'usr': 'jobiols', 'repo': 'oca-server-tools', 'branch': '11.0'},
-        {'usr': 'jobiols', 'repo': 'oca-social', 'branch': '11.0'},
-        {'usr': 'jobiols', 'repo': 'oca-server-ux', 'branch': '11.0'},
-        {'usr': 'jobiols', 'repo': 'oca-server-brand', 'branch': '11.0'},
+        {'usr': 'ingadhoc', 'repo': 'reporting-engine', 'branch': '11.0'},
+        {'usr': 'ingadhoc', 'repo': 'aeroo_reports', 'branch': '11.0'},
+        {'usr': 'ingadhoc', 'repo': 'sale', 'branch': '11.0'},
+        {'usr': 'ingadhoc', 'repo': 'odoo-support', 'branch': '11.0'},
+        {'usr': 'ingadhoc', 'repo': 'product', 'branch': '11.0'},
+
+        {'usr': 'oca', 'repo': 'partner-contact', 'branch': '11.0'},
+        {'usr': 'oca', 'repo': 'web', 'branch': '11.0'},
+        {'usr': 'oca', 'repo': 'server-tools', 'branch': '11.0'},
+        {'usr': 'oca', 'repo': 'social', 'branch': '11.0'},
+        {'usr': 'oca', 'repo': 'server-ux', 'branch': '11.0'},
+        {'usr': 'oca', 'repo': 'server-brand', 'branch': '11.0'},
         {'usr': 'oca', 'repo': 'manufacture', 'branch': '11.0'},
         {'usr': 'oca', 'repo': 'management-system', 'branch': '11.0'},
 
