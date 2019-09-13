@@ -7,17 +7,25 @@ Lot Attributes
    !! changes will be overwritten.                   !!
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-.. |badge1| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+.. |badge1| image:: https://img.shields.io/badge/maturity-Alpha-red.png
+    :target: https://odoo-community.org/page/development-status
+    :alt: Alpha
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
-.. |badge2| image:: https://img.shields.io/badge/github-jobiols%2Fcl--amic-lightgray.png?logo=github
+.. |badge3| image:: https://img.shields.io/badge/github-jobiols%2Fcl--amic-lightgray.png?logo=github
     :target: https://github.com/jobiols/cl-amic/tree/11.0/lot_attributes
     :alt: jobiols/cl-amic
 
-|badge1| |badge2| 
+|badge1| |badge2| |badge3| 
 
 Este modulo extiende la funcionalidad de los lotes en trazabilidad para soportar
 atributos.
+
+.. IMPORTANT::
+   This is an alpha version, the data model and design can change at any time without warning.
+   Only for development or testing purpose, do not use in production.
+   `More details on development status <https://odoo-community.org/page/development-status>`_
 
 **Table of contents**
 
