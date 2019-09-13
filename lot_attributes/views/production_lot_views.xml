@@ -2,7 +2,7 @@
 
 <openerp>
     <data>
-
+        <!-- agregar atributos al lote -->
         <record id="view_production_lot_form" model="ir.ui.view">
             <field name="name">LOT ATTRIBUTES lot attributes</field>
             <field name="model">stock.production.lot</field>
@@ -11,55 +11,27 @@
                 <xpath expr="//group[@name='main_group']" position="after">
                     <group name="attributes" col="2">
                         <group col="2">
-                            <field name="attribute_01" invisible="0"/>
-                            <field name="attribute_02" invisible="0"/>
-                            <field name="attribute_03" invisible="0"/>
-                            <field name="attribute_04" invisible="0"/>
-                            <field name="attribute_05" invisible="0"/>
+                            <field name="colada" string="COLADA"/>
+                            <field name="tt" string="TT"/>
+                            <field name="paquete" string="PAQUETE"/>
                         </group>
                         <group col="2">
-                            <field name="attribute_06" invisible="0"/>
-                            <field name="attribute_07" invisible="0"/>
-                            <field name="attribute_08" invisible="0"/>
-                            <field name="attribute_09" invisible="0"/>
-                            <field name="attribute_10" invisible="0"/>
                         </group>
                     </group>
                 </xpath>
             </field>
         </record>
 
-        <record id="res_config_settings_view_form" model="ir.ui.view">
-            <field name="name">LOT ATTRIBUTES lot configuration</field>
-            <field name="model">res.config.settings</field>
-            <field name="inherit_id" ref="stock.res_config_settings_view_form"/>
+        <!-- busqueda de lotes por atributos -->
+        <record id="search_product_lot_filter" model="ir.ui.view">
+            <field name="name">LOT ATTRIBUTES add filter attributes</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.search_product_lot_filter"/>
             <field name="arch" type="xml">
-                <xpath expr="//div[@id='production_lot_info']/div[2]" position="after">
-
-                            <div class="col-xs-12 col-md-6 o_setting_box">
-                                <div class="o_setting_right_pane">
-                                    <label for="lot_attrib_name_01"/>
-                                    <field name="lot_attrib_name_01"/>
-                                    <label for="lot_attrib_name_02"/>
-                                    <field name="lot_attrib_name_02"/>
-                                    <label for="lot_attrib_name_03"/>
-                                    <field name="lot_attrib_name_03"/>
-                                    <label for="lot_attrib_name_04"/>
-                                    <field name="lot_attrib_name_04"/>
-                                    <label for="lot_attrib_name_05"/>
-                                    <field name="lot_attrib_name_05"/>
-                                    <label for="lot_attrib_name_06"/>
-                                    <field name="lot_attrib_name_06"/>
-                                    <label for="lot_attrib_name_07"/>
-                                    <field name="lot_attrib_name_07"/>
-                                    <label for="lot_attrib_name_08"/>
-                                    <field name="lot_attrib_name_08"/>
-                                    <label for="lot_attrib_name_09"/>
-                                    <field name="lot_attrib_name_09"/>
-                                    <label for="lot_attrib_name_10"/>
-                                    <field name="lot_attrib_name_10"/>
-                                </div>
-                            </div>
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <field name="colada"/>
+                    <field name="tt"/>
+                    <field name="paquete"/>
                 </xpath>
             </field>
         </record>

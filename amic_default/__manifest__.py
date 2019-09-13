@@ -23,6 +23,7 @@
     'license': 'Other OSI approved licence',
     'category': 'Default Application',
     'summary': 'Customization for AMIC',
+    "development_status": "Alpha",
     'author': 'jeo Software',
     'depends': [
         # basic applications
