@@ -1,4 +1,4 @@
-The development of this module has been financially supported by:
+El desarrollo de este modulo fue financiado por:
 
-* jeo Software
 * ArqyTec
+* AMIC

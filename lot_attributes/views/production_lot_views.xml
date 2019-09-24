@@ -11,11 +11,13 @@
                 <xpath expr="//group[@name='main_group']" position="after">
                     <group name="attributes" col="2">
                         <group col="2">
-                            <field name="colada" string="COLADA"/>
-                            <field name="tt" string="TT"/>
-                            <field name="paquete" string="PAQUETE"/>
+                            <field name="colada"/>
+                            <field name="tt"/>
+                            <field name="paquete"/>
                         </group>
                         <group col="2">
+                            <field name="ot"/>
+                            <field name="id_origen"/>
                         </group>
                     </group>
                 </xpath>
