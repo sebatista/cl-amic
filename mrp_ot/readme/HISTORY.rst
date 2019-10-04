@@ -2,4 +2,4 @@
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 * [ADD] primera version del modulo
-  (`#7 <https://https://github.com/jobiols/cl-amic/issues/7>`_)
+  (`#7 <https://github.com/jobiols/cl-amic/issues/7>`_)
