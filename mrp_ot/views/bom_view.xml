@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
 <!-- Copyright <YEAR(S)> <AUTHOR(S)>
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 
@@ -18,8 +18,57 @@
                             string="Imprimir OT"
                             class="oe_stat_button" icon="fa-print"
                             attrs="{'invisible': [('enable_ot', '=', False)]}"/>
+                    <button name="action_see_attachments" type="object"
+                            string="Doc OT"
+                            class="oe_stat_button" icon="fa-th-list"
+                            attrs="{'invisible': [('enable_ot', '=', False)]}"/>
                 </xpath>
             </field>
         </record>
+
+    <record id="view_document_file_kanban_mrp_ot" model="ir.ui.view">
+        <field name="name">MRP OT adjuntos</field>
+        <field name="model">mrp.bom.document</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="ir_attachment_id"/>
+                <field name="mimetype"/>
+                <field name="type"/>
+                <field name="datas_fname"/>
+                <field name="name"/>
+                <field name="priority"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_vignette">
+                                <div class="oe_attachment">
+                                    <div class="row">
+                                        <div class="col-xs-4 o_kanban_primary_left" t-if="record.type.raw_value == 'binary'">
+                                            <a t-attf-href="/web/content/#{record.ir_attachment_id.raw_value}?download=1">
+                                                <t t-set="webimage" t-value="new RegExp('image.*(gif|jpeg|jpg|png)').test(record.mimetype.value)"/>
+                                                <div t-if="!webimage" class="o_image" t-att-data-mimetype="record.mimetype.value"/>
+                                                <div t-if="webimage" class="o_attachment_image">
+                                                    <img t-attf-src="/web/image/#{record.ir_attachment_id.raw_value}?download=1"/>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <strong><field name="name"/></strong><br/>
+                                            <field name="datas_fname"/><br/>
+                                            <div class="mt8">
+                                                <field name="priority" widget="priority"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     </data>
+
 </odoo>
