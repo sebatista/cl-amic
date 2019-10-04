@@ -73,6 +73,7 @@
         {'usr': 'ingadhoc', 'repo': 'sale', 'branch': '11.0'},
         {'usr': 'ingadhoc', 'repo': 'odoo-support', 'branch': '11.0'},
         {'usr': 'ingadhoc', 'repo': 'product', 'branch': '11.0'},
+        {'usr': 'ingadhoc', 'repo': 'stock', 'branch': '11.0'},
 
         {'usr': 'oca', 'repo': 'partner-contact', 'branch': '11.0'},
         {'usr': 'oca', 'repo': 'web', 'branch': '11.0'},
