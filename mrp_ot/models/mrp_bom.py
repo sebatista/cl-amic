@@ -28,7 +28,7 @@ class ModelName(models.Model):
         return {
             'name': 'Adjuntos',
             'domain': domain,
-            'res_model': 'mrp.bom',
+            'res_model': 'mrp.bom.document',
             'type': 'ir.actions.act_window',
             'view_id': attachment_view.id,
             'views': [(attachment_view.id, 'kanban'), (False, 'form')],
