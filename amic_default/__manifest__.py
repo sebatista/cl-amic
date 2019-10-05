@@ -41,7 +41,7 @@
         # desarrollo especifico para amic
         # permite nombres de producto distintos para cada cliente
         'customer_product_names',
-        'lot_attributes'
+        'mrp_lot_attributes'
     ],
     'data': [
     ],
