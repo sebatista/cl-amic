@@ -39,9 +39,8 @@
         'backend_theme_v11',
 
         # desarrollo especifico para amic
-        # permite nombres de producto distintos para cada cliente
-        'customer_product_names',
-        'mrp_lot_attributes'
+        'customer_product_names',  # nombres de prod <> por cliente
+        'mrp_lot_attributes'  # caracteristicas de trazabilidad
     ],
     'data': [
     ],
