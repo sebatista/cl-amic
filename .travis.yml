@@ -34,6 +34,7 @@ install:
   - travis_install_nightly
 
 script:
+  - flake8 --ignore=C8107 # translation required
   - travis_run_tests
 
 after_success:

@@ -17,6 +17,7 @@
         "mrp",
     ],
     "data": [
+        "security/ir.model.access.csv",
         "views/bom_view.xml",
     ],
 }
