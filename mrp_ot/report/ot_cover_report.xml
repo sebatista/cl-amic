@@ -6,30 +6,25 @@
 <data>
 
 <!-- Templates -->
-<template id="name_report">
-    <t t-call="report.html_container">
-        <t t-foreach="doc_ids" t-as="doc_id">
-            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang',
-                                    'module.name_report_translatable')"/>
-        </t>
-    </t>
-</template>
+<template id="ot_cover_report_template">
+    <t t-call="web.html_container">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <t t-foreach="docs" t-as="o">
 
-<template id="name_report_translatable">
-    <t t-call="report.external_layout">
-        <div class="page something">
-            <p>Here goes something.</p>
-        </div>
+                </t>
+            </div>
+        </t>
     </t>
 </template>
 
 <!-- Report action -->
 <report
-    id="action_ot_report"
+    id="action_ot_cover_report"
     string="Caratula de OT"
     model="mrp.bom"
     report_type="qweb-html"
-    name="mrp_ot.cover_report" />
+    name="mrp_ot.ot_cover_report_template" />
 
     <!--
     groups="user_group"
