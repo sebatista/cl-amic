@@ -7,4 +7,3 @@
   section). ]
 
 Al cargar un lote se debera crear o elegir uno.
-

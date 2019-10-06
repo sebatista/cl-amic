@@ -7,5 +7,4 @@
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 * [WIP] comportamiento especial de los lotes.
-  (`#1 <https://https://github.com/jobiols/cl-amic/issues/1>`_)
-* ...
+  (`#1 <https://github.com/jobiols/cl-amic/issues/1>`_)
