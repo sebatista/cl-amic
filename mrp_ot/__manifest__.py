@@ -19,6 +19,6 @@
     'data': [
         'security/ir.model.access.csv',
         'views/bom_view.xml',
-        'views/ot_cover_report.xml'
+        'report/ot_cover_report.xml'
     ],
 }

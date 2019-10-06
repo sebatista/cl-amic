@@ -16,7 +16,9 @@ class ModelName(models.Model):
     def print_ot(self):
         """ Imprimir la OT
         """
-        raise UserError('Funcionalidad no implementada')
+        return {
+
+        }
 
     def action_see_attachments(self):
         """ Mostrar y dejar agregar los attach
