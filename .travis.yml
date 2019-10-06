@@ -35,8 +35,6 @@ install:
   - travis_install_nightly
 
 script:
-  # ignore C8107 translation required, E7901 rst-syntax-error
-  - flake8 --ignore=C8107,E7901
   - travis_run_tests
 
 after_success:
