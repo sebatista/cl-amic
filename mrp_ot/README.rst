@@ -22,7 +22,7 @@ MRP OT
 Este modulo permite manejar ordenes de trabajo (OT)
 
 Las OT son documentos donde se anotan mediciones y controles que se hacen
-durante la faricacion. Tiene una caratula que se imprime con un reporte qweb
+durante la fabricacion. Tiene una caratula que se imprime con un reporte qweb
 y una serie de docuentos PDF que se suben al sistema.
 
 En la LdM hay un checkbox que indica si lleva lista de materiales, si este
@@ -46,16 +46,11 @@ Usage
 
 Ir a la lista de materiales correspondiente, asegurarse de que este tildado
 el checkbox *Genera OT* y cargar los PDF correspondientes con el boton
-SUBIR DOCUMENTOS
+*Doc OT*
 
 **Para imprimir la OT**
 
-Ir a la lista de materiales correspondiente tocar el boton IMPRIMIR OT
-
-
-
-
-
+Ir a la lista de materiales correspondiente tocar el boton *Imprimir OT*
 
 Changelog
 =========

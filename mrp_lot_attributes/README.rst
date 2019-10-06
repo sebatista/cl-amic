@@ -43,14 +43,11 @@ Al lote asi creado se le pueden agregar atributos que son Colada y paquete
 Configuration
 =============
 
-[ This file is optional, it should explain how to configure
-  the module before using it; it is aimed at advanced users. ]
-
 To configure this module, you need to:
 
 #. Go to ...
 
-.. figure:: https://raw.githubusercontent.com/jobiols/cl-amic/11.0/mrp_lot_attributes/static/description/image.png
+.. figure:: https://raw.githubusercontent.com/jobiols/cl-amic/11.0/mrp_lot_attributes/static/description/icon.png
    :alt: alternative description
    :width: 600 px
 
@@ -67,16 +64,6 @@ Usage
 
 Al cargar un lote se debera crear o elegir uno.
 
-
-Known issues / Roadmap
-======================
-
-[ Enumerate known caveats and future potential improvements.
-  It is mostly intended for end-users, and can also help
-  potential new contributors discovering new features to implement. ]
-
-* ...
-
 Changelog
 =========
 
@@ -89,8 +76,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 * [WIP] comportamiento especial de los lotes.
-  (`#1 <https://https://github.com/jobiols/cl-amic/issues/1>`_)
-* ...
+  (`#1 <https://github.com/jobiols/cl-amic/issues/1>`_)
 
 Bug Tracker
 ===========
