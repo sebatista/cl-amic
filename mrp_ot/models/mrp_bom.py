@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from openerp import models, fields
-from odoo.exceptions import Warning
+from odoo.exceptions import UserError
 
 
 class ModelName(models.Model):
@@ -16,7 +16,7 @@ class ModelName(models.Model):
     def print_ot(self):
         """ Imprimir la OT
         """
-        raise Warning('Funcionalidad no implementada')
+        raise UserError('Funcionalidad no implementada')
 
     def action_see_attachments(self):
         """ Mostrar y dejar agregar los attach
