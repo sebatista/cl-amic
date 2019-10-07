@@ -85,7 +85,6 @@
         {'usr': 'oca', 'repo': 'management-system', 'branch': '11.0'},
         {'usr': 'oca', 'repo': 'sale-workflow', 'branch': '11.0'},
         {'usr': 'oca', 'repo': 'stock-logistics-warehouse', 'branch': '11.0'},
-
     ],
 
     'docker': [
