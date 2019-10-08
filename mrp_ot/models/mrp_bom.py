@@ -15,12 +15,14 @@ class ModelName(models.Model):
     def print_ot(self):
         """ Imprimir la OT
         """
-        return {
+        data = {'ids': self.ids,
+                'model': 'mrp.bom'}
 
-        }
+        return self.env.ref('mrp_ot.action_ot_cover_report').report_action(
+            self, data=data)
 
     def action_see_attachments(self):
-        """ Mostrar y dejar agregar los attach
+        """ Mostrar y dejar agregar los attach en la bom
         """
         domain = [('res_model', '=', 'mrp.bom'),
                   ('res_id', '=', self.id)]

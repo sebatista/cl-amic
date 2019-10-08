@@ -40,7 +40,8 @@
 
         # desarrollo especifico para amic
         'customer_product_names',  # nombres de prod <> por cliente
-        'mrp_lot_attributes'  # caracteristicas de trazabilidad
+        'mrp_lot_attributes', # caracteristicas de trazabilidad
+        'mrp_ot'  # generacion de ordenes de trabajo
     ],
     'data': [
     ],
@@ -54,7 +55,6 @@
     # port where odoo starts serving pages
     'port': '8069',
 
-    # example repos version 1
     'repos': [
         {'usr': 'jobiols', 'repo': 'cl-amic', 'branch': '11.0'},
         {'usr': 'jobiols', 'repo': 'odoo-addons', 'branch': '11.0'},

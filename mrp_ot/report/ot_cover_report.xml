@@ -1,32 +1,36 @@
 <?xml version="1.0"?>
-<!-- Copyright 3019 jeo Software
+<!-- Copyright 2019 jeo Software
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 
 <odoo>
 <data>
 
-<!-- Templates -->
-<template id="ot_cover_report_template">
-    <t t-call="web.html_container">
-        <t t-call="web.internal_layout">
-            <div class="page">
-                <center><h1>Orden de Trabajo</h1></center>
-                <t t-foreach="docs" t-as="o">
-                </t>
-            </div>
+    <!-- Templates -->
+    <template id="ot_cover_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <center><h1>Orden de Trabajo</h1></center>
+                    <t t-foreach="docs" t-as="o">
+                        <span t-esc="o['campo1']"/>
+                    </t>
+                </div>
+            </t>
         </t>
-    </t>
-</template>
+    </template>
 
-<!-- Report action -->
-<report
-    id="action_ot_cover_report"
-    string="Caratula de OT"
-    model="mrp.bom"
-    report_type="qweb-html"
-    name="mrp_ot.ot_cover_report_template" />
+<!-- Report action-->
+    <report id="action_ot_cover_report"
+        string="Caratula de OT"
+        model="mrp.bom"
+        report_type="qweb-html"
+        name="mrp_ot.ot_cover_report_template"
+        file="mrp_ot.ot_cover_report_template"
+        menu="False"
+    />
 
     <!--
+
     groups="user_group"
     attachment="object.state == 'done' and 'something.pdf'"
     multi="False"
