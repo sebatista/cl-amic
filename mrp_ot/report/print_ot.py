@@ -55,12 +55,13 @@ class OTCoverReport(models.AbstractModel):
 
     @api.multi
     def get_report_values(self, docids, data=None):
-        import wdb;wdb.set_trace()
-        bom = self.env['mrp.bom'].search([('id', '=', data['id'])])
-        product_id = bom.product_tmpl_id
-        bom.bom_line_ids
+        #import wdb;wdb.set_trace()
+        docids = [data['id']]
 
         return {
-            'product_id': product_id,
+            'doc_ids': docids,
+            'doc_model': 'mrp.bom',
+            'docs': self.env['mrp.bom'].browse(docids),
             'get_children': self.get_children,
+            'data': data,
         }
