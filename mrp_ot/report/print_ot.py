@@ -53,11 +53,15 @@ class OTCoverReport(models.AbstractModel):
                         level -= 1
             return result
 
+        children = _get_rec(records, level)
+
+        return children
+
     @api.multi
     def get_report_values(self, docids, data=None):
         #import wdb;wdb.set_trace()
         docids = [data['id']]
-
+        data=None
         return {
             'doc_ids': docids,
             'doc_model': 'mrp.bom',

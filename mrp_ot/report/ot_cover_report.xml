@@ -21,8 +21,8 @@
                     <table class="table table-condensed">
                         <thead>
                             <tr>
-                                <th>BOM Name</th>
-                                <th>Quantity</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
                                 <th>BOM Ref</th>
                             </tr>
                         </thead>
