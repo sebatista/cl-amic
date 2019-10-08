@@ -13,11 +13,12 @@ class ModelName(models.Model):
     )
 
     def print_ot(self):
-        """ Imprimir la OT
+        """ Imprimir la OT, se lanza desde un boton
         """
-        data = {'ids': self.ids,
-                'model': 'mrp.bom'}
+        self.ensure_one()
+        data = {'id': self.id}
 
+        #                   `module_name`.`action_report_name'
         return self.env.ref('mrp_ot.action_ot_cover_report').report_action(
             self, data=data)
 

@@ -5,12 +5,56 @@
 <odoo>
 <data>
 
-    <!-- Templates -->
+    <!-- Reporte Caratula de OT -->
     <template id="ot_cover_report_template">
         <t t-call="web.html_container">
             <t t-call="web.internal_layout">
                 <div class="page">
                     <center><h1>Orden de Trabajo</h1></center>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>BOM Name</th>
+                                <th>Quantity</th>
+                                <th>BOM Ref</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="o">
+                                <tr style="font-weight: bold;">
+                                    <td>
+                                        <span t-field="o.product_id.default_code"/>
+                                        <span t-field="o.display_name"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.product_qty"/>
+                                        <span groups="product.group_uom" t-field="o.product_uom_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.code"/>
+                                    </td>
+                                </tr>
+                                <tr t-foreach="get_children(o.bom_line_ids)" t-as="l">
+                                    <td style="padding-left: 20px;">
+                                        <span style="color: white;" t-esc="'... '*(l['level'])"/>
+                                        <span t-esc="l['pname']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="l['pqty']"/>
+                                        <span t-esc="l['uname']" groups="product.group_uom"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="l['code']"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+
+
+                    <p>Codigo <span t-esc="product_id.default_code"/></p>
+                    <p>Nombre <span t-esc="product_id.name"/></p>
                     <t t-foreach="docs" t-as="o">
                         <span t-esc="o['campo1']"/>
                     </t>
@@ -19,7 +63,7 @@
         </t>
     </template>
 
-<!-- Report action-->
+    <!-- Report action-->
     <report id="action_ot_cover_report"
         string="Caratula de OT"
         model="mrp.bom"
@@ -30,7 +74,6 @@
     />
 
     <!--
-
     groups="user_group"
     attachment="object.state == 'done' and 'something.pdf'"
     multi="False"
