@@ -8,11 +8,11 @@
     <!-- Reporte Caratula de OT -->
     <template id="ot_cover_report_template">
         <t t-call="web.html_container">
-            <t t-call="web.internal_layout">
+            <t t-call="web.external_layout">
                 <div class="page">
                     <center><h1>Orden de Trabajo</h1></center>
-                    <p>Codigo</p>
-                    <p>Pieza</p>
+                    <p>Codigo <span t-field="docs.product_id.default_code"/></p>
+                    <p>Pieza <span t-field="docs.product_id.name"/></p>
                     <p>Materia Prima</p>
                     <p>Fecha Emision</p>
                     <p>Fecha Necesidad</p>
@@ -23,7 +23,7 @@
                             <tr>
                                 <th>Producto</th>
                                 <th>Cantidad</th>
-                                <th>BOM Ref</th>
+                                <th>Std (Pzas/h)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -31,8 +31,7 @@
 
                                 <tr style="font-weight: bold;">
                                     <td>
-                                        <span t-field="o.product_id.default_code"/>
-                                        <span t-field="o.display_name"/>
+                                        <span t-field="o.product_tmpl_id.display_name"/>
                                     </td>
                                     <td>
                                         <span t-field="o.product_qty"/>
@@ -69,6 +68,14 @@
                     </t>
                     -->
                 </div>
+                <t t-foreach="attachs" t-as="image">
+                <div class="page">
+                    <p>pagina</p>
+                    <span t-field="to_image(image.image.datas)"
+                          t-options="{'widget':'image'}"
+                          class="media-object"/>
+                </div>
+                </t>
             </t>
         </t>
     </template>
