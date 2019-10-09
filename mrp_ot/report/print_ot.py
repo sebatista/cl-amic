@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from openerp import api, models
-from pdf2image import convert_from_bytes
+#from pdf2image import convert_from_bytes
 
 
 class OTCoverReport(models.AbstractModel):
@@ -61,8 +61,8 @@ class OTCoverReport(models.AbstractModel):
     def to_image(self, mimetype, bytes):
         """ Si el mimetype es pdf lo convierte a imagen
         """
-        if mimetype == 'application/pdf':
-            return convert_from_bytes(bytes)
+        #if mimetype == 'application/pdf':
+        #    return convert_from_bytes(bytes)
         return bytes
 
     @api.multi
