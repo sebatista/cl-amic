@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from openerp import api, models
-#from pdf2image import convert_from_bytes
+from pdf2image import convert_from_bytes
 
 
 class OTCoverReport(models.AbstractModel):
@@ -58,17 +58,16 @@ class OTCoverReport(models.AbstractModel):
 
         return children
 
-    def to_image(self, mimetype, bytes):
+    def to_image(self, image):
         """ Si el mimetype es pdf lo convierte a imagen
         """
-        #if mimetype == 'application/pdf':
-        #    return convert_from_bytes(bytes)
-        return bytes
+        if image == 'application/pdf':
+            return convert_from_bytes(image.datas)
+        return image
 
     @api.multi
     def get_report_values(self, docids, data=None):
         docids = [data['id']]
-        #import wdb;wdb.set_trace()
 
         domain = [('res_model', '=', 'mrp.bom'),
                   ('res_id', '=', data['id'])]

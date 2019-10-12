@@ -68,13 +68,15 @@
                     </t>
                     -->
                 </div>
-                <t t-foreach="attachs" t-as="image">
-                <div class="page">
-                    <p>pagina</p>
-                    <span t-field="to_image(image.image.datas)"
-                          t-options="{'widget':'image'}"
-                          class="media-object"/>
-                </div>
+
+                <t t-foreach="attachs" t-as="i">
+
+                        <p>pagina-----------------</p>
+                        <p style="page-break-before:always;"> </p>
+                        <span t-field="i.datas"
+                              t-options="{'widget':'image'}"
+                              class="media-object"/>
+
                 </t>
             </t>
         </t>
