@@ -70,13 +70,12 @@
                 </div>
 
                 <t t-foreach="attachs" t-as="i">
-
-                        <p>pagina-----------------</p>
+                    <div class="page">
                         <p style="page-break-before:always;"> </p>
                         <span t-field="i.datas"
                               t-options="{'widget':'image'}"
                               class="media-object"/>
-
+                    </div>
                 </t>
             </t>
         </t>
