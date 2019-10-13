@@ -32,6 +32,12 @@
         'purchase',
         'mrp',
 
+        # additional applications
+        'mrp_workorder',
+        'web_gantt',
+        'mrp_mps',
+        'mrp_account',
+
         # minimum modules for argentinian localizacion + utilities + fixes
         'standard_depends_ce',
 
@@ -40,7 +46,7 @@
 
         # desarrollo especifico para amic
         'customer_product_names',  # nombres de prod <> por cliente
-        'mrp_lot_attributes', # caracteristicas de trazabilidad
+        'mrp_lot_attributes',  # caracteristicas de trazabilidad
         'mrp_ot'  # generacion de ordenes de trabajo
     ],
     'data': [
@@ -58,6 +64,8 @@
     'repos': [
         {'usr': 'jobiols', 'repo': 'cl-amic', 'branch': '11.0'},
         {'usr': 'jobiols', 'repo': 'odoo-addons', 'branch': '11.0'},
+        {'usr': 'jobiols', 'repo': 'jeo-addons', 'branch': '11.0', 'host':'bitbucket.com'},
+
 
         {'usr': 'ingadhoc', 'repo': 'odoo-argentina', 'branch': '11.0'},
         {'usr': 'ingadhoc', 'repo': 'argentina-sale', 'branch': '11.0'},
@@ -82,9 +90,11 @@
         {'usr': 'oca', 'repo': 'server-ux', 'branch': '11.0'},
         {'usr': 'oca', 'repo': 'server-brand', 'branch': '11.0'},
         {'usr': 'oca', 'repo': 'manufacture', 'branch': '11.0'},
+        {'usr': 'oca', 'repo': 'manufacture-reporting', 'branch': '11.0'},
         {'usr': 'oca', 'repo': 'management-system', 'branch': '11.0'},
         {'usr': 'oca', 'repo': 'sale-workflow', 'branch': '11.0'},
         {'usr': 'oca', 'repo': 'stock-logistics-warehouse', 'branch': '11.0'},
+        #{'usr': 'oca', 'repo': 'ddmrp', 'branch': '11.0'},
     ],
 
     'docker': [
