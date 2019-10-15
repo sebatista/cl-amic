@@ -64,8 +64,8 @@
     'repos': [
         {'usr': 'jobiols', 'repo': 'cl-amic', 'branch': '11.0'},
         {'usr': 'jobiols', 'repo': 'odoo-addons', 'branch': '11.0'},
-        {'usr': 'jobiols', 'repo': 'jeo-addons', 'branch': '11.0', 'host':'bitbucket.com'},
-
+        {'usr': 'jobiols', 'repo': 'jeo-addons', 'branch': '11.0',
+         'host': 'bitbucket.com'},
 
         {'usr': 'ingadhoc', 'repo': 'odoo-argentina', 'branch': '11.0'},
         {'usr': 'ingadhoc', 'repo': 'argentina-sale', 'branch': '11.0'},
@@ -94,7 +94,6 @@
         {'usr': 'oca', 'repo': 'management-system', 'branch': '11.0'},
         {'usr': 'oca', 'repo': 'sale-workflow', 'branch': '11.0'},
         {'usr': 'oca', 'repo': 'stock-logistics-warehouse', 'branch': '11.0'},
-        #{'usr': 'oca', 'repo': 'ddmrp', 'branch': '11.0'},
     ],
 
     'docker': [
