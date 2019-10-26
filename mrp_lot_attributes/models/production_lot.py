@@ -27,9 +27,3 @@ class ProductionLot(models.Model):
         string='OT',
         help='Orden de Trabajo'
     )
-    id_origen = fields.Many2one(
-        'product.product',
-        string='ID Origen',
-        domain=[('purchase_ok', '=', True)],
-        required=True
-    )

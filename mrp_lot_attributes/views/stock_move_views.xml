@@ -17,7 +17,6 @@
                         </group>
                         <group col="2">
                             <field name="ot"/>
-                            <field name="id_origen"/>
                         </group>
                     </group>
                 </xpath>
