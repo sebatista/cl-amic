@@ -17,6 +17,8 @@
                         </group>
                         <group col="2">
                             <field name="ot"/>
+                            <field name="remito_proveedor"/>
+                            <field name="fecha_remito"/>
                         </group>
                     </group>
                 </xpath>
@@ -33,6 +35,8 @@
                     <field name="colada"/>
                     <field name="tt"/>
                     <field name="paquete"/>
+                    <field name="remito_proveedor"/>
+                    <field name="fecha_remito"/>
                 </xpath>
             </field>
         </record>
