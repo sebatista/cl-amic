@@ -4,13 +4,8 @@
 from openerp import models, fields
 
 
-class ModelName(models.Model):
+class MrpBom(models.Model):
     _inherit = "mrp.bom"
-
-    enable_ot = fields.Boolean(
-        string="Habilitar OT",
-        help="Si tilda este campo, se podra imprimir una OT para este producto"
-    )
 
     def print_ot(self):
         """ Imprimir la OT, se lanza desde un boton
@@ -48,3 +43,26 @@ class ModelName(models.Model):
             'context': "{'default_res_model': '%s','default_res_id': %d}" %
                        ('mrp.bom', self.id)
         }
+
+
+class MrpProduction(models.Model):
+    _inherit = "mrp.production"
+
+    enable_ot = fields.Boolean(
+        related='product_id.product_tmpl_id.enable_ot',
+        help='campo tecnico para habilitar el boton de imprimir la ot'
+    )
+
+    def print_ot(self):
+        """ Imprimir la OT, se lanza desde un boton
+        """
+        pass
+        """
+        self.ensure_one()
+        data = {'id': self.id}
+
+        #                   `module_name`.`action_report_name'
+        return self.env.ref('mrp_ot.action_ot_cover_report').report_action(
+            self, data=data)
+        """
+

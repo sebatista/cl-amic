@@ -10,18 +10,10 @@
             <field name="model">mrp.bom</field>
             <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//group/field[@name='sequence']" position="after">
-                    <field name="enable_ot"/>
-                </xpath>
                 <xpath expr="//sheet/div/button" position="after">
-                    <button name="print_ot" type="object"
-                            string="Imprimir OT"
-                            class="oe_stat_button" icon="fa-print"
-                            attrs="{'invisible': [('enable_ot', '=', False)]}"/>
                     <button name="action_see_attachments" type="object"
                             string="Doc OT"
-                            class="oe_stat_button" icon="fa-th-list"
-                            attrs="{'invisible': [('enable_ot', '=', False)]}"/>
+                            class="oe_stat_button" icon="fa-th-list"/>
                 </xpath>
             </field>
         </record>
