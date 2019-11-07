@@ -27,3 +27,8 @@ class ProductionLot(models.Model):
         string='OT',
         help='Orden de Trabajo'
     )
+    remito_proveedor = fields.Char(
+        string='Remito Proveedor'
+    )
+    fecha_remito = fields.Date(
+    )

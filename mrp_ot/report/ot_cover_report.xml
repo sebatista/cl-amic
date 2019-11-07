@@ -10,20 +10,19 @@
         <t t-call="web.html_container">
             <t t-call="web.external_layout">
                 <div class="page">
-                    <center><h1>Orden de Trabajo</h1></center>
-                    <p>Codigo <span t-field="docs.product_id.default_code"/></p>
-                    <p>Pieza <span t-field="docs.product_id.name"/></p>
-                    <p>Materia Prima</p>
-                    <p>Fecha Emision</p>
-                    <p>Fecha Necesidad</p>
-                    <h3>Cantidad a fabricar</h3>
+                    <center><h1>Orden de Trabajo <span t-esc="data['ot']"/></h1></center>
+
+                    <p>Producto <span t-esc="data['product_name']"/></p>
+                    <p>Fecha Emision <span t-esc="data['date_create']"/></p>
+                    <p>Fecha Necesidad <span t-esc="data['date_planned_start']"/></p>
+                    <p>Cantidad a fabricar <span t-esc="data['product_qty']"/></p>
 
                     <table class="table table-condensed">
                         <thead>
                             <tr>
                                 <th>Producto</th>
-                                <th>Cantidad</th>
-                                <th>Std (Pzas/h)</th>
+                                <th>Cantidad unitaria</th>
+<!--                            <th>Std (Pzas/h)</th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -37,11 +36,12 @@
                                         <span t-field="o.product_qty"/>
                                         <span groups="product.group_uom" t-field="o.product_uom_id.name"/>
                                     </td>
+<!--
                                     <td>
                                         <span t-field="o.code"/>
                                     </td>
+-->
                                 </tr>
-
                                 <tr t-foreach="get_children(o.bom_line_ids)" t-as="l">
                                     <td style="padding-left: 20px;">
                                         <span style="color: white;" t-esc="'... '*(l['level'])"/>

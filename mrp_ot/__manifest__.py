@@ -15,10 +15,13 @@
     'preloadable': True,
     'depends': [
         'mrp',
+        'product'
     ],
     'data': [
         'security/ir.model.access.csv',
+        'report/ot_cover_report.xml',
+        'views/product_view.xml',
         'views/bom_view.xml',
-        'report/ot_cover_report.xml'
+        'views/mrp_production_view.xml'
     ],
 }
