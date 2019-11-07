@@ -67,16 +67,25 @@ class OTCoverReport(models.AbstractModel):
 
     @api.multi
     def get_report_values(self, docids, data=None):
-        docids = [data['id']]
+
+        docids = [data['bom_id']]
 
         domain = [('res_model', '=', 'mrp.bom'),
-                  ('res_id', '=', data['id'])]
+                  ('res_id', '=', data['bom_id'])]
         attachs = self.env['ir.attachment'].search(domain)
+
+        bom = self.env['mrp.bom'].browse(docids)
+        #routing = bom.routing_id
+        #operations = routing.operation_ids
+        #time = 0
+        #for operation in operations:
+        #    time += operation.time_cycle.manual
+
 
         return {
             'doc_ids': docids,
             'doc_model': 'mrp.bom',
-            'docs': self.env['mrp.bom'].browse(docids),
+            'docs': bom,
             'get_children': self.get_children,
             'data': data,
             'attachs': attachs,

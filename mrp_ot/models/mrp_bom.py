@@ -54,15 +54,19 @@ class MrpProduction(models.Model):
     )
 
     def print_ot(self):
-        """ Imprimir la OT, se lanza desde un boton
-        """
-        pass
+        """ Imprimir la OT, se lanza desde un boton.
         """
         self.ensure_one()
-        data = {'id': self.id}
 
-        #                   `module_name`.`action_report_name'
+        data = {
+            'bom_id': self.bom_id.id,
+            'ot': self.name,
+            'date_create': fields.Date.today(),
+            'date_planned_start': self.date_planned_start,
+            'product_qty': self.product_qty,
+            'product_name': self.product_id.display_name,
+        }
+
+        # `module_name`.`action_report_name`
         return self.env.ref('mrp_ot.action_ot_cover_report').report_action(
             self, data=data)
-        """
-
