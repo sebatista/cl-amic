@@ -17,6 +17,5 @@
     ],
     "data": [
         "views/production_lot_views.xml",
-        "views/stock_move_views.xml"
     ],
 }

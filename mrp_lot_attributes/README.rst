@@ -22,14 +22,6 @@ MRP Lot Attributes
 Este modulo extiende la funcionalidad de los lotes agregando atributos y
 comportamientos.
 
-Cuando se ingresa un lote al sistema el mismo se crea con un numero compuesto
-por el Numero de ingreso (X) y el numero de particion de lote (X) que al incio
-es cero. El formato resulta de esta forma:
-
-    XXXXXX.YY
-
-Al lote asi creado se le pueden agregar atributos que son Colada y paquete
-
 .. IMPORTANT::
    This is an alpha version, the data model and design can change at any time without warning.
    Only for development or testing purpose, do not use in production.
@@ -54,15 +46,7 @@ To configure this module, you need to:
 Usage
 =====
 
-[ This file must be present and contains the usage instructions
-  for end-users. As all other rst files included in the README,
-  it MUST NOT contain reStructuredText sections
-  only body text (paragraphs, lists, tables, etc). Should you need
-  a more elaborate structure to explain the addon, please create a
-  Sphinx documentation (which may include this file as a "quick start"
-  section). ]
-
-Al cargar un lote se debera crear o elegir uno.
+Los lotes se crean con el numero de orden de trabajo para poder seguir la OT
 
 Changelog
 =========
