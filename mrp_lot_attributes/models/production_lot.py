@@ -32,3 +32,6 @@ class ProductionLot(models.Model):
     )
     fecha_remito = fields.Date(
     )
+    aceria = fields.Char(
+
+    )
