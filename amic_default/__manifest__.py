@@ -48,7 +48,8 @@
         # desarrollo especifico para amic
         'customer_product_names',  # nombres de prod <> por cliente
         'mrp_lot_attributes',  # caracteristicas de trazabilidad
-        'mrp_ot'  # generacion de ordenes de trabajo
+        'mrp_ot',  # generacion de ordenes de trabajo
+        'pre_printed_stock_picking'  # remito preimpreso
     ],
     'data': [
     ],
