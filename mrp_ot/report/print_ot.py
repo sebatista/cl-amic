@@ -1,8 +1,11 @@
 # Copyright 2019 jeo Software
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-
 from openerp import api, models
-from pdf2image import convert_from_bytes
+_logger = logging.getLogger(__name__)
+try:
+    from pdf2image import convert_from_bytes
+except (ImportError, IOError) as err:
+    _logger.debug(err)
 
 
 class OTCoverReport(models.AbstractModel):

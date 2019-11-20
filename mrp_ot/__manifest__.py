@@ -24,4 +24,9 @@
         'views/bom_view.xml',
         'views/mrp_production_view.xml'
     ],
+    'external_dependencies': {
+        'python': [
+            'pdf2image',
+        ],
+    },
 }
