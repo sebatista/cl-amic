@@ -1,4 +1,4 @@
-dist: "stretch"
+dist: "trusty"
 sudo: false
 cache: pip
 
@@ -8,8 +8,8 @@ addons:
     packages:
       - expect-dev  # provides unbuffer utility
       - python-lxml # because pip installation is slow
-#      - python3-dev # para que instale cups
-#      - libcups2-dev # para que instale cups
+      - python3-dev # para que instale cups
+      - libcups2-dev # para que instale cups
 
 language: python
 
