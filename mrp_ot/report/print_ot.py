@@ -52,7 +52,8 @@ class OTCoverReport(models.AbstractModel):
                 result.append(child)
                 if l.child_line_ids:
                     level += 1
-                    _get_rec(l.child_line_ids, level, qty=child['pqty'], uom=child['puom'])
+                    _get_rec(l.child_line_ids, level, qty=child['pqty'],
+                             uom=child['puom'])
                     if level > 0:
                         level -= 1
             return result
@@ -78,12 +79,11 @@ class OTCoverReport(models.AbstractModel):
         attachs = self.env['ir.attachment'].search(domain)
 
         bom = self.env['mrp.bom'].browse(docids)
-        #routing = bom.routing_id
-        #operations = routing.operation_ids
-        #time = 0
-        #for operation in operations:
-        #    time += operation.time_cycle.manual
-
+        # routing = bom.routing_id
+        # operations = routing.operation_ids
+        # time = 0
+        # for operation in operations:
+        #     time += operation.time_cycle.manual
 
         return {
             'doc_ids': docids,
