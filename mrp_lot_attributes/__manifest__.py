@@ -1,4 +1,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# traceability
+# https://www.youtube.com/watch?v=X8YY3FfVHF8
+
 {
     "name": "MRP Lot Attributes",
     "summary": "Add attributes to lot",
