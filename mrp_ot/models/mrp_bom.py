@@ -44,7 +44,7 @@ class MrpBom(models.Model):
                        ('mrp.bom', self.id)
         }
 
-    def get_all_ids(self, ids=[]):
+    def get_all_ids(self):
         ids = []
 
         def get_ids(bom):
