@@ -17,6 +17,7 @@
     "preloadable": True,
     "depends": [
         'stock',
+        'mrp'
     ],
     "data": [
         "views/production_lot_views.xml",

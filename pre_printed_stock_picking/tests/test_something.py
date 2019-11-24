@@ -14,7 +14,7 @@
 #
 #   Arrancar el test con:
 #
-#   oe -Q mrp_ot -c amic -d amic_test
+#   oe -Q pre_printed_stock_picking -c amic -d amic_test
 #
 
 from odoo.tests.common import TransactionCase
