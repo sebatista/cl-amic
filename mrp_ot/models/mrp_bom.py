@@ -44,6 +44,20 @@ class MrpBom(models.Model):
                        ('mrp.bom', self.id)
         }
 
+    def get_all_ids(self, ids=[]):
+        ids = []
+
+        def get_ids(bom):
+            ids.append(bom.id)
+            for mrp_bom_line in bom.bom_line_ids:
+                if mrp_bom_line.child_bom_id:
+                    bom = mrp_bom_line.child_bom_id
+                    get_ids(bom)
+
+        get_ids(self)
+
+        return ids
+
 
 class MrpProduction(models.Model):
     _inherit = "mrp.production"

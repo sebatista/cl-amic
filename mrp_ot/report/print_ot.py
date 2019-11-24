@@ -75,16 +75,13 @@ class OTCoverReport(models.AbstractModel):
 
         docids = [data['bom_id']]
 
-        domain = [('res_model', '=', 'mrp.bom'),
-                  ('res_id', '=', data['bom_id'])]
-        attachs = self.env['ir.attachment'].search(domain)
-
+        # obtener una lista con los ids de todas las bom
         bom = self.env['mrp.bom'].browse(docids)
-        # routing = bom.routing_id
-        # operations = routing.operation_ids
-        # time = 0
-        # for operation in operations:
-        #     time += operation.time_cycle.manual
+        bom_ids = bom.get_all_ids()
+
+        domain = [('res_model', '=', 'mrp.bom'),
+                  ('res_id', 'in', bom_ids)]
+        attachs = self.env['ir.attachment'].search(domain)
 
         return {
             'doc_ids': docids,
