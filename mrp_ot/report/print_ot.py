@@ -63,7 +63,8 @@ class OTCoverReport(models.AbstractModel):
 
         return children
 
-    def to_image(self, image):
+    @staticmethod
+    def to_image(image):
         """ Si el mimetype es pdf lo convierte a imagen
         """
         if image == 'application/pdf':
