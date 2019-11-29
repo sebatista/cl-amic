@@ -1,5 +1,2 @@
-[ This file must be max 2-3 paragraphs, and is required. ]
-
-This module extends the functionality of ... to support ...
-and to allow you to ...
-
+presenta un wizard que se usa al pie de maquina en una tablet para cargar
+y manejar los datos de produccion.

@@ -31,10 +31,17 @@ Este modulo permite imprimir remitos preimpresos
 .. contents::
    :local:
 
+Configuration
+=============
+
+Si se requiere adecuar el reporte a la forma del preimpreso para eso hay que
+editar la plantilla de documento openoffice que esta en report/stock_picking.odt
+
 Usage
 =====
 
-imprimir sobre preimpreso
+Poner en la impresora remito preimpreso verificar el numero de remito a imprimir
+y poner ese numero cuando el sistema lo pida.
 
 Bug Tracker
 ===========
@@ -58,14 +65,6 @@ Contributors
 ~~~~~~~~~~~~
 
 * Jorge Obiols <jorge.obiols@gmail.com> (www.jeosoft.com.ar)
-
-Other credits
-~~~~~~~~~~~~~
-
-El desarrollo de este modulo fue financiado por:
-
-* ArqyTec
-* AMIC
 
 Maintainers
 ~~~~~~~~~~~

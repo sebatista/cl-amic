@@ -25,9 +25,9 @@ Las OT son documentos donde se anotan mediciones y controles que se hacen
 durante la fabricacion. Tiene una caratula que se imprime con un reporte qweb
 y una serie de docuentos PDF que se suben al sistema.
 
-En la LdM hay un checkbox que indica si lleva lista de materiales, si este
-se tilda aparecen los campos para cargar los PDF y un botoon para imprimir
-la caratula (reporte qweb) y el resto de los PDFs.
+En el formulario de producto checkbox **Habilitar OT** que indica si se permite
+imprimir la orden de trabajo. Cando esta habilitado desde el formulario de la
+orden de produccion de dicho producto se podra imprimir la OT.
 
 .. IMPORTANT::
    This is an alpha version, the data model and design can change at any time without warning.
@@ -42,24 +42,15 @@ la caratula (reporte qweb) y el resto de los PDFs.
 Usage
 =====
 
-**Para cargar los documentos**
+**Para cargar los documentos de la OT**
 
-Ir a la lista de materiales correspondiente, asegurarse de que este tildado
-el checkbox *Genera OT* y cargar los PDF correspondientes con el boton
+Ir a la lista de materiales y cargar los PDF correspondientes con el boton
 *Doc OT*
 
 **Para imprimir la OT**
 
-Ir a la lista de materiales correspondiente tocar el boton *Imprimir OT*
-
-Changelog
-=========
-
-11.0.0.0.0 (2019-04-10)
-~~~~~~~~~~~~~~~~~~~~~~~
-
-* [ADD] primera version del modulo
-  (`#7 <https://github.com/jobiols/cl-amic/issues/7>`_)
+Asegurarse de que en el producto esta tildado **Habilitar OT** y luego desde
+el formulario de la orden de produccion tocar el boton *Imprimir OT*
 
 Bug Tracker
 ===========
