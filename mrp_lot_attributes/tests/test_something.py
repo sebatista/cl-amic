@@ -1,4 +1,4 @@
-# Copyright <YEAR(S)> <AUTHOR(S)>
+# Copyright 2019  -- jeo Software
 
 #   Para correr los tests
 #

@@ -21,8 +21,11 @@
         "base",
     ],
     "data": [
+        'security/ir.model.access.csv',
+        'security/mrp_wizard/security.xml'
     ],
     "demo": [
+        'demo/mrp_demo.xml'
     ],
     "qweb": [
     ]
