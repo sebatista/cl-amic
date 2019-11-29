@@ -2,28 +2,38 @@
 <!-- Copyright 2019  - jeo Software
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 
-<openerp>
-<data>
+<odoo>
+    <data>
 
-<record id="mrp_wizard_model_view_form" model="ir.ui.view">
-    <field name="name">My view description</field>
-    <field name="model">mrp.wizard</field>
-    <field name="arch" type="xml">
-        <form string="Select event to register">
-            <p>My wizard form view</p>
-            <footer>
-                <button name="action_accept"
-                        type="object"
-                        string="Accept"
-                        class="oe_highlight"/>
-                or
-                <button special="cancel"
-                        string="Cancel"/>
-            </footer>
-        </form>
-    </field>
-</record>
+        <record id="mrp_wizard_model_view_form" model="ir.ui.view">
+            <field name="name">MRP EASY PROD the wizard</field>
+            <field name="model">mrp.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Select event to register">
+                    <field name="state" invisible="1"/>
 
+                    <group attrs="{'invisible':[('state', '!=', '01')]}">
+                        <h1>
+                            <center>Identificar el centro productivo</center>
+                        </h1>
+                    </group>
 
-</data>
-</openerp>
+                    <group attrs="{'invisible':[('state', '!=', '02')]}">
+                        <h1>
+                            <center>Identificar el operador</center>
+                        </h1>
+                    </group>
+
+                    <footer>
+                        <button name="next" type="object" string="SIGUIENTE"
+                                class="oe_highlight"/>
+                        or
+                        <button special="cancel"
+                                string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

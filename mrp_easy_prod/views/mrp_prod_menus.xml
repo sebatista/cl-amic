@@ -4,28 +4,9 @@
 
 <odoo>
 <data>
-<!--
-<record id="model_name_view_form" model="ir.ui.view">
-    <field name="name">My view description</field>
-    <field name="model">model.name</field>
-    <field name="arch" type="xml">
-        <form string="My Data">
-            <!- - My view content - ->
-        </form>
-    </field>
-</record>
 
-<record id="form_view" model="ir.ui.view">
-    <field name="name">My view description</field>
-    <field name="model">model.name</field>
-    <field name="inherit_id" ref="othermodule.form_view"/>
-    <field name="arch" type="xml">
-        <!- - My view modifications - ->
-    </field>
-</record>
--->
     <record id="action_mrp_easy_wizard" model="ir.actions.act_window">
-        <field name="name">Open wizard</field>
+        <field name="name">Datos de producción</field>
         <field name="res_model">mrp.wizard</field>
         <field name="view_type">form</field>
         <field name="view_mode">form</field>
@@ -34,7 +15,7 @@
 
     <menuitem id="menu_mrp_easy_wizard"
               action="action_mrp_easy_wizard"
-              parent="account.menu_finance_entries_actions"
-              sequence="6"/>
+              parent="mrp.menu_mrp_manufacturing"
+              sequence="90"/>
 </data>
 </odoo>
