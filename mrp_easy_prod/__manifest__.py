@@ -22,7 +22,9 @@
     ],
     "data": [
         'security/ir.model.access.csv',
-        'security/mrp_wizard/security.xml'
+        'security/mrp_wizard_security.xml',
+        'views/mrp_prod_menus.xml',
+        'wizards/prod_wizard_view.xml',
     ],
     "demo": [
         'demo/mrp_demo.xml'

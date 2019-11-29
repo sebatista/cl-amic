@@ -1,4 +1,4 @@
-# Copyright 2019  -- jeo Software
+# Copyright 2019  - jeo Software
 
 #   Para correr los tests
 #
