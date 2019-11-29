@@ -1,9 +1,9 @@
-**Para cargar los documentos**
+**Para cargar los documentos de la OT**
 
-Ir a la lista de materiales correspondiente, asegurarse de que este tildado
-el checkbox *Genera OT* y cargar los PDF correspondientes con el boton
+Ir a la lista de materiales y cargar los PDF correspondientes con el boton
 *Doc OT*
 
 **Para imprimir la OT**
 
-Ir a la lista de materiales correspondiente tocar el boton *Imprimir OT*
+Asegurarse de que en el producto esta tildado **Habilitar OT** y luego desde
+el formulario de la orden de produccion tocar el boton *Imprimir OT*

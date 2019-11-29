@@ -38,6 +38,7 @@
         'web_gantt',
         'mrp_mps',
         'mrp_account',
+        'mrp_easy_prod',
 
         # minimum modules for argentinian localizacion + utilities + fixes
         'standard_depends_ce',
