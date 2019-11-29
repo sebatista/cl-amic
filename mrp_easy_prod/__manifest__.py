@@ -2,7 +2,8 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Mrp Easy Prod",
-    "summary": "Presenta un wizard para usar con una tablet al pie de cada centro de produccion",
+    "summary": "Presenta un wizard para usar con una tablet al pie de cada "
+               "centro de produccion",
     "version": "11.0.0.0.0",
     "development_status": "Alpha",
     "category": "Manufacture",

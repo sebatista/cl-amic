@@ -18,7 +18,7 @@
 #   oe -Q mrp_easy_prod -c amic -d amic_test
 #
 
-from openerp.tests.common import HttpCase, TransactionCase
+from openerp.tests.common import TransactionCase
 
 
 class SomethingCase(TransactionCase):

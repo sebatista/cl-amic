@@ -24,5 +24,10 @@
     </field>
 </record>
 -->
+
+    <menuitem id="menu_mrp_easy_wizard"
+              action="action_mrp_easy_wizard"
+              parent="account.menu_finance_entries_actions"
+              sequence="6"/>
 </data>
 </odoo>
