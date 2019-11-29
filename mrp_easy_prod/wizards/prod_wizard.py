@@ -1,7 +1,7 @@
 # Copyright 2019  - jeo Software
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from openerp import api, models, fields
+from openerp import models, fields
 
 
 class WizardModel(models.TransientModel):
@@ -17,15 +17,17 @@ class WizardModel(models.TransientModel):
     )
 
     def next(self):
-        self.status = '02'
-
+        self.ensure_one()
+        self.state = '02'
         return {
-            'context': self.env.context,
+            'context': {
+                'state': self.state,
+            },
+            'res_model': self._name,
+            'res_id': self.id,
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'mrp.wizard',
-            'res_id': self.id,
-            'view_id': False,
             'type': 'ir.actions.act_window',
             'target': 'new',
         }
+
