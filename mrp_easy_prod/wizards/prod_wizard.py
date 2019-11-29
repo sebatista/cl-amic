@@ -1,13 +1,12 @@
 # Copyright 2019  - jeo Software
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from openerp import api, models
+from openerp import api, models, fields
 
 
 class WizardModel(models.TransientModel):
-    _name = "module.wizard_model"
+    _name = "mrp.wizard"
 
-    @api.multi
-    def action_accept(self):
-        self.ensure_one()
-        self.do_something_useful()
+    name = fields.Char(
+
+    )

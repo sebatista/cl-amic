@@ -24,6 +24,13 @@
     </field>
 </record>
 -->
+    <record id="action_mrp_easy_wizard" model="ir.actions.act_window">
+        <field name="name">Open wizard</field>
+        <field name="res_model">mrp.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
 
     <menuitem id="menu_mrp_easy_wizard"
               action="action_mrp_easy_wizard"

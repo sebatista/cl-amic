@@ -2,30 +2,14 @@
 <!-- Copyright 2019  - jeo Software
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 
-<openerp>
+<odoo>
 <data>
 
-<record id="ir_module_category_1" model="ir.module.category">
-    <field name="name">Some model</field>
+<record id="easy_prod_user" model="res.groups">
+    <field name="name">Easy Prod User</field>
+    <field name="name">El usuario tiene acceso a la aplicacin mrp_easy_prod.</field>
 </record>
 
-<record id="res_groups_user" model="res.groups">
-    <field name="name">User</field>
-    <field name="category_id" ref="category"/>
-    <field name="comment">
-        The user will be able to browse some model.
-    </field>
-</record>
-
-<record id="res_groups_manager" model="res.groups">
-    <field name="name">Manager</field>
-    <field name="category_id" ref="category"/>
-    <field name="implied_ids" eval="[(4, ref('user_group'))]"/>
-    <field name="comment">
-        The user will be able to manage some model.
-    </field>
-    <field name="users" eval="[(4, ref('base.user_root'))]"/>
-</record>
 
 </data>
-</openerp>
+</odoo>

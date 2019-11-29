@@ -4,10 +4,10 @@
 
 <openerp>
 <data>
-
+<!--
 <record id="model_name_my_record_demo" model="model.name">
-    <!-- My demo record data -->
+    <!- - My demo record data - ->
 </record>
-
+-->
 </data>
 </openerp>
