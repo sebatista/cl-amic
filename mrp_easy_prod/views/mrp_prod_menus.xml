@@ -6,7 +6,7 @@
 <data>
 
     <record id="action_mrp_easy_wizard" model="ir.actions.act_window">
-        <field name="name">Datos de producción</field>
+        <field name="name">Cargar datos de producción</field>
         <field name="res_model">mrp.wizard</field>
         <field name="view_type">form</field>
         <field name="view_mode">form</field>

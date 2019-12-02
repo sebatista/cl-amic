@@ -19,7 +19,8 @@
     },
     "excludes": [],
     "depends": [
-        "base",
+        'base',
+        'mrp'
     ],
     "data": [
         'security/ir.model.access.csv',

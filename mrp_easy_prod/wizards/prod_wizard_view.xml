@@ -11,26 +11,23 @@
             <field name="arch" type="xml">
                 <form string="Select event to register">
                     <field name="state" invisible="1"/>
-
-                    <group attrs="{'invisible':[('state', '!=', '01')]}">
-                        <h1>
-                            <center>Identificar el centro productivo</center>
-                        </h1>
-                        <field name=""
+                    <group>
+                        <center>
+                        <div style="width: 90%;" align="center">
+                        <h1><field name="workcenter_id" placeholder="Centro productivo"/></h1>
+                        </div>
+                        </center>
                     </group>
-
-                    <group attrs="{'invisible':[('state', '!=', '02')]}">
-                        <h1>
-                            <center>Identificar el operador</center>
-                        </h1>
+                    <group>
+                        <center>
+                        <div style="width: 90%;">
+                        <h2><field name="user_id" placeholder="Operador del centro productivo"/></h2>
+                        </div>
+                        </center>
                     </group>
-
                     <footer>
-                        <button name="next" type="object" string="SIGUIENTE"
-                                class="oe_highlight"/>
-                        or
-                        <button special="cancel"
-                                string="Cancel"/>
+                        <button name="next" type="object" string="SIGUIENTE" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel" class="btn-default"/>
                     </footer>
                 </form>
             </field>
