@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from openerp import models, fields, api
-
+from odoo.exceptions import UserError
 
 class MrpWizard(models.TransientModel):
     _name = "mrp.wizard"
@@ -26,7 +26,11 @@ class MrpWizard(models.TransientModel):
     def next(self):
         self.ensure_one()
 
-        print(self.workcenter_id.name)
+        if not self.workcenter_id:
+            raise UserError('Debe indicar cual es el centro de produccion')
+
+        if not self.user_id:
+            raise UserError('Debe indicar cual es el operador del centro de produccion')
 
         self.state = '02'
         return {
