@@ -27,6 +27,8 @@
         'security/mrp_wizard_security.xml',
         'views/mrp_prod_menus.xml',
         'wizards/prod_wizard_view.xml',
+        'wizards/prod_wizard_view_1.xml',
+        'wizards/prod_wizard_view_3.xml',
     ],
     "demo": [
         'demo/mrp_demo.xml'

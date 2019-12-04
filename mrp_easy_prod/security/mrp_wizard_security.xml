@@ -7,7 +7,7 @@
 
 <record id="easy_prod_user" model="res.groups">
     <field name="name">Easy Prod User</field>
-    <field name="comment">El usuario tiene acceso a la aplicacin mrp_easy_prod.</field>
+    <field name="comment">El usuario tiene acceso a la aplicación Easy Prod.</field>
 </record>
 
 </data>

@@ -10,12 +10,15 @@
         <field name="res_model">mrp.wizard</field>
         <field name="view_type">form</field>
         <field name="view_mode">form</field>
-        <field name="target">new</field>
+        <field name="target">current</field>
     </record>
 
     <menuitem id="menu_mrp_easy_wizard"
               action="action_mrp_easy_wizard"
-              parent="mrp.menu_mrp_manufacturing"
+              groups="easy_prod_user"
               sequence="90"/>
+              <!--
+              parent="mrp.menu_mrp_manufacturing"
+              -->
 </data>
 </odoo>

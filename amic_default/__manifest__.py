@@ -35,7 +35,7 @@
 
         # additional applications
         'mrp_workorder',
-        'web_gantt',
+        #'web_gantt', no anda bien.
         'mrp_mps',
         'mrp_account',
         'mrp_easy_prod',
@@ -87,6 +87,7 @@
         {'usr': 'ingadhoc', 'repo': 'account-invoicing', 'branch': '11.0'},
         {'usr': 'ingadhoc', 'repo': 'patches', 'branch': '11.0'},
 
+        {'usr': 'oca', 'repo': 'queue', 'branch': '11.0'},
         {'usr': 'oca', 'repo': 'partner-contact', 'branch': '11.0'},
         {'usr': 'oca', 'repo': 'web', 'branch': '11.0'},
         {'usr': 'oca', 'repo': 'server-tools', 'branch': '11.0'},
