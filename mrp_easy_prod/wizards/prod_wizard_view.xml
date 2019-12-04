@@ -10,7 +10,7 @@
             <field name="model">mrp.wizard</field>
             <field eval="1" name="priority"/>
             <field name="arch" type="xml">
-                <form string="Select event to register">
+                <form string="Select event to register" delete="0" create="0">
                     <field name="state" invisible="1"/>
                     <group>
                         <center>

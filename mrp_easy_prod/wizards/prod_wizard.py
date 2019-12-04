@@ -50,6 +50,8 @@ class MrpWizard(models.TransientModel):
             raise UserError('Debe indicar cual es el operador del centro de '
                             'produccion')
 
+        self.work_order_id.operator_id = self.user_id
+
         return {
             'context': {
                 'state': self.state,
@@ -63,5 +65,5 @@ class MrpWizard(models.TransientModel):
             'type': 'ir.actions.act_window',
             'target': 'current',
             'view_id': self.env.ref(
-                'mrp_easy_prod.mrp_wizard_model_view_form_3').id,
+                'mrp_easy_prod.mrp_wizard_model_view_form_2').id,
         }
