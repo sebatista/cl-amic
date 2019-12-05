@@ -1,8 +1,8 @@
 # Copyright 2019  - jeo Software
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from openerp import models, fields, api
-from odoo.exceptions import UserError, Warning
+from openerp import models, fields, api, _
+from odoo.exceptions import UserError
 
 
 class MrpWizard(models.TransientModel):
@@ -40,15 +40,15 @@ class MrpWizard(models.TransientModel):
             domain, order='date_planned_start')
 
         if not self.work_order_id:
-            raise Warning('No hay ordenes de trabajo listas o en proceso'
-                          'en el centro %s' % self.workcenter_id.code)
+            raise UserError(_('No hay ordenes de trabajo listas o en proceso'
+                          'en el centro %s' % self.workcenter_id.code))
 
         if not self.workcenter_id:
-            raise UserError('Debe indicar cual es el centro de produccion')
+            raise UserError(_('Debe indicar cual es el centro de produccion'))
 
         if not self.user_id:
-            raise UserError('Debe indicar cual es el operador del centro de '
-                            'produccion')
+            raise UserError(_('Debe indicar cual es el operador del centro de '
+                            'produccion'))
 
         self.work_order_id.operator_id = self.user_id
 

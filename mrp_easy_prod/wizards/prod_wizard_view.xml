@@ -14,15 +14,19 @@
                     <field name="state" invisible="1"/>
                     <group>
                         <center>
-                        <div style="width: 90%;" align="center">
-                        <h1><field name="workcenter_id" placeholder="Centro productivo"/></h1>
+                        <div style="width: 90%;">
+                        <h1><field name="workcenter_id"
+                                   placeholder="Centro productivo"
+                                   options="{'no_open': True}"/></h1>
                         </div>
                         </center>
                     </group>
                     <group>
                         <center>
                         <div style="width: 70%;">
-                        <h2><field name="user_id" placeholder="Operador del centro productivo"/></h2>
+                        <h2><field name="user_id"
+                                   placeholder="Operador del centro productivo"
+                                   options="{'no_open': True}"/></h2>
                         </div>
                         </center>
                     </group>
