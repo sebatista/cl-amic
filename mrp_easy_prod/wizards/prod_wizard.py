@@ -41,7 +41,7 @@ class MrpWizard(models.TransientModel):
             domain, order='date_planned_start')
 
         if not self.work_order_id:
-            raise UserError(_('No hay ordenes de trabajo listas o en proceso'
+            raise UserError(_('No hay ordenes de trabajo listas o en proceso '
                               'en el centro %s' % self.workcenter_id.code))
 
         if not self.workcenter_id:
