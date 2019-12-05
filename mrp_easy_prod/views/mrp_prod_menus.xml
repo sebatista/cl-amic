@@ -16,9 +16,7 @@
     <menuitem id="menu_mrp_easy_wizard"
               action="action_mrp_easy_wizard"
               groups="easy_prod_user"
-              sequence="90"/>
-              <!--
-              parent="mrp.menu_mrp_manufacturing"
-              -->
+              sequence="90"
+              web_icon="mrp_easy_prod,static/src/img/descarga.png"/>
 </data>
 </odoo>

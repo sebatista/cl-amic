@@ -21,7 +21,7 @@
                     </group>
                     <group>
                         <center>
-                        <div style="width: 90%;">
+                        <div style="width: 70%;">
                         <h2><field name="user_id" placeholder="Operador del centro productivo"/></h2>
                         </div>
                         </center>
