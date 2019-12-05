@@ -35,20 +35,21 @@ class MrpWizard(models.TransientModel):
         # la mas vieja. Si hay ordenes en progreso se supone que son mas viejas
         # que las ordenes ready.
         domain = [('workcenter_id', '=', self.workcenter_id.id),
-                  ('workcenter_id.order_ids.state', 'in', ['ready', 'progress'])]
+                  ('workcenter_id.order_ids.state', 'in',
+                   ['ready', 'progress'])]
         self.work_order_id = self.work_order_id.search(
             domain, order='date_planned_start')
 
         if not self.work_order_id:
             raise UserError(_('No hay ordenes de trabajo listas o en proceso'
-                          'en el centro %s' % self.workcenter_id.code))
+                              'en el centro %s' % self.workcenter_id.code))
 
         if not self.workcenter_id:
             raise UserError(_('Debe indicar cual es el centro de produccion'))
 
         if not self.user_id:
             raise UserError(_('Debe indicar cual es el operador del centro de '
-                            'produccion'))
+                              'produccion'))
 
         self.work_order_id.operator_id = self.user_id
 

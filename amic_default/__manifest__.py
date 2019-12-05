@@ -35,7 +35,7 @@
 
         # additional applications
         'mrp_workorder',
-        #'web_gantt', no anda bien.
+        # 'web_gantt', no anda bien.
         'mrp_mps',
         'mrp_account',
         'mrp_easy_prod',
