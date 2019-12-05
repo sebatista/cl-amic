@@ -2,12 +2,6 @@
 <!-- Copyright 2019  - jeo Software
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 
-<!-- mostrar
-        Centro de produccion
-        Operador
-        orden de trabajo
--->
-
 <odoo>
 <data>
 <record id="mrp_wizard_model_view_form_2" model="ir.ui.view">
@@ -21,16 +15,19 @@
         <field name="working_state" invisible="1"/>
         <field name="production_state" invisible="1"/>
         <header>
-            <button name="button_finish" type="object" string="Finish Order" attrs="{'invisible': ['|', ('state', '!=', 'progress'), ('is_produced', '=', False)]}" class="btn-info"/>
-            <button name="button_start" type="object" string="Start Working" attrs="{'invisible': ['|', ('working_state', '=', 'blocked'), ('state', '!=', 'pending')]}"/>
-            <button name="button_start" type="object" string="Start Working" attrs="{'invisible': ['|', ('working_state', '=', 'blocked'), ('state', '!=', 'ready')]}" class="btn-success"/>
-            <button name="record_production" type="object" string="Done" class="btn-success" attrs="{'invisible': ['|', '|', '|', ('is_produced', '=', True), ('working_state', '=', 'blocked'), ('state', '!=', 'progress'), ('is_user_working', '=', False)]}"/>
-            <button name="button_pending" type="object" string="Pause" class="btn-warning" attrs="{'invisible': ['|', '|', ('working_state', '=', 'blocked'), ('state', 'in', ('done', 'pending', 'ready', 'cancel')), ('is_user_working', '=', False)]}"/>
+            <button name="button_finish" type="object" string="Terminar Orden" attrs="{'invisible': ['|', ('state', '!=', 'progress'), ('is_produced', '=', False)]}" class="btn-info"/>
+            <button name="button_start" type="object" string="Iniciar trabajo" attrs="{'invisible': ['|', ('working_state', '=', 'blocked'), ('state', '!=', 'pending')]}"/>
+            <button name="button_start" type="object" string="Iniciar trabajo" attrs="{'invisible': ['|', ('working_state', '=', 'blocked'), ('state', '!=', 'ready')]}" class="btn-success"/>
+
+            <button name="record_production" type="object" string="Hecho" class="btn-success" attrs="{'invisible': ['|', '|', '|', ('is_produced', '=', True), ('working_state', '=', 'blocked'), ('state', '!=', 'progress'), ('is_user_working', '=', False)]}"/>
+            <button name="button_pending" type="object" string="Pausa" class="btn-warning" attrs="{'invisible': ['|', '|', ('working_state', '=', 'blocked'), ('state', 'in', ('done', 'pending', 'ready', 'cancel')), ('is_user_working', '=', False)]}"/>
             <button name="%(mrp.act_mrp_block_workcenter_wo)d" type="action" context="{'default_workcenter_id': workcenter_id}" string="Block" class="btn-danger" attrs="{'invisible': ['|', '|', ('working_state', '=', 'blocked'), ('state', 'in', ('done', 'pending', 'ready', 'cancel')), ('is_user_working', '=', False)]}"/>
-            <button name="button_unblock" type="object" string="Unblock" class="btn-danger" attrs="{'invisible': [('working_state', '!=', 'blocked')]}"/>
-            <button name="button_start" type="object" string="Continue Production" class="btn-warning" attrs="{'invisible': ['|', '|', ('working_state', '=', 'blocked'), ('is_user_working', '=', True), ('state', 'in', ('done', 'pending', 'ready', 'cancel'))]}"></button>
-            <button name="button_start" type="object" string="Continue Production" attrs="{'invisible': ['|', '|', ('production_state', '=', 'done'), ('working_state', '=', 'blocked'), ('state', '!=', 'done')]}"/>
-            <button name="button_scrap" type="object" string="Scrap" attrs="{'invisible': [('state', 'in', ('confirmed', 'cancel'))]}"/>
+            <button name="button_unblock" type="object" string="Desbloquear" class="btn-danger" attrs="{'invisible': [('working_state', '!=', 'blocked')]}"/>
+
+            <button name="button_start" type="object" string="Continuar Produccion" class="btn-warning" attrs="{'invisible': ['|', '|', ('working_state', '=', 'blocked'), ('is_user_working', '=', True), ('state', 'in', ('done', 'pending', 'ready', 'cancel'))]}"></button>
+            <button name="button_start" type="object" string="Continuar Produccion" attrs="{'invisible': ['|', '|', ('production_state', '=', 'done'), ('working_state', '=', 'blocked'), ('state', '!=', 'done')]}"/>
+            <button name="button_scrap" type="object" string="Deshecho" attrs="{'invisible': [('state', 'in', ('confirmed', 'cancel'))]}"/>
+
             <field name="state" widget="statusbar" statusbar_visible="pending,ready,progress,done"/>
         </header>
             <div class="oe_button_box" name="button_box">
@@ -42,14 +39,15 @@
                 </button>
             </div>
             <group>
-                <group col="1">
+                <group col="1" style="width:40%">
                     <h3>
                         <field name="operator_id" readonly="1" options="{'no_open': True}"/>
                         <span> trabajando en </span>
                         <field name="workcenter_id" readonly="1" options="{'no_open': True}"/>
                     </h3>
                 </group>
-                <group col="2">
+                <group style="width:10%"></group>
+                <group col="2" style="width:40%">
                     <h3>
                         <field name="product_id" string="Producir"/><br/>
                         <div class="o_row">
@@ -92,26 +90,34 @@
                     </center>
                 </group>
 
-                <group col="2" colspan="1" string="Lote de salida">
+                <group col="2"  string="Lote de salida">
                     <field name="product_tracking" invisible="1"/>
-                    <field name="final_lot_id"
-                           string="Lote"
-                           context="{'default_product_id': product_id}"
-                           domain="['|', '&amp;', ('product_id', '=', product_id), ('product_id.tracking', '!=', 'serial'), ('use_next_on_work_order_id', '=', id)]"
-                           attrs="{'invisible': [('product_tracking', '=', 'none')]}"
-                           groups="stock.group_production_lot"/>
-                    <field name="qty_producing" string="Cantidad a producir"
-                           attrs="{'readonly': ['|', ('product_tracking', '=', 'serial'), ('state', 'in', ('done', 'cancel'))]}"/>
+                    <label for="final_lot_id" string="Lote"/>
+                    <div>
+                        <field name="final_lot_id"
+                               class="oe_inline"
+                               context="{'default_product_id': product_id}"
+                               domain="['|', '&amp;', ('product_id', '=', product_id), ('product_id.tracking', '!=', 'serial'), ('use_next_on_work_order_id', '=', id)]"
+                               attrs="{'invisible': [('product_tracking', '=', 'none')]}"
+                               groups="stock.group_production_lot"/>
+                    </div>
 
-                    <group string="Tiempos">
+                    <label for="qty_producing" string="Cantidad a producir"/>
+                    <div>
+                        <field name="qty_producing"
+                               class="oe_inline"
+                               attrs="{'readonly': ['|', ('product_tracking', '=', 'serial'), ('state', 'in', ('done', 'cancel'))]}"/>
+                    </div>
+                    <group>
                         <h3>
                             <div>
                                 <button style="pointer-events: none;" class="oe_inline label label-default">
                                     <field name="duration" widget="mrp_time_counter"/>
                                 </button>
-                                <span>Duración prevista </span>
+                                <span> / </span>
                                 <field name="duration_expected"
                                        widget="float_time"
+                                       readonly="1"
                                        class="oe_inline"/>
                                 <span> min</span>
                             </div>
@@ -125,10 +131,10 @@
                     <tree>
                         <field name="date_start"/>
                         <field name="date_end"/>
-                        <field name="duration" widget="float_time" sum="Total duration"/>
+                        <field name="duration" widget="float_time" sum="Duración total"/>
                         <field name="user_id"/>
                         <field name="workcenter_id" invisible="1"/>
-                        <field name="loss_id" string="Efficiency"/>
+                        <field name="loss_id" string="Eficiencia"/>
                     </tree>
                     <form>
                         <group>
