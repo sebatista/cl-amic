@@ -7,11 +7,15 @@ from odoo.exceptions import UserError
 
 class MrpWizard(models.TransientModel):
     _name = "mrp.wizard"
-    _description = 'Wizard para datos de produccion'
+    _description = 'Wizard para datos de producción'
 
+    stock_warehouse_id = fields.Many2one(
+        'stock.warehouse',
+        help='Planta',
+    )
     workcenter_id = fields.Many2one(
         'mrp.workcenter',
-        help='centro de produccion',
+        help='centro de producción',
     )
     user_id = fields.Many2one(
         'hr.employee',

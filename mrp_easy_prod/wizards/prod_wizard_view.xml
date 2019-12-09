@@ -14,10 +14,20 @@
                     <field name="state" invisible="1"/>
                     <group>
                         <center>
+                        <div style="width: 40%;">
+                        <h1><field name="stock_warehouse_id"
+                                   placeholder="Planta"
+                                   options="{'no_open': True, 'no_create': True}"/></h1>
+                        </div>
+                        </center>
+                    </group>
+                    <group>
+                        <center>
                         <div style="width: 90%;">
                         <h1><field name="workcenter_id"
+                                   domain="[('warehouse_id','=',stock_warehouse_id)]"
                                    placeholder="Centro productivo"
-                                   options="{'no_open': True}"/></h1>
+                                   options="{'no_open': True, 'no_create': True}"/></h1>
                         </div>
                         </center>
                     </group>
@@ -25,8 +35,9 @@
                         <center>
                         <div style="width: 70%;">
                         <h2><field name="user_id"
+                                   domain="[('warehouse_id','=',stock_warehouse_id)]"
                                    placeholder="Operador del centro productivo"
-                                   options="{'no_open': True}"/></h2>
+                                   options="{'no_open': True, 'no_create': True}"/></h2>
                         </div>
                         </center>
                     </group>

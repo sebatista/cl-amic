@@ -8,7 +8,6 @@
     <field name="name">MRP EASY PROD wizard 2</field>
     <field name="model">mrp.workorder</field>
     <field name="priority" eval="200" />
-
     <field name="arch" type="xml">
         <form string="Production Workcenter" delete="0" create="0">
         <field name="is_user_working" invisible="1"/>
@@ -28,6 +27,8 @@
             <button name="button_start" type="object" string="Continuar Produccion" attrs="{'invisible': ['|', '|', ('production_state', '=', 'done'), ('working_state', '=', 'blocked'), ('state', '!=', 'done')]}"/>
             <button name="button_scrap" type="object" string="Deshecho" attrs="{'invisible': [('state', 'in', ('confirmed', 'cancel'))]}"/>
 
+            <button name="button_lots" type="object" string="Lotes"/>
+
             <field name="state" widget="statusbar" statusbar_visible="pending,ready,progress,done"/>
         </header>
             <div class="oe_button_box" name="button_box">
@@ -39,15 +40,14 @@
                 </button>
             </div>
             <group>
-                <group col="1" style="width:40%">
+                <group col="1">
                     <h3>
                         <field name="operator_id" readonly="1" options="{'no_open': True}"/>
                         <span> trabajando en </span>
                         <field name="workcenter_id" readonly="1" options="{'no_open': True}"/>
                     </h3>
                 </group>
-                <group style="width:10%"></group>
-                <group col="2" style="width:40%">
+                <group col="2">
                     <h3>
                         <field name="product_id" string="Producir"/><br/>
                         <div class="o_row">
@@ -69,7 +69,7 @@
             </group>
 
             <group col="3"  attrs="{'invisible': [('state', '=', 'done')]}">
-                <group  col="1" colspan="1" string="Lotes de entrada">
+                <group col="1" colspan="1" string="Lotes de entrada">
                       <field name="active_move_line_ids" nolabel="1">
                         <tree editable="bottom" create="0" delete="0">
                             <field name="product_id"/>
@@ -83,14 +83,7 @@
                         </tree>
                     </field>
                 </group>
-
-                <group style="width:30%">
-                    <center>
-                    <img src="/mrp_easy_prod/static/src/img/arrow.jpeg" style="width:175px;"/>
-                    </center>
-                </group>
-
-                <group col="2"  string="Lote de salida">
+                <group col="2" string="Lote de salida">
                     <field name="product_tracking" invisible="1"/>
                     <group>
                     <label for="final_lot_id" string="Lote"/>

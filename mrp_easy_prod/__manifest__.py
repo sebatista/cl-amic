@@ -28,6 +28,9 @@
         'views/mrp_prod_menus.xml',
         'wizards/prod_wizard_view.xml',
         'wizards/prod_wizard_view_2.xml',
+        'wizards/lots_wizard_form.xml',
+        'views/mrp_workcenter_view.xml',
+        'views/hr_employee_view.xml',
     ],
     "demo": [
         'demo/mrp_demo.xml'
