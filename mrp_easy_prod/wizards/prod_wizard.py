@@ -70,5 +70,6 @@ class MrpWizard(models.TransientModel):
             'type': 'ir.actions.act_window',
             'target': 'current',
             'view_id': self.env.ref(
-                'mrp_easy_prod.mrp_wizard_model_view_form_2').id,
+                'mrp.mrp_production_workcenter_form_view_inherit').id,
         }
+#                'mrp_easy_prod.mrp_wizard_model_view_form_2').id,
