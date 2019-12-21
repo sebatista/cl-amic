@@ -50,7 +50,8 @@
         'customer_product_names',  # nombres de prod <> por cliente
         'mrp_lot_attributes',  # caracteristicas de trazabilidad
         'mrp_ot',  # generacion de ordenes de trabajo
-        'pre_printed_stock_picking'  # remito preimpreso
+        'pre_printed_stock_picking',  # remito preimpreso
+        'mrp_easy_prod'  # wizard para encontrar rapidamente la ot produccion
     ],
     'data': [
     ],

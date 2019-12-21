@@ -33,6 +33,7 @@ class MrpWorkorder(models.Model):
 
     def button_lots(self):
         """ Pide los lotes de a uno cuando ya estan todos no pide mas.
+            este metodo esta depreciado
         """
 
         # verificar que tiene cargado el lote final y cargarlo si no lo tiene
