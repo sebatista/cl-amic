@@ -1,6 +1,6 @@
 # For copyright and license notices, see __manifest__.py file in module root
 
-from openerp import models, fields, api, _
+from openerp import models, fields
 
 
 class LotsWizard(models.TransientModel):

@@ -61,5 +61,5 @@ class MrpWorkorder(models.Model):
 
         for move_line in self.active_move_line_ids:
             if (move_line.product_id.tracking != 'none'
-                and not move_line.lot_id):
+                    and not move_line.lot_id):
                 pass
