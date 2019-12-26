@@ -24,6 +24,6 @@ class LotsWizard(models.TransientModel):
         """ Salvar el lote en workorder
         """
         workorder_obj = self.env['mrp.workorder']
-        id = self.env.context.get('workorder')
-        workorder = workorder_obj.search([('id', '=', id)])
+        _ = self.env.context.get('workorder')
+        workorder = workorder_obj.search([('id', '=', _)])
         workorder.final_lot_id = self.final_lot_id
