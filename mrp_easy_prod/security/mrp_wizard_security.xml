@@ -6,7 +6,7 @@
 <data>
 
 <record id="easy_prod_user" model="res.groups">
-    <field name="name">Easy Prod User</field>
+    <field name="name">Acceso a carga Rapida de Datos</field>
     <field name="comment">El usuario tiene acceso a la aplicación Easy Prod.</field>
     <field name="implied_ids" eval="[(4, ref('mrp.group_mrp_user')),
                                      (4, ref('stock.group_stock_user'))]"/>
