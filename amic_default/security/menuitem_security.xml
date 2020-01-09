@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!-- Copyright 2020  - jeo Software
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+    <data>
+
+        <record id="discuss_access" model="res.groups">
+            <field name="name">Acceso a la aplicacion Debates</field>
+            <field name="comment">El usuario tiene acceso a la aplicación
+                Debates.
+            </field>
+        </record>
+
+        <record id="calendar_access" model="res.groups">
+            <field name="name">Acceso a la aplicacion Calendar</field>
+            <field name="comment">El usuario tiene acceso a la aplicación
+                Calendar.
+            </field>
+        </record>
+
+        <record id="contact_access" model="res.groups">
+            <field name="name">Acceso a la aplicacion Contactos</field>
+            <field name="comment">El usuario tiene acceso a la aplicación
+                Contactos.
+            </field>
+        </record>
+
+        <record id="mrp_access" model="res.groups">
+            <field name="name">Acceso a la aplicacion Fabricacion</field>
+            <field name="comment">El usuario tiene acceso a la aplicación
+                Fabricacion.
+            </field>
+        </record>
+
+        <record id="sale_access" model="res.groups">
+            <field name="name">Acceso a la aplicacion Ventas</field>
+            <field name="comment">El usuario tiene acceso a la aplicación
+                Ventas.
+            </field>
+        </record>
+
+        <record id="purchase_access" model="res.groups">
+            <field name="name">Acceso a la aplicacion Compras</field>
+            <field name="comment">El usuario tiene acceso a la aplicación
+                Compras.
+            </field>
+        </record>
+
+        <record id="stock_access" model="res.groups">
+            <field name="name">Acceso a la aplicacion Stock</field>
+            <field name="comment">El usuario tiene acceso a la aplicación
+                Stock.
+            </field>
+        </record>
+
+        <record id="account_access" model="res.groups">
+            <field name="name">Acceso a la aplicacion Contabilidad</field>
+            <field name="comment">El usuario tiene acceso a la aplicación
+                Contabilidad.
+            </field>
+        </record>
+
+        <record id="hr_access" model="res.groups">
+            <field name="name">Acceso a la aplicacion Empleados</field>
+            <field name="comment">El usuario tiene acceso a la aplicación
+                Empleados.
+            </field>
+        </record>
+
+        <record id="base_dashboard_access" model="res.groups">
+            <field name="name">Acceso a la aplicacion Tableros</field>
+            <field name="comment">El usuario tiene acceso a la aplicación
+                Tableros.
+            </field>
+        </record>
+
+    </data>
+</odoo>

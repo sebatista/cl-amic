@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+            id="mail.mail_channel_menu_root_chat"
+            name="Discuss"
+            action="mail.mail_channel_action_client_chat"
+            web_icon="mail,static/description/icon.png"
+            groups="discuss_access"
+            sequence="1"/>
+
+    <menuitem
+            id="calendar.mail_menu_calendar"
+            name="Calendar"
+            sequence="2"
+            action="calendar.action_calendar_event"
+            web_icon="calendar,static/description/icon.png"
+            groups="calendar_access"/>
+
+    <menuitem name="Contacts"
+              id="contacts.menu_contacts"
+              sequence="4"
+              web_icon="contacts,static/description/icon.png"
+              groups="contact_access"/>
+
+    <menuitem id="mrp.menu_mrp_root"
+              name="Manufacturing"
+              groups="mrp_access"
+              icon="fa-wrench"
+              web_icon="mrp,static/description/icon.png"
+              sequence="35"/>
+
+    <menuitem id="sale.sale_menu_root"
+              name="Sales"
+              web_icon="sale,static/description/icon.png"
+              active="False"
+              groups="sale_access"
+              sequence="7"/>
+
+    <menuitem name="Purchases"
+              id="purchase.menu_purchase_root"
+              groups="purchase_access"
+              web_icon="purchase,static/description/icon.png"
+              sequence="25"/>
+
+    <menuitem name="Inventory"
+              id="stock.menu_stock_root"
+              sequence="30"
+              groups="stock_access"
+              web_icon="stock,static/description/icon.png"/>
+
+    <menuitem name="Invoicing"
+              id="account.menu_finance"
+              groups="account_access"
+              web_icon="account_invoicing,static/description/icon.png"
+              sequence="40"/>
+
+    <menuitem
+            id="hr.menu_hr_root"
+            name="Employees"
+            groups="hr_access"
+            web_icon="hr,static/description/icon.png"
+            sequence="75"/>
+
+    <menuitem id="base.menu_board_root"
+              name="Dashboards"
+              sequence="305"
+              web_icon="base,static/description/board.png"
+              groups="base_dashboard_access"/>
+
+</odoo>

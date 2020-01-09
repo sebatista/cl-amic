@@ -50,9 +50,15 @@
         'mrp_lot_attributes',  # caracteristicas de trazabilidad
         'mrp_ot',  # generacion de ordenes de trabajo
         'pre_printed_stock_picking',  # remito preimpreso
-        'mrp_easy_prod'  # wizard para encontrar rapidamente la ot produccion
+        'mrp_easy_prod',  # wizard para encontrar rapidamente la ot produccion
+
+        # requerido por la restriccion de menuitems
+        'mail', 'calendar', 'contacts', 'mrp', 'sale', 'purchase', 'stock',
+        'account', 'hr', 'base'
     ],
     'data': [
+        'security/menuitem_security.xml',
+        'views/menuitems.xml'
     ],
     'test': [
     ],
