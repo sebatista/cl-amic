@@ -19,7 +19,7 @@
 # -----------------------------------------------------------------------------
 {
     'name': 'AMIC',
-    'version': '11.0.0.0.3',
+    'version': '11.0.0.0.4',
     'license': 'Other OSI approved licence',
     'category': 'Default Application',
     'summary': 'Customization for AMIC',
@@ -38,7 +38,6 @@
         # 'web_gantt', no anda bien.
         'mrp_mps',
         'mrp_account',
-        'mrp_easy_prod',
 
         # minimum modules for argentinian localizacion + utilities + fixes
         'standard_depends_ce',
