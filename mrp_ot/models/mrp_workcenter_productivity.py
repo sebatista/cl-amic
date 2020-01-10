@@ -9,3 +9,7 @@ class MrpWorkcenterProductivity(models.Model):
     user_id = fields.Many2one(
         'hr.employee', "Employee",
     )
+
+    qty = fields.Integer(
+        string='Cantidad producida'
+    )

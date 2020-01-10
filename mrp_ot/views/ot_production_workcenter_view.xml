@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_production_workcenter_form_view_inherit" model="ir.ui.view">
+        <field name="name">MRP_OT agregar cantidad en workcenter</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='user_id']" position="after">
+                <field name="qty"/>
+            </xpath>
+            <xpath expr="//group/field[@name='user_id']" position="after">
+                <field name="qty"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

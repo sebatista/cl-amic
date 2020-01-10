@@ -22,7 +22,8 @@
         'report/ot_cover_report.xml',
         'views/product_view.xml',
         'views/bom_view.xml',
-        'views/mrp_production_view.xml'
+        'views/mrp_production_view.xml',
+        'views/ot_production_workcenter_view.xml'
     ],
     'external_dependencies': {
         'python': [
