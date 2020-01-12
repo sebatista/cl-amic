@@ -8,9 +8,6 @@
             <xpath expr="//tree/field[@name='user_id']" position="after">
                 <field name="qty"/>
             </xpath>
-            <xpath expr="//group/field[@name='user_id']" position="after">
-                <field name="qty"/>
-            </xpath>
         </field>
     </record>
 </odoo>
