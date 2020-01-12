@@ -2,13 +2,15 @@
 
 from odoo import models, _
 from odoo.exceptions import UserError
+import datetime
 
 
 class MrpWorkorder(models.Model):
     _inherit = 'mrp.workorder'
 
     def record_production(self):
-        """ Propagar los atributos al siguiente lote.
+        """ Crear un registro en mrp.workcenter.productivity y
+            Propagar los atributos al siguiente lote.
         """
 
         def propagate_attr(source, dest):
@@ -32,11 +34,54 @@ class MrpWorkorder(models.Model):
             raise UserError(_('You should provide a lot/serial number for '
                               'the final product'))
 
+        if not self.date_start1 or not self.time_start:
+            raise UserError(_('Por favor indique fecha y hora de comienzo de '
+                              'la produccion.'))
+
+        if not self.date_end or not self.time_end:
+            raise UserError(_('Por favor indique fecha y hora de finalizacion '
+                              'de la produccion.'))
+
+        if not self.user_id:
+            raise UserError(_('Por favor indique que operador realizo esta '
+                              'produccion.'))
+
         for move_line in self.active_move_line_ids:
             if (move_line.product_id.tracking != 'none'
                 and not move_line.lot_id):
                 raise UserError(_('You should provide a lot/serial number '
                                   'for a component'))
+
+        ds = '%s %s' % (self.date_start1,
+                        '{0:02.0f}:{1:02.0f}'.format(
+                            *divmod(self.time_start * 60, 60)))
+        de = '%s %s' % (self.date_end,
+                        '{0:02.0f}:{1:02.0f}'.format(
+                            *divmod(self.time_end * 60, 60)))
+
+        if ds >= de:
+            raise UserError(_('El fin de la produccion debe ser posterior al '
+                              'inicio.'))
+
+        loss = self.env['mrp.workcenter.productivity.loss']
+        loss_prod = loss.search([('loss_type', '=', 'productive')], limit=1)
+
+        # crear el registro de tiempo
+        wcp = self.env['mrp.workcenter.productivity']
+        wcp.create({
+            'date_start': ds,
+            'date_end': de,
+            'user_id': self.user_id.id,
+            'qty': self.qty_producing,
+            'workcenter_id': self.workcenter_id.id,
+            'loss_id': loss_prod.id,
+            'workorder_id': self.id
+        })
+
+        self.date_start1 = False
+        self.time_start = False
+        self.date_end = False
+        self.time_end = False
 
         # mover atributos
         self.final_lot_id.colada = propagate_attr(
