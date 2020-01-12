@@ -52,12 +52,13 @@ class MrpWorkorder(models.Model):
                 raise UserError(_('You should provide a lot/serial number '
                                   'for a component'))
 
+        # aca le sumo 3 a las horas para pasar a utc a lo bruto.
         ds = '%s %s' % (self.date_start1,
                         '{0:02.0f}:{1:02.0f}'.format(
-                            *divmod(self.time_start * 60, 60)))
+                            *divmod((self.time_start +3) * 60, 60)))
         de = '%s %s' % (self.date_end,
                         '{0:02.0f}:{1:02.0f}'.format(
-                            *divmod(self.time_end * 60, 60)))
+                            *divmod((self.time_end +3) * 60, 60)))
 
         if ds >= de:
             raise UserError(_('El fin de la produccion debe ser posterior al '
@@ -84,13 +85,15 @@ class MrpWorkorder(models.Model):
         self.time_end = False
 
         # mover atributos
-        self.final_lot_id.colada = propagate_attr(
-            move_line.lot_id.colada, self.final_lot_id.colada)
-        self.final_lot_id.tt = propagate_attr(
-            move_line.lot_id.tt, self.final_lot_id.tt)
-        self.final_lot_id.paquete = propagate_attr(
-            move_line.lot_id.paquete, self.final_lot_id.paquete)
-        self.final_lot_id.ot = propagate_attr(
-            move_line.lot_id.ot, self.final_lot_id.ot)
+        for move_line in self.active_move_line_ids:
+            if move_line.product_id.tracking != 'none':
+                self.final_lot_id.colada = self.propagate_attr(
+                    move_line.lot_id.colada, self.final_lot_id.colada)
+                self.final_lot_id.tt = propagate_attr(
+                    move_line.lot_id.tt, self.final_lot_id.tt)
+                self.final_lot_id.paquete = propagate_attr(
+                    move_line.lot_id.paquete, self.final_lot_id.paquete)
+                self.final_lot_id.ot = propagate_attr(
+                    move_line.lot_id.ot, self.final_lot_id.ot)
 
         super(MrpWorkorder, self).record_production()

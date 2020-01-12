@@ -14,14 +14,14 @@
             <xpath expr="//field[@name='qty_producing']" position="after">
                 <label for="date_start1" string="Inicio"/>
                 <div>
-                    <field name="date_start1" class="oe_inline"/>
+                    <field name="date_start1" class="oe_inline"/> -
                     <field name="time_start" widget="float_time"
                            class="oe_inline"/>
                 </div>
 
-                <label for="date_start1" string="Fin"/>
+                <label for="date_end" string="Fin"/>
                 <div>
-                    <field name="date_end" class="oe_inline"/>
+                    <field name="date_end" class="oe_inline"/> -
                     <field name="time_end" widget="float_time"
                            class="oe_inline"/>
                 </div>

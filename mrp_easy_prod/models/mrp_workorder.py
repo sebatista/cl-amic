@@ -1,6 +1,8 @@
 # For copyright and license notices, see __manifest__.py file in module root
 
 from odoo import fields, models
+from datetime import datetime
+from odoo.exceptions import UserError
 
 
 class MrpWorkcenterProductivity(models.Model):
@@ -21,45 +23,54 @@ class MrpWorkorder(models.Model):
     )
 
     def button_start(self):
-        """ Arranca la orden de trabajo
+        """ Arranca la orden de trabajo.
+            Esto no llama al super porque copie el metodo original
         """
-        ret = super().button_start()
+        # volvemos al original porque no anduvo
+        return super(MrpWorkorder, self).button_start()
 
-        timeline_obj = self.env['mrp.workcenter.productivity']
-        timeline = timeline_obj.search([], limit=1, order='id desc')
-        timeline.operator_id = self.operator_id
+        self.ensure_one()
+        # As button_start is automatically called in the new view
+        if self.state in ('done', 'cancel'):
+            return True
+
+        # Need a loss in case of the real time exceeding the expected
+        timeline = self.env['mrp.workcenter.productivity']
+        if self.duration < self.duration_expected:
+            loss_id = self.env['mrp.workcenter.productivity.loss'].search([('loss_type','=','productive')], limit=1)
+            if not len(loss_id):
+                raise UserError(_("You need to define at least one productivity loss in the category 'Productivity'. Create one from the Manufacturing app, menu: Configuration / Productivity Losses."))
+        else:
+            loss_id = self.env['mrp.workcenter.productivity.loss'].search([('loss_type','=','performance')], limit=1)
+            if not len(loss_id):
+                raise UserError(_("You need to define at least one productivity loss in the category 'Performance'. Create one from the Manufacturing app, menu: Configuration / Productivity Losses."))
+        for workorder in self:
+            if workorder.production_id.state != 'progress':
+                workorder.production_id.write({
+                    'state': 'progress',
+                    'date_start': datetime.now(),
+                })
+
+
+# Esto ponia un timeline para iniciar con la fecha hora de inicio, pero como
+# cargamos en diferido no lo usamos.
+
+#            timeline.create({
+#                'workorder_id': workorder.id,
+#                'workcenter_id': workorder.workcenter_id.id,
+#                'description': _('Time Tracking: ')+self.env.user.name,
+#                'loss_id': loss_id[0].id,
+#                'date_start': datetime.now(),
+#                'user_id': self.env.user.id
+#            })
+
+        return self.write({'state': 'progress',
+                    'date_start': datetime.now(),
+        })
+
+# no se para que estaba esto
+#        timeline_obj = self.env['mrp.workcenter.productivity']
+#        timeline = timeline_obj.search([], limit=1, order='id desc')
+#        timeline.operator_id = self.operator_id
 
         return ret
-
-    def button_lots(self):
-        """ Pide los lotes de a uno cuando ya estan todos no pide mas.
-            este metodo esta depreciado
-        """
-
-        # verificar que tiene cargado el lote final y cargarlo si no lo tiene
-        if ((self.production_id.product_id.tracking != 'none') and
-                not self.final_lot_id and self.move_raw_ids):
-
-            wizard_id = self.env['lots.wizard'].create({
-                'caption': 'Lote de salida para:'
-            })
-            wizard_id.product_id = self.product_id.id
-
-            return {
-                'context': {
-                    'workorder': self.id,
-                },
-                'res_model': 'lots.wizard',
-                'view_type': 'form',
-                'res_id': wizard_id.id,
-                'view_mode': 'form',
-                'type': 'ir.actions.act_window',
-                'target': 'new',
-                'view_id': self.env.ref(
-                    'mrp_easy_prod.mrp_lot_wizard_form').id,
-            }
-
-        for move_line in self.active_move_line_ids:
-            if (move_line.product_id.tracking != 'none'
-                    and not move_line.lot_id):
-                pass
