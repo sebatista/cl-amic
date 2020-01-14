@@ -44,6 +44,8 @@
 
         # utilitarios adicionales
         'backend_theme_v11',
+        # preview bom
+        'mrp_bom_structure_html',
 
         # desarrollo especifico para amic
         'customer_product_names',  # nombres de prod <> por cliente
