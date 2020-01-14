@@ -15,7 +15,8 @@
     'preloadable': True,
     'depends': [
         'mrp',
-        'product'
+        'product',
+        'web_widget_timepicker'
     ],
     'data': [
         'security/ir.model.access.csv',

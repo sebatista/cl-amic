@@ -24,11 +24,20 @@ class SomethingCase(TransactionCase):
     def setUp(self, *args, **kwargs):
         super(SomethingCase, self).setUp(*args, **kwargs)
 
-    def tearDown(self, *args, **kwargs):
+        #import wdb;wdb.set_trace()
 
-        return super(SomethingCase, self).tearDown(*args, **kwargs)
+        #self.env['ir.config_parameter'].sudo().set_param('stock.group_stock_production_lot', True)
+        #self.env['ir.config_parameter'].sudo().get_param('stock.group_stock_production_lot')
+
+        #cr = self.env['res.config.settings']
+        #cr = cr.create({})
+        #cr.default_get()
+
+        #cr.group_stock_production_lot = True
+        #cr.execute()
 
     def test_01_something(self):
         """TEST 01 docstring appears in test logs.
         """
+
         self.assertEqual(1, 1)

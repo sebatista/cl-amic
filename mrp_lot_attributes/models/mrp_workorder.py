@@ -42,7 +42,7 @@ class MrpWorkorder(models.Model):
             raise UserError(_('Por favor indique fecha y hora de finalizacion '
                               'de la produccion.'))
 
-        if not self.user_id:
+        if not self.operator_id:
             raise UserError(_('Por favor indique que operador realizo esta '
                               'produccion.'))
 
@@ -72,7 +72,7 @@ class MrpWorkorder(models.Model):
         wcp.create({
             'date_start': ds,
             'date_end': de,
-            'user_id': self.user_id.id,
+            'operator_id': self.operator_id.id,
             'qty': self.qty_producing,
             'workcenter_id': self.workcenter_id.id,
             'loss_id': loss_prod.id,
@@ -87,7 +87,7 @@ class MrpWorkorder(models.Model):
         # mover atributos
         for move_line in self.active_move_line_ids:
             if move_line.product_id.tracking != 'none':
-                self.final_lot_id.colada = self.propagate_attr(
+                self.final_lot_id.colada = propagate_attr(
                     move_line.lot_id.colada, self.final_lot_id.colada)
                 self.final_lot_id.tt = propagate_attr(
                     move_line.lot_id.tt, self.final_lot_id.tt)

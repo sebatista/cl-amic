@@ -22,4 +22,7 @@
     "data": [
         "views/production_lot_views.xml",
     ],
+    "demo": [
+        "demo/mrp_demo.xml",
+    ],
 }

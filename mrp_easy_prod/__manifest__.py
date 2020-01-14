@@ -32,9 +32,6 @@
         'views/mrp_workcenter_view.xml',
         'views/hr_employee_view.xml',
     ],
-    "demo": [
-        'demo/mrp_demo.xml'
-    ],
     "qweb": [
     ]
 }

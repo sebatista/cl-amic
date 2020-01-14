@@ -2,7 +2,7 @@
 <odoo>
     <record id="mrp_production_workcenter_form_view_inherit"
             model="ir.ui.view">
-        <field name="name">MRP_OT agregar cantidad en workcenter</field>
+        <field name="name">MRP_OT agregar cantidad y operador en workcenter</field>
         <field name="model">mrp.workorder</field>
         <field name="inherit_id"
                ref="mrp.mrp_production_workcenter_form_view_inherit"/>
@@ -15,18 +15,25 @@
                 <label for="date_start1" string="Inicio"/>
                 <div>
                     <field name="date_start1" class="oe_inline"/> -
-                    <field name="time_start" widget="float_time"
+                    <field name="time_start" widget="timepicker" options="{'datepicker': {'stepping': 10}}"
                            class="oe_inline"/>
                 </div>
 
                 <label for="date_end" string="Fin"/>
                 <div>
                     <field name="date_end" class="oe_inline"/> -
-                    <field name="time_end" widget="float_time"
+                    <field name="time_end" widget="timepicker" options="{'datepicker': {'stepping': 10}}"
                            class="oe_inline"/>
                 </div>
-                <field name="user_id"/>
+                <field name="operator_id"/>
             </xpath>
+
+            <field name="user_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="user_id" position="after">
+                <field name="operator_id"/>
+            </field>
         </field>
     </record>
 </odoo>

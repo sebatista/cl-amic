@@ -35,8 +35,7 @@
 
         <record id="sale_access" model="res.groups">
             <field name="name">Acceso a la aplicacion Ventas</field>
-            <field name="comment">El usuario tiene acceso a la aplicación
-                Ventas.
+            <field name="comment">El usuario tiene acceso a la aplicación Ventas.
             </field>
         </record>
 

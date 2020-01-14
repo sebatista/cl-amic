@@ -21,8 +21,3 @@ class MrpWorkOrder(models.Model):
         help="Hora de finalizacion de la produccion",
         string="Hora final"
     )
-    user_id = fields.Many2one(
-        'hr.employee',
-        string="Empleado",
-        help="Operador que opera el centro de produccion"
-    )
