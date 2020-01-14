@@ -33,7 +33,6 @@
     <menuitem id="sale.sale_menu_root"
               name="Sales"
               web_icon="sale,static/description/icon.png"
-              active="False"
               groups="sale_access"
               sequence="7"/>
 
