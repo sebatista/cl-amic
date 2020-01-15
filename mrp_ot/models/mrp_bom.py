@@ -7,16 +7,6 @@ from openerp import models, fields
 class MrpBom(models.Model):
     _inherit = "mrp.bom"
 
-    def print_ot(self):
-        """ Imprimir la OT, se lanza desde un boton
-        """
-        self.ensure_one()
-        data = {'id': self.id}
-
-        #                   `module_name`.`action_report_name'
-        return self.env.ref('mrp_ot.action_ot_cover_report').report_action(
-            self, data=data)
-
     def action_see_attachments(self):
         """ Mostrar y dejar agregar los attach en la bom
         """
@@ -72,6 +62,8 @@ class MrpProduction(models.Model):
         """
         self.ensure_one()
 
+        #import wdb;wdb.set_trace()
+
         data = {
             'bom_id': self.bom_id.id,
             'ot': self.name,
@@ -80,6 +72,28 @@ class MrpProduction(models.Model):
             'product_qty': self.product_qty,
             'product_name': self.product_id.display_name,
         }
+
+        print('--------------------------------------------------------------')
+        print(self.product_id.name, self.product_qty)
+
+        # lista de materiales
+        #self.bom_id
+
+        # ruta
+        #self.routing_id
+        #self.workorder_count
+
+        # ordenes de trabajo
+        #self.workorder_ids.time_ids.date_start
+        #self.workorder_ids.time_ids.date_end
+        # lote final
+        #self.workorder_ids.final_lot_id
+
+        # productos a consumir
+        #self.workorder_ids.move_raw_ids
+
+        # lotes de los productos a consumir.
+        #self.workorder_ids.move_raw_ids.active_move_line_ids.lot_name
 
         # `module_name`.`action_report_name`
         return self.env.ref('mrp_ot.action_ot_cover_report').report_action(
