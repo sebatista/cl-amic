@@ -3,99 +3,113 @@
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 
 <odoo>
-<data>
+    <data>
 
-    <!-- Reporte Caratula de OT -->
-    <template id="ot_cover_report_template">
-        <t t-call="web.html_container">
-            <t t-call="web.external_layout">
-                <div class="page">
-                    <center><h1>Orden de Trabajo <span t-esc="data['ot']"/></h1></center>
-
-                    <p>Producto <span t-esc="data['product_name']"/></p>
-                    <p>Fecha Emision <span t-esc="data['date_create']"/></p>
-                    <p>Fecha Necesidad <span t-esc="data['date_planned_start']"/></p>
-                    <p>Cantidad a fabricar <span t-esc="data['product_qty']"/></p>
-
-                    <table class="table table-condensed">
-                        <thead>
-                            <tr>
-                                <th>Producto</th>
-                                <th>Cantidad unitaria</th>
-<!--                            <th>Std (Pzas/h)</th> -->
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <t t-foreach="docs" t-as="o">
-
-                                <tr style="font-weight: bold;">
-                                    <td>
-                                        <span t-field="o.product_tmpl_id.display_name"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.product_qty"/>
-                                        <span groups="product.group_uom" t-field="o.product_uom_id.name"/>
-                                    </td>
-<!--
-                                    <td>
-                                        <span t-field="o.code"/>
-                                    </td>
--->
-                                </tr>
-                                <tr t-foreach="get_children(o.bom_line_ids)" t-as="l">
-                                    <td style="padding-left: 20px;">
-                                        <span style="color: white;" t-esc="'... '*(l['level'])"/>
-                                        <span t-esc="l['pname']"/>
-                                    </td>
-                                    <td>
-                                        <span t-esc="l['pqty']"/>
-                                        <span t-esc="l['uname']" groups="product.group_uom"/>
-                                    </td>
-                                    <td>
-                                        <span t-esc="l['code']"/>
-                                    </td>
-                                </tr>
-                            </t>
-                        </tbody>
-                    </table>
-
-
-<!--
-                    <p>Codigo <span t-esc="product_id.default_code"/></p>
-                    <p>Nombre <span t-esc="product_id.name"/></p>
-                    <t t-foreach="docs" t-as="o">
-                        <span t-esc="o['campo1']"/>
-                    </t>
-                    -->
-                </div>
-
-                <t t-foreach="attachs" t-as="i">
+        <!-- Reporte Caratula de OT -->
+        <template id="ot_cover_report_template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
                     <div class="page">
-                        <p style="page-break-before:always;"> </p>
-                        <span t-field="i.datas"
-                              t-options="{'widget':'image'}"
-                              class="media-object"/>
+                        <center>
+                            <h1>Orden de Trabajo <span t-esc="data['ot']"/></h1>
+                        </center>
+                        <div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                Producto <span t-esc="data['product_name']"/><br/>
+                                Fecha Emision <span t-esc="data['date_create']"/>
+                            </div>
+                            <div class="col-md-6">
+                                Fecha Necesidad <span t-esc="data['date_planned_start']"/><br/>
+                                Cantidad a fabricar <span t-esc="data['product_qty']"/>
+                            </div>
+                        </div>
+                        </div>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Ubicacion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="docs" t-as="o">
+                                    <tr style="font-weight: bold;">
+                                        <td>
+                                            <span t-field="o.product_tmpl_id.display_name"/>
+                                        </td>
+                                        <td>
+                                            <t t-set="qty" t-value="o.product_qty * data['product_qty']"/>
+                                            <span t-esc="qty"/>
+                                            <span groups="product.group_uom"
+                                                  t-field="o.product_uom_id.name"/>
+                                        </td>
+
+                                        <td>
+                                            <span t-field="o.code"/>
+                                        </td>
+
+                                    </tr>
+
+                                    <tr t-foreach="get_children(o.bom_line_ids)"
+                                        t-as="l">
+                                        <td style="padding-left: 20px;">
+                                            <span style="color: white;"
+                                                  t-esc="'... '*(l['level'])"/>
+                                            <span t-esc="l['pname']"/>
+                                        </td>
+                                        <td>
+                                            <t t-set="qty" t-value="l['pqty'] * data['product_qty']"/>
+
+                                            <span t-esc="qty"/>
+                                            <span t-esc="l['uname']"
+                                                  groups="product.group_uom"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="l['code']"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <!--
+                                            <p>Codigo <span t-esc="product_id.default_code"/></p>
+                                            <p>Nombre <span t-esc="product_id.name"/></p>
+                                            <t t-foreach="docs" t-as="o">
+                                                <span t-esc="o['campo1']"/>
+                                            </t>
+                                            -->
                     </div>
+
+                    <t t-foreach="attachs" t-as="i">
+                        <div class="page">
+                            <p style="page-break-before:always;"></p>
+                            <span t-field="i.datas"
+                                  t-options="{'widget':'image'}"
+                                  class="media-object"/>
+                        </div>
+                    </t>
                 </t>
             </t>
-        </t>
-    </template>
+        </template>
 
-    <!-- Report action-->
-    <report id="action_ot_cover_report"
-        string="Caratula de OT"
-        model="mrp.bom"
-        report_type="qweb-html"
-        name="mrp_ot.ot_cover_report_template"
-        file="mrp_ot.ot_cover_report_template"
-        menu="False"
-    />
+        <!-- Report action-->
+        <report id="action_ot_cover_report"
+                string="Caratula de OT"
+                model="mrp.bom"
+                report_type="qweb-html"
+                name="mrp_ot.ot_cover_report_template"
+                file="mrp_ot.ot_cover_report_template"
+                menu="False"
+        />
 
-    <!--
-    groups="user_group"
-    attachment="object.state == 'done' and 'something.pdf'"
-    multi="False"
-    -->
+        <!--
+        groups="user_group"
+        attachment="object.state == 'done' and 'something.pdf'"
+        multi="False"
+        -->
 
-</data>
+    </data>
 </odoo>
