@@ -75,8 +75,7 @@
     'repos': [
         {'usr': 'jobiols', 'repo': 'cl-amic', 'branch': '11.0'},
         {'usr': 'jobiols', 'repo': 'odoo-addons', 'branch': '11.0'},
-        {'usr': 'jobiols', 'repo': 'jeo-addons', 'branch': '11.0', 'ssh': True,
-         'host': 'bitbucket.org'},
+        {'usr': 'jobiols', 'repo': 'jeo-addons', 'branch': '11.0', 'ssh': True},
 
         {'usr': 'ingadhoc', 'repo': 'odoo-argentina', 'branch': '11.0'},
         {'usr': 'ingadhoc', 'repo': 'argentina-sale', 'branch': '11.0'},
