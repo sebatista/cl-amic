@@ -37,13 +37,23 @@ class MrpWorkorder(models.Model):
         # Need a loss in case of the real time exceeding the expected
         timeline = self.env['mrp.workcenter.productivity']
         if self.duration < self.duration_expected:
-            loss_id = self.env['mrp.workcenter.productivity.loss'].search([('loss_type','=','productive')], limit=1)
+            loss_id = self.env['mrp.workcenter.productivity.loss'].search(
+                [('loss_type', '=', 'productive')], limit=1)
             if not len(loss_id):
-                raise UserError(_("You need to define at least one productivity loss in the category 'Productivity'. Create one from the Manufacturing app, menu: Configuration / Productivity Losses."))
+                raise UserError(
+                    _("You need to define at least one productivity loss in "
+                      "the category 'Productivity'. Create one from the "
+                      "Manufacturing app, menu: Configuration / Productivity "
+                      "Losses."))
         else:
-            loss_id = self.env['mrp.workcenter.productivity.loss'].search([('loss_type','=','performance')], limit=1)
+            loss_id = self.env['mrp.workcenter.productivity.loss'].search(
+                [('loss_type', '=', 'performance')], limit=1)
             if not len(loss_id):
-                raise UserError(_("You need to define at least one productivity loss in the category 'Performance'. Create one from the Manufacturing app, menu: Configuration / Productivity Losses."))
+                raise UserError(
+                    _("You need to define at least one productivity loss in "
+                      "the category 'Performance'. Create one from the "
+                      "Manufacturing app, menu: Configuration / Productivity "
+                      "Losses."))
         for workorder in self:
             if workorder.production_id.state != 'progress':
                 workorder.production_id.write({
@@ -65,8 +75,8 @@ class MrpWorkorder(models.Model):
 #            })
 
         return self.write({'state': 'progress',
-                    'date_start': datetime.now(),
-        })
+                           'date_start': datetime.now(),
+                           })
 
 # no se para que estaba esto
 #        timeline_obj = self.env['mrp.workcenter.productivity']
