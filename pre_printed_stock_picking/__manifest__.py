@@ -18,5 +18,6 @@
     "data": [
         'views/ir_sequence_view.xml',
         'report/invoice_report.xml',
+        'views/voucher_number_view.xml',
     ],
 }

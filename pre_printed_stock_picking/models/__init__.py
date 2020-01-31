@@ -2,3 +2,4 @@
 
 from . import ir_sequence
 from . import stock_picking
+from . import stock_book
