@@ -11,5 +11,7 @@ class StockPicking(models.Model):
     )
 
     def _compute_internal(self):
+        """ cuando es internal en el remito cambia el layout
+        """
         for reg in self:
             reg.internal = reg.location_dest_id.usage == 'internal'
