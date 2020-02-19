@@ -34,8 +34,9 @@ class MrpWorkorder(models.Model):
         if self.state in ('done', 'cancel'):
             return True
 
+"""
         # Need a loss in case of the real time exceeding the expected
-        timeline = self.env['mrp.workcenter.productivity']
+        # timeline = self.env['mrp.workcenter.productivity']
         if self.duration < self.duration_expected:
             loss_id = self.env['mrp.workcenter.productivity.loss'].search(
                 [('loss_type', '=', 'productive')], limit=1)
@@ -83,3 +84,5 @@ class MrpWorkorder(models.Model):
 #        timeline = timeline_obj.search([], limit=1, order='id desc')
 #        timeline.operator_id = self.operator_id
 #        return ret
+
+"""
