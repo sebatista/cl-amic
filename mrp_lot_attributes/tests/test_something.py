@@ -24,17 +24,19 @@ class SomethingCase(TransactionCase):
     def setUp(self, *args, **kwargs):
         super(SomethingCase, self).setUp(*args, **kwargs)
 
-        #import wdb;wdb.set_trace()
+        # import wdb;wdb.set_trace()
 
-        #self.env['ir.config_parameter'].sudo().set_param('stock.group_stock_production_lot', True)
-        #self.env['ir.config_parameter'].sudo().get_param('stock.group_stock_production_lot')
+        # self.env['ir.config_parameter'].sudo().set_param(
+        # 'stock.group_stock_production_lot', True)
+        # self.env['ir.config_parameter'].sudo().get_param(
+        # 'stock.group_stock_production_lot')
 
-        #cr = self.env['res.config.settings']
-        #cr = cr.create({})
-        #cr.default_get()
+        # cr = self.env['res.config.settings']
+        # cr = cr.create({})
+        # cr.default_get()
 
-        #cr.group_stock_production_lot = True
-        #cr.execute()
+        # cr.group_stock_production_lot = True
+        # cr.execute()
 
     def test_01_something(self):
         """TEST 01 docstring appears in test logs.

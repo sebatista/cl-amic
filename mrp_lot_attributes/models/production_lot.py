@@ -6,13 +6,6 @@ from openerp import models, fields
 class ProductionLot(models.Model):
     _inherit = "stock.production.lot"
 
-    # name = fields.Char(
-    #    'Lote/Numero de Ingreso',
-    #    default=lambda self: '%s' % self.env['ir.sequence'].next_by_code(
-    #        'stock.lot.serial'),
-    #    required=True,
-    #    help="Numero unico de ingreso")
-
     colada = fields.Char(
         string='COLADA'
     )

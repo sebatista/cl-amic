@@ -55,10 +55,10 @@ class MrpWorkorder(models.Model):
         # aca le sumo 3 a las horas para pasar a utc a lo bruto.
         ds = '%s %s' % (self.date_start1,
                         '{0:02.0f}:{1:02.0f}'.format(
-                            *divmod((self.time_start +3) * 60, 60)))
+                            *divmod((self.time_start + 3) * 60, 60)))
         de = '%s %s' % (self.date_end,
                         '{0:02.0f}:{1:02.0f}'.format(
-                            *divmod((self.time_end +3) * 60, 60)))
+                            *divmod((self.time_end + 3) * 60, 60)))
 
         if ds >= de:
             raise UserError(_('El fin de la produccion debe ser posterior al '
