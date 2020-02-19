@@ -6,7 +6,7 @@
     "name": "MRP Lot Attributes",
     "summary": "Add attributes to lot",
     "version": "11.0.0.0.0",
-    "development_status": "Alpha",
+    "development_status": "Beta",  # "Alpha|Beta|Production/Stable|Mature"
     "category": "Stock",
     "website": "https://github.com/jobiols/cl-amic",
     "author": "jeo Software",

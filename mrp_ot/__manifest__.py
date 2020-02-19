@@ -4,7 +4,7 @@
     'name': 'MRP OT',
     'summary': 'Gestionar e Imprimir Ordenes de Trabajo',
     'version': '11.0.0.0.0',
-    'development_status': 'Alpha',
+    "development_status": "Beta",  # "Alpha|Beta|Production/Stable|Mature"
     'category': 'Tools',
     'website': 'http://jeosoft.com.ar',
     'author': 'jeo Software',

@@ -3,7 +3,7 @@
     "name": "Remito Pre-impreso Aeroo",
     "summary": "Permite imprimir sobre remitos pre impresos",
     "version": "11.0.0.0.0",
-    "development_status": "Alpha",
+    "development_status": "Beta",  # "Alpha|Beta|Production/Stable|Mature"
     "category": "Stock",
     "website": "https://github.com/jobiols/odoo-addons",
     "author": "jeo Software",

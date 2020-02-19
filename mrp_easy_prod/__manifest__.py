@@ -5,7 +5,7 @@
     "summary": "Presenta un wizard para usar con una tablet al pie de cada "
                "centro de produccion",
     "version": "11.0.0.0.0",
-    "development_status": "Beta",
+    "development_status": "Beta",  # "Alpha|Beta|Production/Stable|Mature"
     "category": "Manufacture",
     "website": "http://jeosoft.com.ar",
     "author": "jeo Software",
