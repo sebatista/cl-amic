@@ -1,6 +1,6 @@
 # For copyright and license notices, see __manifest__.py file in module root
 
-from odoo import fields, models
+from odoo import fields, models, _
 from datetime import datetime
 from odoo.exceptions import UserError
 
@@ -82,5 +82,4 @@ class MrpWorkorder(models.Model):
 #        timeline_obj = self.env['mrp.workcenter.productivity']
 #        timeline = timeline_obj.search([], limit=1, order='id desc')
 #        timeline.operator_id = self.operator_id
-
-        return ret
+#        return ret

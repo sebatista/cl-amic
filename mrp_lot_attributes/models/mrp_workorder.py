@@ -2,7 +2,6 @@
 
 from odoo import models, _
 from odoo.exceptions import UserError
-import datetime
 
 
 class MrpWorkorder(models.Model):
