@@ -1,35 +1,28 @@
 # For copyright and license notices, see __manifest__.py file in module root
 
-from odoo import models, _
+from odoo import fields, models, _
 from odoo.exceptions import UserError
+import datetime as dt
 
 
 class MrpWorkorder(models.Model):
     _inherit = 'mrp.workorder'
 
+    worked_lot = fields.Many2one(
+        'stock.production.lot', 'Lote',
+        help="lote que se trabajo en esta workorder, para poder buscar por OT"
+    )
+
     def record_production(self):
-        """ Crear un registro en mrp.workcenter.productivity y
-            Propagar los atributos al siguiente lote.
+        """ Crear un registro en mrp.workcenter.productivity
         """
-
-        def propagate_attr(source, dest):
-            """ Mover el atributo de un lote a otro teniendo en cuenta que si
-                ya existe no lo tengo que copiar.
-            """
-            if not dest:
-                return source
-
-            if dest.find(source) == -1:
-                return dest + ', ' + source
-            else:
-                return dest
 
         if self.qty_producing <= 0:
             raise UserError(_('Please set the quantity you are currently '
                               'producing. It should be different from zero.'))
 
         if ((self.production_id.product_id.tracking != 'none') and
-                not self.final_lot_id and self.move_raw_ids):
+                not self.final_lot_id):
             raise UserError(_('You should provide a lot/serial number for '
                               'the final product'))
 
@@ -47,17 +40,21 @@ class MrpWorkorder(models.Model):
 
         for move_line in self.active_move_line_ids:
             if (move_line.product_id.tracking != 'none'
-                and not move_line.lot_id):
+                    and not move_line.lot_id):
                 raise UserError(_('You should provide a lot/serial number '
                                   'for a component'))
 
+        # copio el lote de salida porque por alguna razon odoo luego lo borra
+        self.worked_lot = self.final_lot_id
+
         # aca le sumo 3 a las horas para pasar a utc a lo bruto.
-        ds = '%s %s' % (self.date_start1,
-                        '{0:02.0f}:{1:02.0f}'.format(
-                            *divmod((self.time_start + 3) * 60, 60)))
-        de = '%s %s' % (self.date_end,
-                        '{0:02.0f}:{1:02.0f}'.format(
-                            *divmod((self.time_end + 3) * 60, 60)))
+        hr = dt.timedelta(hours=self.time_start)
+        dy = dt.datetime.strptime(self.date_start1, '%Y-%m-%d')
+        ds = (hr+dy+dt.timedelta(hours=3)).strftime('%Y-%m-%d %H:%M')
+
+        hr = dt.timedelta(hours=self.time_end)
+        dy = dt.datetime.strptime(self.date_end, '%Y-%m-%d')
+        de = (hr+dy+dt.timedelta(hours=3)).strftime('%Y-%m-%d %H:%M')
 
         if ds >= de:
             raise UserError(_('El fin de la produccion debe ser posterior al '
@@ -78,21 +75,43 @@ class MrpWorkorder(models.Model):
             'workorder_id': self.id
         })
 
-        self.date_start1 = False
-        self.time_start = False
-        self.date_end = False
-        self.time_end = False
+        super(MrpWorkorder, self).record_production()
+
+    def button_start(self):
+        """ Al arrancar la produccion hacemos el movimiento de los datos de
+            lotes y ademas si es el primer lote de una ot le ponemos la OT
+        """
+
+        for move_line in self.active_move_line_ids:
+            if (move_line.product_id.tracking != 'none'
+                    and not move_line.lot_id):
+                raise UserError(_('You should provide a lot/serial number '
+                                  'for a component'))
+
+        if ((self.production_id.product_id.tracking != 'none') and
+                not self.final_lot_id and self.move_raw_ids):
+            raise UserError(_('You should provide a lot/serial number for '
+                              'the final product'))
+
+        # ver si hay que ponerle la ot al lote, esto pasa solo si el producto
+        # esta habilitado para ot
+        if self.product_id and self.product_id.enable_ot:
+            # genero la ot con el id de la MO
+            ot = 'OT/%s' % self.production_id.id
+
+            # si el lote tiene una ot y si es distinta aviso.
+            if self.final_lot_id.ot and self.final_lot_id.ot != ot:
+                raise UserError(_('El lote destino pertenece a la OT %s lo '
+                                  'cual no parece '
+                                  'correcto') % self.final_lot_id.ot)
+
+            # le pongo la ot al lote final
+            self.final_lot_id.ot = ot
 
         # mover atributos
         for move_line in self.active_move_line_ids:
+            # si el producto tiene trazabilidad propagar atributos
             if move_line.product_id.tracking != 'none':
-                self.final_lot_id.colada = propagate_attr(
-                    move_line.lot_id.colada, self.final_lot_id.colada)
-                self.final_lot_id.tt = propagate_attr(
-                    move_line.lot_id.tt, self.final_lot_id.tt)
-                self.final_lot_id.paquete = propagate_attr(
-                    move_line.lot_id.paquete, self.final_lot_id.paquete)
-                self.final_lot_id.ot = propagate_attr(
-                    move_line.lot_id.ot, self.final_lot_id.ot)
+                self.final_lot_id.propagate_from(move_line.lot_id)
 
-        super(MrpWorkorder, self).record_production()
+        super().button_start()

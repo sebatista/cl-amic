@@ -7,18 +7,17 @@
             <field name="name">LOT ATTRIBUTES add attributes</field>
             <field name="model">stock.production.lot</field>
             <field name="priority">1</field>
-            <field name="inherit_id"
-                   ref="stock.view_production_lot_form_simple"/>
+            <field name="inherit_id" ref="stock.view_production_lot_form_simple"/>
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='main_group']" position="after">
                     <group name="attributes" col="2" string="Atributos">
                         <group col="2">
-                            <field name="colada"/>
+                            <field name="ot" context="{'default_ot': 'xml_id'}"/>
                             <field name="tt"/>
+                            <field name="colada"/>
                             <field name="paquete"/>
                         </group>
                         <group col="2">
-                            <field name="ot"/>
                             <field name="remito_proveedor"/>
                             <field name="fecha_remito"/>
                             <field name="aceria"/>
@@ -37,12 +36,12 @@
                 <xpath expr="//group[@name='main_group']" position="after">
                     <group name="attributes" col="2" string="Atributos">
                         <group col="2">
-                            <field name="colada"/>
+                            <field name="ot"/>
                             <field name="tt"/>
                             <field name="paquete"/>
+                            <field name="colada"/>
                         </group>
                         <group col="2">
-                            <field name="ot"/>
                             <field name="remito_proveedor"/>
                             <field name="fecha_remito"/>
                             <field name="aceria"/>

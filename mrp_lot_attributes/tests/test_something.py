@@ -24,8 +24,6 @@ class SomethingCase(TransactionCase):
     def setUp(self, *args, **kwargs):
         super(SomethingCase, self).setUp(*args, **kwargs)
 
-        # import wdb;wdb.set_trace()
-
         # self.env['ir.config_parameter'].sudo().set_param(
         # 'stock.group_stock_production_lot', True)
         # self.env['ir.config_parameter'].sudo().get_param(

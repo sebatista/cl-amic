@@ -1,7 +1,7 @@
 # Copyright 2019 jeo Software
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from openerp import models, fields
+from openerp import models, fields, api
 
 
 class MrpBom(models.Model):
@@ -57,12 +57,26 @@ class MrpProduction(models.Model):
         help='campo tecnico para habilitar el boton de imprimir la ot'
     )
 
+    ot = fields.Char(
+        compute='compute_ot',
+        readonly=True,
+        store=True,
+        string='Orden de Trabajo'
+    )
+
+    @api.depends('workorder_ids')
+    def compute_ot(self):
+        for rec in self:
+            for wo in rec.workorder_ids:
+                if wo.ot:
+                    rec.ot = wo.ot
+                    return
+        rec.ot = False
+
     def print_ot(self):
         """ Imprimir la OT, se lanza desde un boton.
         """
         self.ensure_one()
-
-        # import wdb;wdb.set_trace()
 
         data = {
             'bom_id': self.bom_id.id,

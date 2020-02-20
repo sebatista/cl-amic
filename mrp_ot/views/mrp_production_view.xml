@@ -15,4 +15,17 @@
             </xpath>
         </field>
     </record>
+
+    <!-- Agregar la ot en la lista de MO-->
+    <record id="mrp_production_tree_view" model="ir.ui.view">
+        <field name="name">MRP LOT agregar ot</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="ot"/>
+            </xpath>
+        </field>
+    </record>
+
 </odoo>
