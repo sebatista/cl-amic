@@ -1,8 +1,6 @@
 # For copyright and license notices, see __manifest__.py file in module root
 
-from odoo import fields, models, _
-from datetime import datetime
-from odoo.exceptions import UserError
+from odoo import fields, models
 
 
 class MrpWorkcenterProductivity(models.Model):
@@ -33,6 +31,7 @@ class MrpWorkorder(models.Model):
         # As button_start is automatically called in the new view
         if self.state in ('done', 'cancel'):
             return True
+
 
 """
         # Need a loss in case of the real time exceeding the expected
