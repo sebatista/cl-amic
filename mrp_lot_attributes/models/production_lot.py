@@ -28,3 +28,33 @@ class ProductionLot(models.Model):
     aceria = fields.Char(
 
     )
+
+    def propagate_from(self, parent_lot):
+        """ Mover el atributo de un lote a otro teniendo en cuenta que si
+            ya existe no lo tengo que copiar.
+        """
+        def propagate_attr(source, dest):
+
+            if not dest and not source:
+                return False
+
+            if not dest and source:
+                return source
+
+            if dest and not source:
+                return dest
+
+            if dest.find(source) == -1:
+                return dest + ', ' + source
+            else:
+                return dest
+
+        self.ot = propagate_attr(parent_lot.ot, self.ot)
+        self.tt = propagate_attr(parent_lot.tt, self.tt)
+        self.colada = propagate_attr(parent_lot.colada, self.colada)
+        self.paquete = propagate_attr(parent_lot.paquete, self.paquete)
+        self.remito_proveedor = propagate_attr(parent_lot.remito_proveedor,
+                                               self.remito_proveedor)
+        self.fecha_remito = propagate_attr(parent_lot.fecha_remito,
+                                           self.fecha_remito)
+        self.aceria = propagate_attr(parent_lot.aceria, self.aceria)

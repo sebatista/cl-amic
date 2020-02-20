@@ -4,8 +4,7 @@
             model="ir.ui.view">
         <field name="name">MRP_OT agregar cantidad y operador en workcenter</field>
         <field name="model">mrp.workorder</field>
-        <field name="inherit_id"
-               ref="mrp.mrp_production_workcenter_form_view_inherit"/>
+        <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
         <field name="arch" type="xml">
             <xpath expr="//tree/field[@name='user_id']" position="after">
                 <field name="qty"/>
@@ -36,4 +35,22 @@
             </field>
         </field>
     </record>
+
+    <record id="mrp_production_workcenter_tree_view_inherit" model="ir.ui.view">
+        <field name="name">MRP_OT agregar ot</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workcenter_tree_view_inherit"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="string">Operacion</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="ot"/>
+            </xpath>
+
+        </field>
+    </record>
+
 </odoo>

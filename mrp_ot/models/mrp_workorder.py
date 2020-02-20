@@ -1,6 +1,6 @@
 # For copyright and license notices, see __manifest__.py file in module root
 
-from odoo import fields, models
+from odoo import fields, models, api
 
 
 class MrpWorkOrder(models.Model):
@@ -21,3 +21,13 @@ class MrpWorkOrder(models.Model):
         help="Hora de finalizacion de la produccion",
         string="Hora final"
     )
+    ot = fields.Char(
+        compute='compute_ot',
+        readonly=True,
+        string='Orden de Trabajo'
+    )
+
+    @api.depends('worked_lot')
+    def compute_ot(self):
+        for rec in self:
+            rec.ot = rec.worked_lot.ot if rec.worked_lot else False
