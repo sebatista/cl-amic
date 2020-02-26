@@ -1,7 +1,8 @@
 # Copyright 2019 jeo Software
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from openerp import models, fields, api
+from odoo import models, fields, api
+from odoo.exceptions import UserError
 
 
 class MrpBom(models.Model):
@@ -58,20 +59,29 @@ class MrpProduction(models.Model):
     )
 
     ot = fields.Char(
-        compute='compute_ot',
-        readonly=True,
-        store=True,
-        string='Orden de Trabajo'
+        string='OT Amic'
     )
 
-    @api.depends('workorder_ids')
-    def compute_ot(self):
-        for rec in self:
-            for wo in rec.workorder_ids:
-                if wo.ot:
-                    rec.ot = wo.ot
-                    return
-        rec.ot = False
+    def clean_ot_amic(self):
+        """ limpiar la ot
+        """
+        return self.write({'ot': ''})
+
+    def assign_ot_amic(self):
+        """ Al marcar ordenes de produccion y darle al accion / Asignar OT Amic
+            se trae una nueva secuencia y se marcan todas las ot con ella.
+        """
+        for order in self:
+            if order.ot:
+                raise UserError('La orden de trabajo %s ya tiene una OT '
+                                  'asignada' % order.name)
+            if order.state == 'done':
+                raise UserError('La orden de trabajo %s esta terminada, no se '
+                                'le puede asignar otra OT' % order.name)
+
+
+        seq = self.env['ir.sequence'].search([('code', '=', 'ot.amic')])
+        return self.write({'ot': seq.next_by_id()})
 
     def print_ot(self):
         """ Imprimir la OT, se lanza desde un boton.

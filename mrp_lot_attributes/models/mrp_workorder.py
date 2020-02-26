@@ -81,6 +81,10 @@ class MrpWorkorder(models.Model):
         """ Al arrancar la produccion hacemos el movimiento de los datos de
             lotes y ademas si es el primer lote de una ot le ponemos la OT
         """
+        self.ensure_one()
+        if not self.ot:
+            raise UserError(_('La Orden de trabajo no tiene OT no se puede'
+                              'continuar.'))
 
         for move_line in self.active_move_line_ids:
             if (move_line.product_id.tracking != 'none'
@@ -96,17 +100,14 @@ class MrpWorkorder(models.Model):
         # ver si hay que ponerle la ot al lote, esto pasa solo si el producto
         # esta habilitado para ot
         if self.product_id and self.product_id.enable_ot:
-            # genero la ot con el id de la MO
-            ot = 'OT/%s' % self.production_id.id
-
             # si el lote tiene una ot y si es distinta aviso.
-            if self.final_lot_id.ot and self.final_lot_id.ot != ot:
+            if self.final_lot_id.ot and self.final_lot_id.ot != self.ot:
                 raise UserError(_('El lote destino pertenece a la OT %s lo '
                                   'cual no parece '
                                   'correcto') % self.final_lot_id.ot)
 
             # le pongo la ot al lote final
-            self.final_lot_id.ot = ot
+            self.final_lot_id.ot = self.ot
 
         # mover atributos
         for move_line in self.active_move_line_ids:

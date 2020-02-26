@@ -22,12 +22,7 @@ class MrpWorkOrder(models.Model):
         string="Hora final"
     )
     ot = fields.Char(
-        compute='compute_ot',
+        related='production_id.ot',
         readonly=True,
         string='Orden de Trabajo'
     )
-
-    @api.depends('worked_lot')
-    def compute_ot(self):
-        for rec in self:
-            rec.ot = rec.worked_lot.ot if rec.worked_lot else False

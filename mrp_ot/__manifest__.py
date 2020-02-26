@@ -19,12 +19,14 @@
         'web_widget_timepicker'
     ],
     'data': [
+        'data/ot_sequence_data.xml',
         'security/ir.model.access.csv',
         'report/ot_cover_report.xml',
         'views/product_view.xml',
         'views/bom_view.xml',
         'views/mrp_production_view.xml',
-        'views/ot_production_workcenter_view.xml'
+        'views/ot_production_workcenter_view.xml',
+        'views/ot_amic.xml'
     ],
     'external_dependencies': {
         'python': [

@@ -30,20 +30,25 @@ class ProductionLot(models.Model):
     )
 
     def propagate_from(self, parent_lot):
-        """ Mover el atributo de un lote a otro teniendo en cuenta que si
+        """ Mover los atributos de un lote a otro teniendo en cuenta que si
             ya existe no lo tengo que copiar.
         """
         def propagate_attr(source, dest):
 
+            # no hay nada, escribo False en el atributo
             if not dest and not source:
                 return False
 
+            # hay algo en el lote origen y nada en el destino escribo origen
             if not dest and source:
                 return source
 
+            # hay algo en el lote destino y nada en el origen, no lo toco
             if dest and not source:
                 return dest
 
+            # hay cosas en los dos lotes, si en el atributo destino no esta el
+            # atributo origen, si esta no toco el destino.
             if dest.find(source) == -1:
                 return dest + ', ' + source
             else:
