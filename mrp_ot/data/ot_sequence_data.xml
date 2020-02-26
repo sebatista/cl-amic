@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Creamos la secuencia para las OT Amic  -->
+        <record id="ot_amic_sequence" model="ir.sequence">
+            <field name="name">OT Amic</field>
+            <field name="implementation">no_gap</field>
+            <field name="code">ot.amic</field>
+            <field name="prefix">OT/</field>
+            <field name="padding">4</field>
+        </record>
+    </data>
+</odoo>

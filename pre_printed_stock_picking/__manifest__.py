@@ -1,6 +1,6 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
-    "name": "Remito Pre-impreso Aeroo",
+    "name": "Remito Pre-impreso Aeroo para AMIC",
     "summary": "Permite imprimir sobre remitos pre impresos",
     "version": "11.0.0.0.0",
     "development_status": "Beta",  # "Alpha|Beta|Production/Stable|Mature"
