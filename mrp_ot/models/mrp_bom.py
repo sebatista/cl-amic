@@ -98,8 +98,6 @@ class MrpProduction(models.Model):
         # todas las ordenes de trabajo
         mos = self.env['mrp.production'].search([('ot', '=', self.ot)],
                                                 order='create_date desc')
-        #import wdb; wdb.set_trace()
-
         lines = []
         for mo in mos:
             # MO y producto
@@ -109,12 +107,12 @@ class MrpProduction(models.Model):
             for wo in mo.workorder_ids:
                 lines.append('-%s-' % wo.name)
                 for al in wo.active_move_line_ids:
-                    lines.append('----materia prima -> %s Lote -> %s %s' % (al.product_id.name, al.lot_id.name if al.lot_id else '', al.lot_id.attributes if al.lot_id else ''))
+                    lines.append('----materia prima -> %s Lote -> %s %s' % (al.product_id.name, al.lot_id.name if al.lot_id else '', al.lot_id.attributes if al.lot_id else '')) # noqa
                 if wo.worked_lot:
-                    lines.append('----lote de salida: %s %s' % (wo.worked_lot.name if wo.worked_lot else '', wo.worked_lot.attributes if wo.worked_lot else ''))
+                    lines.append('----lote de salida: %s %s' % (wo.worked_lot.name if wo.worked_lot else '', wo.worked_lot.attributes if wo.worked_lot else '')) # noqa
                 for tl in wo.time_ids:
                     if tl.operator_id:
-                        lines.append('----%s - %s / %s / %s / %s' % (tl.date_start,tl.date_end,tl.workcenter_id.name,tl.operator_id.name,tl.loss_id.name))
+                        lines.append('----%s - %s / %s / %s / %s' % (tl.date_start,tl.date_end,tl.workcenter_id.name,tl.operator_id.name,tl.loss_id.name)) # noqa
 
 #            for sm in self.env['stock.move'].search([('ot', '=', self.ot)]):
 #                lines.append(sm.name)
