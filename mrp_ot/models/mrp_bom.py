@@ -74,11 +74,10 @@ class MrpProduction(models.Model):
         for order in self:
             if order.ot:
                 raise UserError('La orden de trabajo %s ya tiene una OT '
-                                  'asignada' % order.name)
+                                'asignada' % order.name)
             if order.state == 'done':
                 raise UserError('La orden de trabajo %s esta terminada, no se '
                                 'le puede asignar otra OT' % order.name)
-
 
         seq = self.env['ir.sequence'].search([('code', '=', 'ot.amic')])
         return self.write({'ot': seq.next_by_id()})
@@ -90,12 +89,40 @@ class MrpProduction(models.Model):
 
         data = {
             'bom_id': self.bom_id.id,
-            'ot': self.name,
+            'ot': self.ot,
             'date_create': fields.Date.today(),
             'date_planned_start': self.date_planned_start,
             'product_qty': self.product_qty,
             'product_name': self.product_id.display_name,
         }
+        # todas las ordenes de trabajo
+        mos = self.env['mrp.production'].search([('ot', '=', self.ot)],
+                                                order='create_date desc')
+        #import wdb; wdb.set_trace()
+
+        lines = []
+        for mo in mos:
+            # MO y producto
+            lines.append('>> %s // %s <<' % (mo.name, mo.product_id.name))
+            lines.append('-')
+
+            for wo in mo.workorder_ids:
+                lines.append('-%s-' % wo.name)
+                for al in wo.active_move_line_ids:
+                    lines.append('----materia prima -> %s Lote -> %s %s' % (al.product_id.name, al.lot_id.name if al.lot_id else '', al.lot_id.attributes if al.lot_id else ''))
+                if wo.worked_lot:
+                    lines.append('----lote de salida: %s %s' % (wo.worked_lot.name if wo.worked_lot else '', wo.worked_lot.attributes if wo.worked_lot else ''))
+                for tl in wo.time_ids:
+                    if tl.operator_id:
+                        lines.append('----%s - %s / %s / %s / %s' % (tl.date_start,tl.date_end,tl.workcenter_id.name,tl.operator_id.name,tl.loss_id.name))
+
+#            for sm in self.env['stock.move'].search([('ot', '=', self.ot)]):
+#                lines.append(sm.name)
+#                for ml in sp.move_lines:
+#                    lines.append(ml.product_id.name,ml.name)
+
+
+        data['lines'] = lines
 
         # lista de materiales
         # self.bom_id

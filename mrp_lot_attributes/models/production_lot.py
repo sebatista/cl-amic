@@ -28,6 +28,30 @@ class ProductionLot(models.Model):
     aceria = fields.Char(
 
     )
+    attributes = fields.Char(
+        compute="_compute_attributes",
+        readonly=True
+    )
+
+    def _compute_attributes(self):
+        for rec in self:
+            ret = []
+            if rec.ot:
+                ret.append(rec.ot)
+            if rec.aceria:
+                ret.append('Aceria=%s' % rec.aceria)
+            if rec.colada:
+                ret.append('Colada=%s'% rec.colada)
+            if rec.paquete:
+                ret.append('Paquete=%s' % rec.paquete)
+            if rec.tt:
+                ret.append('TT=%s' % rec.tt)
+            if rec.remito_proveedor:
+                ret.append('Remito %s' % rec.remito_proveedor)
+            if rec.fecha_remito:
+                ret.append('Fecha Remito %s' % rec.fecha_remito)
+
+            rec.attributes = '('+','.join(ret)+')'
 
     def propagate_from(self, parent_lot):
         """ Mover los atributos de un lote a otro teniendo en cuenta que si
