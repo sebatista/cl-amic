@@ -25,6 +25,7 @@
                             </div>
                         </div>
                         </div>
+
                         <table class="table table-condensed">
                             <thead>
                                 <tr>
@@ -73,6 +74,12 @@
                                 </t>
                             </tbody>
                         </table>
+                        <h3>Datos de produccion (Beta)</h3>
+                        <t t-foreach="data['lines']" t-as="line">
+                        <div>
+                            <span t-esc="line"/>
+                        </div>
+                        </t>
 
                         <!--
                                             <p>Codigo <span t-esc="product_id.default_code"/></p>
@@ -85,10 +92,11 @@
 
                     <t t-foreach="attachs" t-as="i">
                         <div class="page">
-                            <p style="page-break-before:always;"></p>
-                            <span t-field="i.datas"
-                                  t-options="{'widget':'image'}"
-                                  class="media-object"/>
+
+                    <p style="page-break-before:always;"></p>
+                    <span t-field="i.datas"
+                          t-options="{'widget':'image'}"
+                          class="media-object"/>
                         </div>
                     </t>
                 </t>
