@@ -13,14 +13,17 @@ class MrpWorkorder(models.Model):
         help="lote que se trabajo en esta workorder, para poder buscar por OT"
     )
 
-    def record_production(self):
-        """ Crear un registro en mrp.workcenter.productivity
-        """
-
+    def validate_producing(self):
+        self.ensure_one()
         if self.qty_producing <= 0:
             raise UserError(_('Please set the quantity you are currently '
                               'producing. It should be different from zero.'))
 
+        if self.qty_producing + self.qty_produced > self.qty_production:
+            raise UserError(_('No se permite producir mas que la cantidad '
+                                'planificada en la OT'))
+
+    def validate_lots(self):
         if ((self.production_id.product_id.tracking != 'none') and
                 not self.final_lot_id):
             raise UserError(_('You should provide a lot/serial number for '
@@ -30,19 +33,21 @@ class MrpWorkorder(models.Model):
             raise UserError(_('Por favor indique fecha y hora de comienzo de '
                               'la produccion.'))
 
+    def record_production(self):
+        """ Crear un registro en mrp.workcenter.productivity
+        """
+
+        self.validate_producing()
+        self.validate_lots()
+
+        if not self.date_start1 or not self.time_start:
+            raise UserError(_('Por favor indique fecha y hora de comienzo de '
+                              'la produccion.'))
+
         if not self.date_end or not self.time_end:
             raise UserError(_('Por favor indique fecha y hora de finalizacion '
                               'de la produccion.'))
 
-        if not self.operator_id:
-            raise UserError(_('Por favor indique que operador realizo esta '
-                              'produccion.'))
-
-        for move_line in self.active_move_line_ids:
-            if (move_line.product_id.tracking != 'none'
-                    and not move_line.lot_id):
-                raise UserError(_('You should provide a lot/serial number '
-                                  'for a component'))
 
         # copio el lote de salida porque por alguna razon odoo luego lo borra
         self.worked_lot = self.final_lot_id
@@ -86,16 +91,8 @@ class MrpWorkorder(models.Model):
             raise UserError(_('La Orden de trabajo no tiene OT no se puede'
                               'continuar.'))
 
-        for move_line in self.active_move_line_ids:
-            if (move_line.product_id.tracking != 'none'
-                    and not move_line.lot_id):
-                raise UserError(_('You should provide a lot/serial number '
-                                  'for a component'))
-
-        if ((self.production_id.product_id.tracking != 'none') and
-                not self.final_lot_id and self.move_raw_ids):
-            raise UserError(_('You should provide a lot/serial number for '
-                              'the final product'))
+        self.validate_producing()
+        self.validate_lots()
 
         # ver si hay que ponerle la ot al lote, esto pasa solo si el producto
         # esta habilitado para ot
