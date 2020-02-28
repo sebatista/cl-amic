@@ -14,17 +14,21 @@
                 <label for="date_start1" string="Inicio"/>
                 <div>
                     <field name="date_start1" class="oe_inline"/> -
-                    <field name="time_start" widget="timepicker" options="{'datepicker': {'stepping': 10}}"
+                    <field name="time_start"
+                           widget="timepicker"
+                           options="{'datepicker': {'stepping': 10}}"
                            class="oe_inline"/>
                 </div>
 
                 <label for="date_end" string="Fin"/>
                 <div>
                     <field name="date_end" class="oe_inline"/> -
-                    <field name="time_end" widget="timepicker" options="{'datepicker': {'stepping': 10}}"
+                    <field name="time_end"
+                           widget="timepicker"
+                           options="{'datepicker': {'stepping': 10}}"
                            class="oe_inline"/>
                 </div>
-                <field name="operator_id"/>
+                <field name="operator_id" attrs="{'required': True}"/>
             </xpath>
 
             <field name="user_id" position="attributes">
