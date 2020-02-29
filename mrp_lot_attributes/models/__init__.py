@@ -3,3 +3,4 @@
 from . import production_lot
 from . import mrp_workorder
 from . import mrp_workcenter_productivity
+from . import stock_move_line

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- modificar vista de materias primas -->
+    <record id="mrp_production_workcenter_form_view_inherit" model="ir.ui.view">
+        <field name="name">MRP LOT ATTRIBUTES mejorar vista de materias primas</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree[@editable='bottom']" position="attributes">
+                <attribute name="decoration-danger">product_lot_qty&lt;=accum_qty</attribute>
+                <attribute name="decoration-bf">product_lot_qty&lt;=accum_qty</attribute>
+            </xpath>
+            <xpath expr="//field[@name='qty_done']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='product_uom_id']" position="attributes">
+                <attribute name="invisible">0</attribute>
+                <attribute name="string">Um</attribute>
+            </xpath>
+            <xpath expr="//field[@name='location_id']" position="attributes">
+                <attribute name="invisible">0</attribute>
+            </xpath>
+            <xpath expr="//field[@name='lot_id']" position="after">
+                <field name="product_lot_qty"/>
+                <field name="accum_qty" string="Total"/>
+                <field name="qty_done" string="Parcial"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

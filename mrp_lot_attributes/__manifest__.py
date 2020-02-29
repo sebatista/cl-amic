@@ -21,6 +21,7 @@
     ],
     "data": [
         "views/production_lot_views.xml",
+        "views/mrp_workorder_view.xml"
     ],
     "demo": [
         "demo/mrp_demo.xml",
