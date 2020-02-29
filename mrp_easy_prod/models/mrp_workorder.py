@@ -26,8 +26,3 @@ class MrpWorkorder(models.Model):
         """
         # volvemos al original porque no anduvo
         return super(MrpWorkorder, self).button_start()
-
-        self.ensure_one()
-        # As button_start is automatically called in the new view
-        if self.state in ('done', 'cancel'):
-            return True

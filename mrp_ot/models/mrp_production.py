@@ -1,6 +1,6 @@
 # For copyright and license notices, see __manifest__.py file in module root
 
-from odoo import models, fields
+from odoo import models, fields, _
 from odoo.exceptions import UserError
 
 
@@ -27,11 +27,11 @@ class MrpProduction(models.Model):
         """
         for order in self:
             if order.ot:
-                raise UserError('La orden de trabajo %s ya tiene una OT '
-                                'asignada' % order.name)
+                raise UserError(_('La orden de trabajo %s ya tiene una OT '
+                                'asignada' % order.name))
             if order.state == 'done':
-                raise UserError('La orden de trabajo %s esta terminada, no se '
-                                'le puede asignar otra OT' % order.name)
+                raise UserError(_('La orden de trabajo %s esta terminada, no '
+                                  'se le puede asignar otra OT' % order.name))
 
         seq = self.env['ir.sequence'].search([('code', '=', 'ot.amic')])
         return self.write({'ot': seq.next_by_id()})

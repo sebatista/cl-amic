@@ -126,11 +126,11 @@ class MrpWorkorder(models.Model):
         self.ensure_one()
         for mp in self.active_move_line_ids:
             if mp.product_lot_qty < mp.accum_qty:
-                raise UserError('No te alcanza!!\n'
+                raise UserError(_('No te alcanza!!\n'
                                 'Intentas consumir %s del lote %s que solo '
                                 'tiene %s' % (mp.accum_qty,
                                               mp.lot_id.name,
-                                              mp.product_lot_qty))
+                                              mp.product_lot_qty)))
 
     def button_start(self):
         """ Al arrancar la produccion hacemos el movimiento de los datos de
