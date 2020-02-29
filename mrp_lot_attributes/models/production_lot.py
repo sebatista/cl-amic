@@ -41,7 +41,7 @@ class ProductionLot(models.Model):
             if rec.aceria:
                 ret.append('Aceria=%s' % rec.aceria)
             if rec.colada:
-                ret.append('Colada=%s'% rec.colada)
+                ret.append('Colada=%s' % rec.colada)
             if rec.paquete:
                 ret.append('Paquete=%s' % rec.paquete)
             if rec.tt:
@@ -51,12 +51,13 @@ class ProductionLot(models.Model):
             if rec.fecha_remito:
                 ret.append('Fecha Remito %s' % rec.fecha_remito)
 
-            rec.attributes = '('+','.join(ret)+')'
+            rec.attributes = '(' + ','.join(ret) + ')'
 
     def propagate_from(self, parent_lot):
         """ Mover los atributos de un lote a otro teniendo en cuenta que si
             ya existe no lo tengo que copiar.
         """
+
         def propagate_attr(source, dest):
 
             # no hay nada, escribo False en el atributo

@@ -3,7 +3,7 @@
 from odoo import fields, models, api, _
 from odoo.exceptions import UserError
 import datetime as dt
-from odoo.tools import float_compare, float_round
+from odoo.tools import float_round
 
 
 class MrpWorkorder(models.Model):
@@ -51,7 +51,7 @@ class MrpWorkorder(models.Model):
 
         if self.qty_producing + self.qty_produced > self.qty_production:
             raise UserError(_('No se permite producir mas que la cantidad '
-                                'planificada en la OT'))
+                              'planificada en la OT'))
 
     def validate_lots(self):
         if ((self.production_id.product_id.tracking != 'none') and
@@ -79,18 +79,17 @@ class MrpWorkorder(models.Model):
             raise UserError(_('Por favor indique fecha y hora de finalizacion '
                               'de la produccion.'))
 
-
         # copio el lote de salida porque por alguna razon odoo luego lo borra
         self.worked_lot = self.final_lot_id
 
         # aca le sumo 3 a las horas para pasar a utc a lo bruto.
         hr = dt.timedelta(hours=self.time_start)
         dy = dt.datetime.strptime(self.date_start1, '%Y-%m-%d')
-        ds = (hr+dy+dt.timedelta(hours=3)).strftime('%Y-%m-%d %H:%M')
+        ds = (hr + dy + dt.timedelta(hours=3)).strftime('%Y-%m-%d %H:%M')
 
         hr = dt.timedelta(hours=self.time_end)
         dy = dt.datetime.strptime(self.date_end, '%Y-%m-%d')
-        de = (hr+dy+dt.timedelta(hours=3)).strftime('%Y-%m-%d %H:%M')
+        de = (hr + dy + dt.timedelta(hours=3)).strftime('%Y-%m-%d %H:%M')
 
         if ds >= de:
             raise UserError(_('El fin de la produccion debe ser posterior al '
@@ -154,7 +153,7 @@ class MrpWorkorder(models.Model):
                                   'El lote destino pertenece a la %s lo '
                                   'cual no parece correcto ya que estamos '
                                   'trabajando la %s.'
-                                  ' ') % (self.final_lot_id.ot,self.ot))
+                                  ' ') % (self.final_lot_id.ot, self.ot))
 
             # le pongo la ot al lote final
             self.final_lot_id.ot = self.ot

@@ -1,6 +1,6 @@
 # For copyright and license notices, see __manifest__.py file in module root
 
-from odoo import models, fields, api
+from odoo import models, fields
 from odoo.exceptions import UserError
 
 
