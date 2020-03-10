@@ -13,11 +13,13 @@ class MrpWorkOrder(models.Model):
     )
     time_start = fields.Float(
         help="Hora de inicio de la produccion",
-        string="Hora inicial"
+        string="Hora inicial",
+        default=8
     )
     date_end = fields.Date(
         help="Fecha de finalizacion de la produccion",
-        string="Fecha final"
+        string="Fecha final",
+        default=17
     )
     time_end = fields.Float(
         help="Hora de finalizacion de la produccion",
@@ -60,15 +62,16 @@ class MrpWorkOrder(models.Model):
         """
         pz = self.qty_producing
 
-        start = datetime.strptime(self.date_start1, '%Y-%m-%d')
-        start += timedelta(hours=self.time_start)
+        if self.date_start1 and self.date_end:
+            start = datetime.strptime(self.date_start1, '%Y-%m-%d')
+            start += timedelta(hours=self.time_start)
 
-        end = datetime.strptime(self.date_end, '%Y-%m-%d')
-        end += timedelta(hours=self.time_end)
+            end = datetime.strptime(self.date_end, '%Y-%m-%d')
+            end += timedelta(hours=self.time_end)
 
-        t = (end - start).seconds / 60
+            t = (end - start).seconds / 60
 
-        self.actual_ef = (pz / t) * 100 if t else 0
+            self.actual_ef = (pz / t) * 100 if t else 0
 
     @api.depends('operation_id.time_cycle_manual')
     def _compute_standard_ef(self):
