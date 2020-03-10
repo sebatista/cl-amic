@@ -1,48 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="mrp_production_workcenter_form_view_inherit"
-            model="ir.ui.view">
-        <field name="name">MRP_OT agregar cantidad y operador en workcenter</field>
+    <record id="mrp_production_workcenter_form_view_inherit1" model="ir.ui.view">
+        <field name="name">MRP_OT agregar datos de produccion</field>
         <field name="model">mrp.workorder</field>
         <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
         <field name="arch" type="xml">
+
+            <!-- quitar el boton start cuando termine de producir -->
             <xpath expr="//button[@name='button_start'][3]" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
             <xpath expr="//button[@name='button_start'][4]" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
+
+            <!-- agregar la cantidad producida en el seguimiento de tiempo -->
             <xpath expr="//tree/field[@name='user_id']" position="after">
                 <field name="qty"/>
             </xpath>
 
-            <xpath expr="//field[@name='qty_producing']" position="after">
-                <label for="date_start1" string="Inicio"/>
-                <div>
-                    <field name="date_start1" class="oe_inline"/> -
-                    <field name="time_start"
-                           widget="timepicker"
-                           options="{'datepicker': {'stepping': 10}}"
-                           class="oe_inline"/>
-                </div>
-
-                <label for="date_end" string="Fin"/>
-                <div>
-                    <field name="date_end" class="oe_inline"/> -
-                    <field name="time_end"
-                           widget="timepicker"
-                           options="{'datepicker': {'stepping': 10}}"
-                           class="oe_inline"/>
-                </div>
-                <field name="operator_id" attrs="{'required': True}"/>
-            </xpath>
-
+            <!-- quitar el usuario logeado y agregar el operador en el seguimiento de tiempo -->
             <field name="user_id" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
             <field name="user_id" position="after">
                 <field name="operator_id"/>
             </field>
+
+            <!-- agregar los campos para cargar el seguimiento de tiempo aqui y otro panel para el rendimiento -->
+            <xpath expr="//notebook/page/group" position="replace">
+                <group name="prod_panel">
+                    <group name="left_prod_panel" string="Datos de produccion">
+                        <field name="qty_producing" string="Current Qty" attrs="{'readonly': ['|', ('product_tracking', '=', 'serial'), ('state', 'in', ('done', 'cancel'))]}"/>
+                        <label for="date_start1" string="Inicio"/>
+                        <div>
+                            <field name="date_start1" class="oe_inline"/> -
+                            <field name="time_start"
+                                   widget="timepicker"
+                                   options="{'datepicker': {'stepping': 10}}"
+                                   class="oe_inline"/>
+                        </div>
+                        <label for="date_end" string="Fin"/>
+                        <div>
+                            <field name="date_end" class="oe_inline"/> -
+                            <field name="time_end"
+                                   widget="timepicker"
+                                   options="{'datepicker': {'stepping': 10}}"
+                                   class="oe_inline"/>
+                        </div>
+                        <field name="operator_id" attrs="{'required': True}"/>
+                        <field name="final_lot_id" context="{'default_product_id': product_id}" domain="['|', '&amp;', ('product_id', '=', product_id), ('product_id.tracking', '!=', 'serial'), ('use_next_on_work_order_id', '=', id)]" attrs="{'invisible': [('product_tracking', '=', 'none')]}" groups="stock.group_production_lot"/>
+                        <field name="product_tracking" invisible="1"/>
+                    </group>
+                    <group name="right_prod_panel" string="Eficiencia">
+                        <field name="standard_ef"/>
+                        <field name="actual_ef"/>
+                        <label for="efficiency" string="Eficiencia"/>
+                        <div>
+                            <field name="efficiency"/>
+                            <span> %</span>
+                        </div>
+                    </group>
+                </group>
+            </xpath>
         </field>
     </record>
 
