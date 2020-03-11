@@ -14,14 +14,15 @@ class MrpWorkorder(models.Model):
         help="lote que se trabajo en esta workorder, para poder buscar por OT"
     )
 
+    """
     @api.onchange('qty_producing')
     def _onchange_qty_producing_total(self):
-        """ Hay otro de estos que se llama _onchange_qty_producing y actualiza
+        "" " Hay otro de estos que se llama _onchange_qty_producing y actualiza
             la cantidad actual a producir.
 
             Este actualiza la cantidad acumulada total y verifica que exista
             suficiente materia prima en el lote del cual se saca.
-        """
+        "" "
         moves = self.move_raw_ids.filtered(
             lambda move: move.state not in ('done', 'cancel') and
                          move.product_id.tracking != 'none' and
@@ -40,6 +41,7 @@ class MrpWorkorder(models.Model):
                                   precision_rounding=rounding)
             if move.product_id.tracking == 'lot':
                 move_lots[0].accum_qty = new_qty
+    """
 
     def validate_producing(self):
         """ TODO ver si se puede usar el qty_remaining
@@ -63,21 +65,27 @@ class MrpWorkorder(models.Model):
             raise UserError(_('Por favor indique fecha y hora de comienzo de '
                               'la produccion.'))
 
+        for line in self.active_move_line_ids:
+            if line.product_id.tracking != 'none' and not line.lot_id:
+                raise UserError(_('Por favor provea un lote para el '
+                                  'componente'))
+
     def record_production(self):
         """ Crear un registro en mrp.workcenter.productivity
         """
 
         self.validate_producing()
         self.validate_lots()
-        self.validate_component_qty()
+        #self.validate_component_qty()
 
         if not self.date_start1 or not self.time_start:
-            raise UserError(_('Por favor indique fecha y hora de comienzo de '
-                              'la produccion.'))
+            raise UserError(_('Por favor indique fecha de la produccion.'))
 
+        """
         if not self.date_end or not self.time_end:
             raise UserError(_('Por favor indique fecha y hora de finalizacion '
                               'de la produccion.'))
+        """
 
         # copio el lote de salida porque por alguna razon odoo luego lo borra
         self.worked_lot = self.final_lot_id
@@ -88,7 +96,7 @@ class MrpWorkorder(models.Model):
         ds = (hr + dy + dt.timedelta(hours=3)).strftime('%Y-%m-%d %H:%M')
 
         hr = dt.timedelta(hours=self.time_end)
-        dy = dt.datetime.strptime(self.date_end, '%Y-%m-%d')
+        dy = dt.datetime.strptime(self.date_start1, '%Y-%m-%d')
         de = (hr + dy + dt.timedelta(hours=3)).strftime('%Y-%m-%d %H:%M')
 
         if ds >= de:
@@ -111,9 +119,9 @@ class MrpWorkorder(models.Model):
         })
 
         super(MrpWorkorder, self).record_production()
-
+    """
     def validate_component_qty(self):
-        """
+        "" "
             Obtener la lista de materiales para el producto a producir
             Ver que cantidad de materia prima se requiere
             Verificar que en los lotes de los productos a consumir tenemos las
@@ -122,7 +130,8 @@ class MrpWorkorder(models.Model):
             Esto se hace solo en la operacion inicial que es donde se consumen
             las manterias primas, en el resto de las operaciones, el
             active_move_line_ids esta en False.
-        """
+        "" "
+
         self.ensure_one()
         for mp in self.active_move_line_ids:
             if mp.product_lot_qty < mp.accum_qty:
@@ -131,6 +140,7 @@ class MrpWorkorder(models.Model):
                                 'tiene %s' % (mp.accum_qty,
                                               mp.lot_id.name,
                                               mp.product_lot_qty)))
+    """
 
     def button_start(self):
         """ Al arrancar la produccion hacemos el movimiento de los datos de
@@ -144,19 +154,16 @@ class MrpWorkorder(models.Model):
         self.validate_producing()
         self.validate_lots()
 
-        # ver si hay que ponerle la ot al lote, esto pasa solo si el producto
-        # esta habilitado para ot
-        if self.product_id and self.product_id.enable_ot:
-            # si el lote tiene una ot y si es distinta aviso.
-            if self.final_lot_id.ot and self.final_lot_id.ot != self.ot:
-                raise UserError(_('Cuidado !!\n'
-                                  'El lote destino pertenece a la %s lo '
-                                  'cual no parece correcto ya que estamos '
-                                  'trabajando la %s.'
-                                  ' ') % (self.final_lot_id.ot, self.ot))
+        # si el lote tiene una ot y si es distinta aviso.
+        if self.final_lot_id.ot and self.final_lot_id.ot != self.ot:
+            raise UserError(_('Cuidado !!\n'
+                              'El lote destino pertenece a la %s lo '
+                              'cual no parece correcto ya que estamos '
+                              'trabajando la %s.'
+                              ' ') % (self.final_lot_id.ot, self.ot))
 
-            # le pongo la ot al lote final
-            self.final_lot_id.ot = self.ot
+        # le pongo la ot al lote final
+        self.final_lot_id.ot = self.ot
 
         # mover atributos
         for move_line in self.active_move_line_ids:

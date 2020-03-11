@@ -9,18 +9,21 @@ class MrpWorkOrder(models.Model):
     _inherit = "mrp.workorder"
 
     date_start1 = fields.Date(
-        help="Fecha de inicio de la produccion"
+        help="Fecha de inicio de la produccion",
+        default=fields.Date.context_today
     )
     time_start = fields.Float(
         help="Hora de inicio de la produccion",
         string="Hora inicial",
         default=8
     )
+    """
     date_end = fields.Date(
         help="Fecha de finalizacion de la produccion",
         string="Fecha final",
         default=17
     )
+    """
     time_end = fields.Float(
         help="Hora de finalizacion de la produccion",
         string="Hora final"
@@ -55,23 +58,15 @@ class MrpWorkOrder(models.Model):
         se = self.standard_ef
         self.efficiency = (ae / se) * 100 if se else 0
 
-    @api.depends('qty_producing', 'date_end', 'date_start1', 'time_end',
-                 'time_start')
+    @api.depends('qty_producing', 'date_start1', 'time_end', 'time_start')
     def _compute_actual_ef(self):
         """ Calcular la eficiencia real en piezas/hora
         """
         pz = self.qty_producing
+        t = self.time_end - self.time_start
 
-        if self.date_start1 and self.date_end:
-            start = datetime.strptime(self.date_start1, '%Y-%m-%d')
-            start += timedelta(hours=self.time_start)
-
-            end = datetime.strptime(self.date_end, '%Y-%m-%d')
-            end += timedelta(hours=self.time_end)
-
-            t = (end - start).seconds / 60
-
-            self.actual_ef = (pz / t) * 100 if t else 0
+        # piezas / hora
+        self.actual_ef = (pz / t) if t else 0
 
     @api.depends('operation_id.time_cycle_manual')
     def _compute_standard_ef(self):
