@@ -6,10 +6,12 @@
         <field name="model">mrp.workorder</field>
         <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
         <field name="arch" type="xml">
+            <!-- revertir el #62
             <xpath expr="//tree[@editable='bottom']" position="attributes">
                 <attribute name="decoration-danger">product_lot_qty&lt;=accum_qty</attribute>
                 <attribute name="decoration-bf">product_lot_qty&lt;=accum_qty</attribute>
             </xpath>
+            -->
             <xpath expr="//field[@name='qty_done']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
@@ -22,8 +24,10 @@
             </xpath>
             <xpath expr="//field[@name='lot_id']" position="after">
                 <field name="product_lot_qty"/>
+                <!-- revertir el #62
                 <field name="accum_qty" string="Total"/>
                 <field name="qty_done" string="Parcial"/>
+                -->
             </xpath>
         </field>
     </record>
