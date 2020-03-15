@@ -41,11 +41,11 @@
                         <div>
                             <field name="time_start"
                                    widget="timepicker"
-                                   options="{'datepicker': {'stepping': 10}}"
+                                   options="{'datepicker': {'stepping': 1}}"
                                    class="oe_inline"/> -
                             <field name="time_end"
                                    widget="timepicker"
-                                   options="{'datepicker': {'stepping': 10}}"
+                                   options="{'datepicker': {'stepping': 1}}"
                                    class="oe_inline"/>
                         </div>
 
