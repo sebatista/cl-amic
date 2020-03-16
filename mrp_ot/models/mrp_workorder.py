@@ -17,16 +17,10 @@ class MrpWorkOrder(models.Model):
         string="Hora inicial",
         default=8
     )
-    """
-    date_end = fields.Date(
-        help="Fecha de finalizacion de la produccion",
-        string="Fecha final",
-        default=17
-    )
-    """
     time_end = fields.Float(
         help="Hora de finalizacion de la produccion",
-        string="Hora final"
+        string="Hora final",
+        default=18
     )
     ot = fields.Char(
         related='production_id.ot',
