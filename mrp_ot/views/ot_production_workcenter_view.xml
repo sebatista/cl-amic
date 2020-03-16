@@ -5,11 +5,13 @@
         <field name="model">mrp.workorder</field>
         <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
         <field name="arch" type="xml">
-            <!-- agregar la cantidad producida en el seguimiento de tiempo -->
+
+            <!-- agregar la cantidad producida en el seguimiento de tiempo
             <xpath expr="//tree/field[@name='user_id']" position="after">
                 <field name="qty"/>
             </xpath>
-
+            TODO FIXME hay que volver a poner esto
+-->
             <!-- quitar el usuario logeado y agregar el operador en el seguimiento de tiempo -->
             <field name="user_id" position="attributes">
                 <attribute name="invisible">1</attribute>
