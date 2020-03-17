@@ -32,6 +32,27 @@ class ProductionLot(models.Model):
         compute="_compute_attributes",
         readonly=True
     )
+    unit_lot_weight = fields.Float(
+        help="Peso unitario de los productos del lote en Kg.",
+        readonly=True,
+        string='Peso del producto',
+        compute="_compute_unit_lot_weight"
+    )
+    produced_lot_weight = fields.Float(
+        help="Peso unitario del producto calculado en produccion, como la suma"
+             "de los pesos de los componentes"
+    )
+
+    def _compute_unit_lot_weight(self):
+        for rec in self:
+            if rec.product_id.weight:
+                # si el producto tiene peso distinto de cero el peso es el
+                # declarado en el producto
+                rec.unit_lot_weight = rec.product_id.weight
+            else:
+                # si el producto no tiene peso declarado se toma el peso
+                # unitario calculado al fabricar el producto
+                rec.unit_lot_weight = rec.produced_lot_weight
 
     def _compute_attributes(self):
         for rec in self:
