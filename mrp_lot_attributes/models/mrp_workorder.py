@@ -120,12 +120,19 @@ class MrpWorkorder(models.Model):
         })
 
         # por cada linea componente tomar el peso unitario y multiplicarlo
-        # por la cantidad para sumar al peso total del lote destino
+        # por la cantidad consumida para sumar al peso total del lote salida
         weight = 0
         for line in self.active_move_line_ids:
             # si el producto de la linea tiene tracking
             if line.product_id.tracking != 'none':
+                # peso unitario del lote componente
                 unit_weight = line.lot_id.unit_weight
+                # por la cantidad de materia prima que se consumio del lote
+                # componente lo acumulo en weight
+                weight += unit_weight * line.qty_done
+
+        # poner el peso total del lote de salida
+        self.worked_lot.set_total_weight(weight)
 
         super(MrpWorkorder, self).record_production()
     """

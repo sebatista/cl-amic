@@ -1,0 +1,37 @@
+@startuml
+class MrpProduction{
+product_id
+product_qty
+bom_id
+routing_id
+move_raw_ids
+--
+wokorder_ids
+move_raw_ids
+}
+
+class MrpWorkorder {
+--
+active_move_line_ids
+}
+
+class StockMoveLine {
+product_id
+lot_id
+product_uom_qty: Reservado
+qty_done: Hecho
+}
+
+class StockMove {
+--
+active_move_line_ids
+}
+
+MrpWorkorder *-- StockMoveLine : active_move_line_ids
+MrpProduction --* MrpWorkorder : workorder_ids
+MrpProduction -* StockMove: move_raw_ids
+StockMove -* StockMoveLine: active_move_line_ids
+
+note right of StockMoveLine : lotes hechos
+
+@enduml
