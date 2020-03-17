@@ -75,6 +75,8 @@ class MrpWorkorder(models.Model):
             Cargar el lote de salida con el peso de los lotes componentes
         """
 
+        self.ensure_one()
+
         self.validate_producing()
         self.validate_lots()
         #self.validate_component_qty()
@@ -119,20 +121,34 @@ class MrpWorkorder(models.Model):
             'workorder_id': self.id
         })
 
-        # por cada linea componente tomar el peso unitario y multiplicarlo
-        # por la cantidad consumida para sumar al peso total del lote salida
+        # calcular el peso del producto fabricado, dejarlo en el lote
         weight = 0
         for line in self.active_move_line_ids:
             # si el producto de la linea tiene tracking
             if line.product_id.tracking != 'none':
-                # peso unitario del lote componente
-                unit_weight = line.lot_id.unit_weight
-                # por la cantidad de materia prima que se consumio del lote
-                # componente lo acumulo en weight
-                weight += unit_weight * line.qty_done
 
-        # poner el peso total del lote de salida
-        self.worked_lot.set_total_weight(weight)
+                # Peso unitario del producto componente que esta en esta linea
+                # Se obtiene del lote, que a su vez se calculo aqui o si el
+                # producto tiene peso definido se toma del producto
+                unit_lot_weight = line.lot_id.unit_lot_weight
+
+                # cantidad teorica a consumir del producto componente para
+                # toda la produccion
+                qty = line.qty_done
+
+                # cantidad teorica a producir del producto final
+                prod = self.qty_production
+
+                # acumular el peso que este componente le aporta al
+                # producto final
+                weight += unit_lot_weight * qty / prod
+
+        # active_move_line_ids = False, no hacer nada, esto pasa cuando se
+        # hace una operacion, en la primera se calcula el lote y en las demas
+        # no se hace nada.
+        # salvar el peso total del producto calculado en el lote
+        if self.active_move_line_ids:
+            self.worked_lot.produced_lot_weight = weight
 
         super(MrpWorkorder, self).record_production()
     """

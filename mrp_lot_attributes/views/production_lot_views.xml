@@ -15,6 +15,7 @@
                         <field name="product_qty"/>
                         <field name="product_uom_id" readonly="1" groups="product.group_uom"/>
                     </div>
+                    <field name="unit_lot_weight"/>
                 </xpath>
                 <xpath expr="//group[@name='main_group']" position="after">
                     <group name="attributes" col="2" string="Atributos">
