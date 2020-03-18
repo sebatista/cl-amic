@@ -1,8 +1,6 @@
 # For copyright and license notices, see __manifest__.py file in module root
 
 from odoo import fields, models, api
-from datetime import datetime
-from datetime import timedelta
 
 
 class MrpWorkOrder(models.Model):

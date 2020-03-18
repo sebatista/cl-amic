@@ -1,9 +1,8 @@
 # For copyright and license notices, see __manifest__.py file in module root
 
-from odoo import fields, models, api, _
+from odoo import fields, models, _
 from odoo.exceptions import UserError
 import datetime as dt
-from odoo.tools import float_round
 
 
 class MrpWorkorder(models.Model):
@@ -79,16 +78,10 @@ class MrpWorkorder(models.Model):
 
         self.validate_producing()
         self.validate_lots()
-        #self.validate_component_qty()
+        # self.validate_component_qty()
 
         if not self.date_start1 or not self.time_start:
             raise UserError(_('Por favor indique fecha de la produccion.'))
-
-        """
-        if not self.date_end or not self.time_end:
-            raise UserError(_('Por favor indique fecha y hora de finalizacion '
-                              'de la produccion.'))
-        """
 
         # aca le sumo 3 a las horas para pasar a utc a lo bruto.
         hr = dt.timedelta(hours=self.time_start)
