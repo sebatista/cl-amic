@@ -34,10 +34,10 @@
         'hr',
 
         # additional applications
-        'mrp_workorder',
+        'mrp_workorder', # ordenes de trabajo
         # 'web_gantt', no anda bien.
-        'mrp_mps',
-        'mrp_account',
+        #'mrp_mps',  # plan maestro de produccion
+        'mrp_account', # contabilidad analitica en fabricacion
 
         # minimum modules for argentinian localizacion + utilities + fixes
         'standard_depends_ce',

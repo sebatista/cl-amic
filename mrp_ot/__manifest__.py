@@ -16,7 +16,8 @@
     'depends': [
         'mrp',
         'product',
-        'web_widget_timepicker'
+        'web_widget_timepicker',
+        'mrp_easy_prod'
     ],
     'data': [
         'data/ot_sequence_data.xml',

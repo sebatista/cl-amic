@@ -144,28 +144,27 @@ class MrpWorkorder(models.Model):
             self.worked_lot.produced_lot_weight = weight
 
         super(MrpWorkorder, self).record_production()
-    """
-    def validate_component_qty(self):
-        "" "
-            Obtener la lista de materiales para el producto a producir
-            Ver que cantidad de materia prima se requiere
-            Verificar que en los lotes de los productos a consumir tenemos las
-            cantidades requeridas.
 
-            Esto se hace solo en la operacion inicial que es donde se consumen
-            las manterias primas, en el resto de las operaciones, el
-            active_move_line_ids esta en False.
-        "" "
+#    def validate_component_qty(self):
+#        "" "
+#            Obtener la lista de materiales para el producto a producir
+#            Ver que cantidad de materia prima se requiere
+#            Verificar que en los lotes de los productos a consumir tenemos las
+#            cantidades requeridas.
 
-        self.ensure_one()
-        for mp in self.active_move_line_ids:
-            if mp.product_lot_qty < mp.accum_qty:
-                raise UserError(_('No te alcanza!!\n'
-                                'Intentas consumir %s del lote %s que solo '
-                                'tiene %s' % (mp.accum_qty,
-                                              mp.lot_id.name,
-                                              mp.product_lot_qty)))
-    """
+#            Esto se hace solo en la operacion inicial que es donde se consumen
+#            las manterias primas, en el resto de las operaciones, el
+#            active_move_line_ids esta en False.
+#        "" "
+
+#        self.ensure_one()
+#        for mp in self.active_move_line_ids:
+#            if mp.product_lot_qty < mp.accum_qty:
+#                raise UserError(_('No te alcanza!!\n'
+#                                'Intentas consumir %s del lote %s que solo '
+#                                'tiene %s' % (mp.accum_qty,
+#                                              mp.lot_id.name,
+#                                              mp.product_lot_qty)))
 
     def button_start(self):
         """ Al arrancar la produccion hacemos el movimiento de los datos de

@@ -20,7 +20,8 @@
     "excludes": [],
     "depends": [
         'base',
-        'mrp'
+        'mrp',
+        'hr'
     ],
     "data": [
         'security/ir.model.access.csv',
