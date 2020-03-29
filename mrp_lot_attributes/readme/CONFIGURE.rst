@@ -4,4 +4,4 @@ To configure this module, you need to:
 
 .. figure:: ../static/description/icon.png
    :alt: alternative description
-   :width: 600 px
+   :width: 60 px
