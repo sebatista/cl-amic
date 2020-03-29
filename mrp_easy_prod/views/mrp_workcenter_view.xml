@@ -24,15 +24,27 @@
         </field>
     </record>
 
+    <!-- TODO mover esto a un modulo mas logico, aca no va. -->
     <record id="mrp_routing_workcenter_form_view" model="ir.ui.view">
-        <field name="name">MRP_EASY_PROD poner duracion en segundos y fraccion</field>
+        <field name="name">MRP_EASY_PROD agregar piezas hora</field>
         <field name="model">mrp.routing.workcenter</field>
         <field name="inherit_id" ref="mrp.mrp_routing_workcenter_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='time_cycle_manual']" position="attributes">
-                <group name="plant" string="Planta">
-                    <attribute name="widget"></attribute>
+            <xpath expr="//group[@name='workorder']" position="after">
+                <group>
+                    <field name="pzs_hour"/>
                 </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mrp_routing_workcenter_tree_view" model="ir.ui.view">
+        <field name="name">MRP_EASY_PROD agregar piezas hora</field>
+        <field name="model">mrp.routing.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_routing_workcenter_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='workcenter_id']" position="after">
+                <field name="pzs_hour"/>
             </xpath>
         </field>
     </record>
