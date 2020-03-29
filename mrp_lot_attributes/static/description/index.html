@@ -372,28 +372,33 @@ ul.auto-toc {
 comportamientos.</p>
 <p>Los atributos del lote son propagados de un lote entrante a un lote saliente
 en produccion al oprimir el boton record_production</p>
+<div class="section" id="peso-de-los-productos-en-remito">
+<h1>Peso de los productos en remito</h1>
+<p>En cada linea del remito se muestra la cantidad de producto y el peso. Como
+los productos remitidos pueden ser medios que contienen una cantidad no siempre
+definida de productos, el peso debe ser calculado al momento de la fabricacion.</p>
+<p>Un caso de uso de este problema es el remito de los capachos que van a thermal,
+se requiere tener el peso del capacho en el remito. Para eso se define el
+siguiente metodo de calculo.</p>
+<p>El peso de un producto que tiene seguimiento por lotes esta definido en el
+lote, y se calcula al fabricar el producto sumando los pesos de los productos
+componentes, que a su vez tambien estan en los lotes.</p>
+<p>De esta manera se calculan los pesos de todos los productos de la cadena de
+fabricacion desde la materia prima.</p>
+<p>Si un producto tiene definido su peso en el apartado <strong>Inventario</strong> de la ficha
+del producto, entonces se toma ese peso en lugar del peso definido en el lote.
+Esto ultimo se usa para definir el peso del primer producto de la cadena de
+fabricacion o el producto desde donde se quiere empezar a definir pesos.</p>
 <p><strong>Table of contents</strong></p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><a class="reference internal" href="#configuration" id="id4">Configuration</a></li>
 <li><a class="reference internal" href="#usage" id="id5">Usage</a></li>
-<li><a class="reference internal" href="#changelog" id="id6">Changelog</a><ul>
-<li><a class="reference internal" href="#id1" id="id7">11.0.0.0.0 (2019-09-12)</a></li>
-<li><a class="reference internal" href="#id2" id="id8">11.0.0.0.0 (2019-09-24)</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#bug-tracker" id="id9">Bug Tracker</a></li>
-<li><a class="reference internal" href="#credits" id="id10">Credits</a><ul>
-<li><a class="reference internal" href="#authors" id="id11">Authors</a></li>
-<li><a class="reference internal" href="#contributors" id="id12">Contributors</a></li>
-<li><a class="reference internal" href="#other-credits" id="id13">Other credits</a></li>
-<li><a class="reference internal" href="#maintainers" id="id14">Maintainers</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#changelog" id="id6">Changelog</a></li>
 </ul>
 </div>
 <div class="section" id="configuration">
-<h1><a class="toc-backref" href="#id4">Configuration</a></h1>
+<h2><a class="toc-backref" href="#id4">Configuration</a></h2>
 <p>To configure this module, you need to:</p>
 <ol class="arabic simple">
 <li>Go to …</li>
@@ -403,27 +408,27 @@ en produccion al oprimir el boton record_production</p>
 </div>
 </div>
 <div class="section" id="usage">
-<h1><a class="toc-backref" href="#id5">Usage</a></h1>
+<h2><a class="toc-backref" href="#id5">Usage</a></h2>
 <p>Los lotes se crean con el numero de orden de trabajo para poder seguir la OT</p>
 </div>
 <div class="section" id="changelog">
-<h1><a class="toc-backref" href="#id6">Changelog</a></h1>
+<h2><a class="toc-backref" href="#id6">Changelog</a></h2>
+</div>
+</div>
 <div class="section" id="id1">
-<h2><a class="toc-backref" href="#id7">11.0.0.0.0 (2019-09-12)</a></h2>
+<h1>11.0.0.0.0 (2019-09-12)</h1>
 <ul class="simple">
 <li>[WIP] Commit inicial del modulo soporte de atributos.</li>
 </ul>
 </div>
 <div class="section" id="id2">
-<h2><a class="toc-backref" href="#id8">11.0.0.0.0 (2019-09-24)</a></h2>
+<h1>11.0.0.0.0 (2019-09-24)</h1>
 <ul class="simple">
 <li>[WIP] comportamiento especial de los lotes.
 (<a class="reference external" href="https://github.com/jobiols/cl-amic/issues/1">#1</a>)</li>
 </ul>
-</div>
-</div>
 <div class="section" id="bug-tracker">
-<h1><a class="toc-backref" href="#id9">Bug Tracker</a></h1>
+<h2>Bug Tracker</h2>
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/jobiols/cl-amic/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
@@ -431,21 +436,23 @@ If you spotted it first, help us smashing it by providing a detailed and welcome
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
-<h1><a class="toc-backref" href="#id10">Credits</a></h1>
+<h2>Credits</h2>
+</div>
+</div>
 <div class="section" id="authors">
-<h2><a class="toc-backref" href="#id11">Authors</a></h2>
+<h1>Authors</h1>
 <ul class="simple">
 <li>jeo Software</li>
 </ul>
 </div>
 <div class="section" id="contributors">
-<h2><a class="toc-backref" href="#id12">Contributors</a></h2>
+<h1>Contributors</h1>
 <ul class="simple">
 <li>Jorge Obiols &lt;<a class="reference external" href="mailto:jorge.obiols&#64;gmail.com">jorge.obiols&#64;gmail.com</a>&gt; (www.jeosoft.com.ar)</li>
 </ul>
 </div>
 <div class="section" id="other-credits">
-<h2><a class="toc-backref" href="#id13">Other credits</a></h2>
+<h1>Other credits</h1>
 <p>El desarrollo de este modulo fue financiado por:</p>
 <ul class="simple">
 <li>ArqyTec</li>
@@ -453,12 +460,11 @@ If you spotted it first, help us smashing it by providing a detailed and welcome
 </ul>
 </div>
 <div class="section" id="maintainers">
-<h2><a class="toc-backref" href="#id14">Maintainers</a></h2>
+<h1>Maintainers</h1>
 <p>Current maintainer:</p>
 <p><a class="reference external" href="https://github.com/jobiols"><img alt="jobiols" src="https://github.com/jobiols.png?size=40px" /></a></p>
 <p>This module is part of the <a class="reference external" href="https://github.com/jobiols/cl-amic/tree/11.0/mrp_lot_attributes">jobiols/cl-amic</a> project on GitHub.</p>
 <p>You are welcome to contribute.</p>
-</div>
 </div>
 </div>
 </body>

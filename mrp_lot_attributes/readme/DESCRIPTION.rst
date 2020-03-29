@@ -26,4 +26,3 @@ Si un producto tiene definido su peso en el apartado **Inventario** de la ficha
 del producto, entonces se toma ese peso en lugar del peso definido en el lote.
 Esto ultimo se usa para definir el peso del primer producto de la cadena de
 fabricacion o el producto desde donde se quiere empezar a definir pesos.
-
