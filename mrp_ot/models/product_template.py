@@ -11,3 +11,8 @@ class ProductTemplate(models.Model):
         string="Habilitar OT",
         help="Si tilda este campo, se podra imprimir una OT para este producto"
     )
+
+    produce_one = fields.Boolean(
+        string='Producir de a uno',
+        help='Solo se puede producir de a uno por vez'
+    )

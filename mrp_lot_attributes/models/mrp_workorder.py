@@ -54,6 +54,10 @@ class MrpWorkorder(models.Model):
             raise UserError(_('No se permite producir mas que la cantidad '
                               'planificada en la OT'))
 
+        if self.qty_producing != 1 and self.product_id.produce_one:
+            raise UserError(_('La cantidad a fabricar debe ser 1 para este '
+                              'producto'))
+
     def validate_lots(self):
         if ((self.production_id.product_id.tracking != 'none') and
                 not self.final_lot_id):

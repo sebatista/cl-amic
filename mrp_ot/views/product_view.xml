@@ -8,6 +8,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='barcode']" position="after">
                     <field name="enable_ot"/>
+                    <field name="produce_one"/>
                 </xpath>
             </field>
         </record>
