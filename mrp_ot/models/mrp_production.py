@@ -1,7 +1,7 @@
 # For copyright and license notices, see __manifest__.py file in module root
 
-from odoo import models, fields, _
-from odoo.exceptions import UserError
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError, AccessError
 
 
 class MrpProduction(models.Model):
@@ -15,6 +15,24 @@ class MrpProduction(models.Model):
     ot = fields.Char(
         string='OT Amic'
     )
+
+    @api.onchange('picking_type_id', 'routing_id')
+    def onchange_picking_type(self):
+        location = self.env.ref('stock.stock_location_stock')
+        try:
+            location.check_access_rule('read')
+        except (AttributeError, AccessError):
+            location = self.env['stock.warehouse'].search(
+                [('company_id', '=', self.env.user.company_id.id)],
+                limit=1).lot_stock_id
+        self.location_src_id = \
+            (self.routing_id.location_id.id or
+             self.picking_type_id.default_location_src_id.id or
+             location.id)
+
+        # cambiamos esto y ponemos el destino en el lugar donde dice el routing
+        # que tenemos la ubicacion de produccion
+        self.location_dest_id = self.routing_id.location_id.id or location.id
 
     def clean_ot_amic(self):
         """ limpiar la ot
