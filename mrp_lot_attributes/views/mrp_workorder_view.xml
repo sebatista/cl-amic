@@ -43,7 +43,7 @@
                 <field name="worked_lot"
                        readonly="True"
                        string="Lote Actual"
-                       attrs="{'invisible': [('state','in',['pending','ready'])]}"/>
+                       attrs="{'invisible': [('final_lot_id','!=',False)]}"/>
             </xpath>
         </field>
     </record>
