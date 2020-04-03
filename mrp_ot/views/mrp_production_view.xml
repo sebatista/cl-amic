@@ -6,6 +6,10 @@
         <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
         <field name="arch" type="xml">
 
+            <xpath expr="//button[@name='post_inventory']" position="attributes">
+                <attributes name="groups"></attributes>
+            </xpath>
+
             <xpath expr="//button[@name='action_see_move_scrap']" position="after">
                 <field name="enable_ot" invisible="1"/>
                 <button name="print_ot" type="object"
