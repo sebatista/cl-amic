@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
 
             <xpath expr="//button[@name='post_inventory']" position="attributes">
-                <attributes name="groups"></attributes>
+                <attribute name="groups"></attribute>
             </xpath>
 
             <xpath expr="//button[@name='action_see_move_scrap']" position="after">
