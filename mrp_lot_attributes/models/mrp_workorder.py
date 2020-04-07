@@ -147,6 +147,12 @@ class MrpWorkorder(models.Model):
         if self.active_move_line_ids:
             self.worked_lot.produced_lot_weight = weight
 
+        # mover atributos
+        for move_line in self.active_move_line_ids:
+            # si el producto tiene trazabilidad propagar atributos
+            if move_line.product_id.tracking != 'none':
+                self.final_lot_id.propagate_from(move_line.lot_id)
+
         super(MrpWorkorder, self).record_production()
 
 #    def validate_component_qty(self):
@@ -192,11 +198,5 @@ class MrpWorkorder(models.Model):
 
         # le pongo la ot al lote final
         self.final_lot_id.ot = self.ot
-
-        # mover atributos
-        for move_line in self.active_move_line_ids:
-            # si el producto tiene trazabilidad propagar atributos
-            if move_line.product_id.tracking != 'none':
-                self.final_lot_id.propagate_from(move_line.lot_id)
 
         super().button_start()
