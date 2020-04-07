@@ -129,15 +129,13 @@ class MrpWorkorder(models.Model):
                 # producto tiene peso definido se toma del producto
                 unit_lot_weight = line.lot_id.unit_lot_weight
 
-                # cantidad teorica a consumir del producto componente para
-                # toda la produccion
+                # cantidad a consumir del producto componente
                 qty = line.qty_done
 
-                # cantidad teorica a producir del producto final
-                prod = self.qty_production
+                # cantidad a producir del producto terminado
+                prod = self.qty_producing
 
-                # acumular el peso que este componente le aporta al
-                # producto final
+                # Calcular el peso unitario y acumular
                 weight += unit_lot_weight * qty / prod
 
         # active_move_line_ids = False, no hacer nada, esto pasa cuando se
