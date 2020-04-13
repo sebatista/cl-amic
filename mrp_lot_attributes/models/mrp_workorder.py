@@ -129,15 +129,13 @@ class MrpWorkorder(models.Model):
                 # producto tiene peso definido se toma del producto
                 unit_lot_weight = line.lot_id.unit_lot_weight
 
-                # cantidad teorica a consumir del producto componente para
-                # toda la produccion
+                # cantidad a consumir del producto componente
                 qty = line.qty_done
 
-                # cantidad teorica a producir del producto final
-                prod = self.qty_production
+                # cantidad a producir del producto terminado
+                prod = self.qty_producing
 
-                # acumular el peso que este componente le aporta al
-                # producto final
+                # Calcular el peso unitario y acumular
                 weight += unit_lot_weight * qty / prod
 
         # active_move_line_ids = False, no hacer nada, esto pasa cuando se
@@ -146,6 +144,12 @@ class MrpWorkorder(models.Model):
         # salvar el peso total del producto calculado en el lote
         if self.active_move_line_ids:
             self.worked_lot.produced_lot_weight = weight
+
+        # mover atributos
+        for move_line in self.active_move_line_ids:
+            # si el producto tiene trazabilidad propagar atributos
+            if move_line.product_id.tracking != 'none':
+                self.final_lot_id.propagate_from(move_line.lot_id)
 
         super(MrpWorkorder, self).record_production()
 
@@ -192,11 +196,5 @@ class MrpWorkorder(models.Model):
 
         # le pongo la ot al lote final
         self.final_lot_id.ot = self.ot
-
-        # mover atributos
-        for move_line in self.active_move_line_ids:
-            # si el producto tiene trazabilidad propagar atributos
-            if move_line.product_id.tracking != 'none':
-                self.final_lot_id.propagate_from(move_line.lot_id)
 
         super().button_start()
