@@ -14,6 +14,7 @@ class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
     def action_cancel(self):
+        import wdb;wdb.set_trace()
         """ Cancels production order, unfinished stock moves and set procurement
         orders in exception and Cancels production order which is Done."""
         for production in self:
@@ -45,6 +46,8 @@ class MrpProduction(models.Model):
         return True
 
     def action_set_to_comfirmed(self):
+        import wdb;wdb.set_trace()
+
         """ Cancels production order, unfinished stock moves and set procurement
         orders in exception """
         if not len(self.ids):
@@ -64,15 +67,21 @@ class StockMove(models.Model):
     _inherit = 'stock.move'
 
     def _action_cancel(self):
+        import wdb;wdb.set_trace()
+
         return super(StockMove, self)._action_cancel()
 
     def action_draft(self):
+        import wdb;wdb.set_trace()
+
         for move in self:
             res = move.write({'state': 'waiting'})
             move._do_unreserve()
         return res
 
     def _do_unreserve(self):
+        import wdb;wdb.set_trace()
+
         Quant = self.env['stock.quant']
         if any(move.state in ('done',) for move in self):
             mlx = self.mapped('move_line_ids')
@@ -89,6 +98,8 @@ class StockMove(models.Model):
         return True
 
     def action_cancel(self):
+        import wdb;wdb.set_trace()
+
         """ Cancels the moves and if all moves are cancelled it cancels the picking. """
         # TDE DUMB: why is cancel_procuremetn in ctx we do quite nothing ?? like not updating the move ??
         Quant = self.env['stock.quant']
