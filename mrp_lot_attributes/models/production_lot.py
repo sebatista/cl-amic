@@ -29,6 +29,8 @@ class ProductionLot(models.Model):
 
     )
     attributes = fields.Char(
+        help='Lote y sus atributos del lote, Esto se muestra en el remito y '
+                'en el reporte de OT',
         compute="_compute_attributes",
         readonly=True
     )
@@ -68,11 +70,16 @@ class ProductionLot(models.Model):
             if rec.tt:
                 ret.append('TT=%s' % rec.tt)
             if rec.remito_proveedor:
-                ret.append('Remito %s' % rec.remito_proveedor)
+                ret.append('Remito: %s' % rec.remito_proveedor)
             if rec.fecha_remito:
-                ret.append('Fecha Remito %s' % rec.fecha_remito)
+                ret.append('Fecha Remito: %s' % rec.fecha_remito)
 
-            rec.attributes = '(' + ','.join(ret) + ')'
+            rec.attributes = '(%s)' % ', '.join(ret)
+
+            # Asi esta en el reporte odt
+            #<"Lote %s %s" % (line.lot_id.name or "",
+            #                 line.lot_id.attributes or "")>
+
 
     def propagate_from(self, parent_lot):
         """ Mover los atributos de un lote a otro teniendo en cuenta que si

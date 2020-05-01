@@ -187,12 +187,14 @@ class MrpWorkorder(models.Model):
         self.validate_lots()
 
         # si el lote tiene una ot y si es distinta aviso.
-        if self.final_lot_id.ot and self.final_lot_id.ot != self.ot:
-            raise UserError(_('Cuidado !!\n'
-                              'El lote destino pertenece a la %s lo '
-                              'cual no parece correcto ya que estamos '
-                              'trabajando la %s.'
-                              ' ') % (self.final_lot_id.ot, self.ot))
+        # TODO esto deberia chequear que sea el mismo producto, si es un
+        # producto distinto se permite cambiar la OT
+#        if self.final_lot_id.ot and self.final_lot_id.ot != self.ot:
+#            raise UserError(_('Cuidado !!\n'
+#                              'El lote destino pertenece a la %s lo '
+#                              'cual no parece correcto ya que estamos '
+#                              'trabajando la %s.'
+#                              ' ') % (self.final_lot_id.ot, self.ot))
 
         # le pongo la ot al lote final
         self.final_lot_id.ot = self.ot
