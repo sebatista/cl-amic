@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Agregar tildes para seleccionar atributos a mostrar en remito al cliente -->
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="name">PRE PRINTED STOCK PICKING tildes para imprimir atributos en remito</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales']" position="inside">
+                <group name="select_attrib"
+                       string="Atributos a mostrar en remito al cliente">
+
+                        <field name="att_ot"/>
+                        <field name="att_tt"/>
+                        <field name="att_colada"/>
+                        <field name="att_paquete"/>
+                        <field name="att_aceria"/>
+                        <field name="att_remito_proveedor"/>
+                        <field name="att_fecha_remito"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

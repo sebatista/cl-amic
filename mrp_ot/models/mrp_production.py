@@ -79,9 +79,9 @@ class MrpProduction(models.Model):
             for wo in mo.workorder_ids:
                 lines.append('-%s-' % wo.name)
                 for al in wo.active_move_line_ids:
-                    lines.append('----materia prima -> %s Lote -> %s %s' % (al.product_id.name, al.lot_id.name if al.lot_id else '', al.lot_id.attributes if al.lot_id else '')) # noqa
+                    lines.append('----materia prima -> %s Lote -> %s %s' % (al.product_id.name, al.lot_id.name if al.lot_id else '', al.lot_id.get_attributes() if al.lot_id else '')) # noqa
                 if wo.worked_lot:
-                    lines.append('----lote de salida: %s %s' % (wo.worked_lot.name if wo.worked_lot else '', wo.worked_lot.attributes if wo.worked_lot else '')) # noqa
+                    lines.append('----lote de salida: %s %s' % (wo.worked_lot.name if wo.worked_lot else '', wo.worked_lot.get_attributes() if wo.worked_lot else '')) # noqa
                 for tl in wo.time_ids:
                     if tl.operator_id:
                         lines.append('----%s - %s / %s / %s / %s' % (tl.date_start,tl.date_end,tl.workcenter_id.name,tl.operator_id.name,tl.loss_id.name)) # noqa

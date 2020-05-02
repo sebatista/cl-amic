@@ -1,6 +1,6 @@
 # For copyright and license notices, see __manifest__.py file in module root
 
-from openerp import models, fields
+from openerp import models, fields, api
 
 
 class StockPicking(models.Model):
@@ -10,8 +10,10 @@ class StockPicking(models.Model):
         compute="_compute_internal"
     )
 
+    @api.multi
     def _compute_internal(self):
-        """ cuando es internal en el remito cambia el layout
+        """ Si el deposito al que envio es una ubicacion interna pongo
+            internal = True para permitir cambiar el layout del remito
         """
         for reg in self:
             reg.internal = reg.location_dest_id.usage == 'internal'
