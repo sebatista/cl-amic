@@ -1,6 +1,6 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from openerp import models, fields
+from openerp import models, fields, api
 
 
 class ProductionLot(models.Model):
@@ -28,12 +28,6 @@ class ProductionLot(models.Model):
     aceria = fields.Char(
 
     )
-    attributes = fields.Char(
-        help='Lote y sus atributos del lote, Esto se muestra en el remito y '
-                'en el reporte de OT',
-        compute="_compute_attributes",
-        readonly=True
-    )
     unit_lot_weight = fields.Float(
         help="Peso unitario de los productos del lote en Kg.",
         readonly=True,
@@ -45,6 +39,33 @@ class ProductionLot(models.Model):
              "de los pesos de los componentes"
     )
 
+    @api.multi
+    def get_attributes(self, prod, internal):
+        for rec in self:
+            ret = []
+            if rec.ot and \
+                (internal or (prod and prod.att_ot)):
+                ret.append(rec.ot)
+            if rec.aceria and \
+                (internal or (prod and prod.att_aceria)):
+                ret.append('Aceria=%s' % rec.aceria)
+            if rec.colada and \
+                (internal or (prod and prod.att_colada)):
+                ret.append('Colada=%s' % rec.colada)
+            if rec.paquete and \
+                (internal or (prod and prod.att_paquete)):
+                ret.append('Paquete=%s' % rec.paquete)
+            if rec.tt and \
+                (internal or (prod and prod.att_tt)):
+                ret.append('TT=%s' % rec.tt)
+            if rec.remito_proveedor and \
+                (internal or (prod and prod.att_remito_proveedor)):
+                ret.append('Remito: %s' % rec.remito_proveedor)
+            if rec.fecha_remito and \
+                (internal or (prod and prod.att_fecha_remito)):
+                ret.append('Fecha Remito: %s' % rec.fecha_remito)
+            return '(%s)' % ', '.join(ret) if ret else ""
+
     def _compute_unit_lot_weight(self):
         for rec in self:
             if rec.product_id.weight:
@@ -55,31 +76,6 @@ class ProductionLot(models.Model):
                 # si el producto no tiene peso declarado se toma el peso
                 # unitario calculado al fabricar el producto
                 rec.unit_lot_weight = rec.produced_lot_weight
-
-    def _compute_attributes(self):
-        for rec in self:
-            ret = []
-            if rec.ot:
-                ret.append(rec.ot)
-            if rec.aceria:
-                ret.append('Aceria=%s' % rec.aceria)
-            if rec.colada:
-                ret.append('Colada=%s' % rec.colada)
-            if rec.paquete:
-                ret.append('Paquete=%s' % rec.paquete)
-            if rec.tt:
-                ret.append('TT=%s' % rec.tt)
-            if rec.remito_proveedor:
-                ret.append('Remito: %s' % rec.remito_proveedor)
-            if rec.fecha_remito:
-                ret.append('Fecha Remito: %s' % rec.fecha_remito)
-
-            rec.attributes = '(%s)' % ', '.join(ret)
-
-            # Asi esta en el reporte odt
-            #<"Lote %s %s" % (line.lot_id.name or "",
-            #                 line.lot_id.attributes or "")>
-
 
     def propagate_from(self, parent_lot):
         """ Mover los atributos de un lote a otro teniendo en cuenta que si
