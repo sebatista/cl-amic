@@ -40,7 +40,7 @@ class ProductionLot(models.Model):
     )
 
     @api.multi
-    def get_attributes(self, prod, internal):
+    def get_attributes(self, prod=False, internal=True):
         for rec in self:
             ret = []
             if rec.ot and \
