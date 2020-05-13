@@ -17,7 +17,8 @@
         'mrp',
         'product',
         'web_widget_timepicker',
-        'mrp_easy_prod'
+        'mrp_easy_prod',
+        'stock'
     ],
     'data': [
         'data/ot_sequence_data.xml',
@@ -27,7 +28,8 @@
         'views/bom_view.xml',
         'views/mrp_production_view.xml',
         'views/ot_production_workcenter_view.xml',
-        'views/ot_amic.xml'
+        'views/ot_amic.xml',
+        'views/stock_scheduler_compute_view.xml'
     ],
     'external_dependencies': {
         'python': [
