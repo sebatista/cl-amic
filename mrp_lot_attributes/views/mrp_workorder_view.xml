@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- modificar vista de materias primas -->
-    <record id="mrp_production_workcenter_form_view_inherit" model="ir.ui.view">
-        <field name="name">MRP LOT ATTRIBUTES mejorar vista de materias primas</field>
+    <record id="mrp_production_workcenter_form_view_inherit"
+            model="ir.ui.view">
+        <field name="name">MRP LOT ATTRIBUTES mejorar vista de materias
+            primas
+        </field>
         <field name="model">mrp.workorder</field>
-        <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
+        <field name="inherit_id"
+               ref="mrp.mrp_production_workcenter_form_view_inherit"/>
         <field name="arch" type="xml">
             <!-- revertir el #62
             <xpath expr="//tree[@editable='bottom']" position="attributes">
@@ -15,7 +19,8 @@
             <xpath expr="//field[@name='qty_done']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//field[@name='product_uom_id']" position="attributes">
+            <xpath expr="//field[@name='product_uom_id']"
+                   position="attributes">
                 <attribute name="invisible">0</attribute>
                 <attribute name="string">Um</attribute>
             </xpath>
@@ -34,16 +39,40 @@
 
     <!-- visualizamos el lote trabajado porque odoo lo desaparece cuando pongo
          HECHO en la tarea -->
-    <record id="mrp_production_workcenter_form_view_inherit1" model="ir.ui.view">
-        <field name="name">MRP LOT ATTRIBUTES visualizar lote despues de HECHO</field>
+    <record id="mrp_production_workcenter_form_view_inherit1"
+            model="ir.ui.view">
+        <field name="name">MRP LOT ATTRIBUTES visualizar lote despues de
+            HECHO
+        </field>
         <field name="model">mrp.workorder</field>
-        <field name="inherit_id" ref="mrp_ot.mrp_production_workcenter_form_view_inherit1"/>
+        <field name="inherit_id"
+               ref="mrp_ot.mrp_production_workcenter_form_view_inherit1"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='final_lot_id']" position="after">
                 <field name="worked_lot"
                        readonly="True"
                        string="Lote Actual"
                        attrs="{'invisible': [('final_lot_id','!=',False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- filtrar lote de componente para no traer marcados como hecho -->
+    <record id="mrp_production_workcenter_form_view_inherit2"
+            model="ir.ui.view">
+        <field name="name">MRP LOT ATTRIBUTES filtrar lotes en cero en los
+            componentes
+        </field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id"
+               ref="mrp.mrp_production_workcenter_form_view_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='lot_id']" position="attributes">
+                <attribute name="domain">[
+                    ('product_id', '=', product_id),
+                    ('done', '=', False)
+                    ]
+                </attribute>
             </xpath>
         </field>
     </record>
