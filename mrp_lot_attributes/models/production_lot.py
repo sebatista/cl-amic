@@ -1,6 +1,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from openerp import models, fields, api
+from openerp import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 
 class ProductionLot(models.Model):
@@ -38,6 +39,18 @@ class ProductionLot(models.Model):
         help="Peso unitario del producto calculado en produccion, como la suma"
              "de los pesos de los componentes"
     )
+
+    @api.constrains('tt')
+    def check_tt(self):
+        for rec in self:
+            stock_obj = self.env['stock.production.lot']
+            chk = stock_obj.search([('tt', '=', rec.tt),
+                                    ('id', '!=', rec.id)])
+            if chk:
+                raise ValidationError(_('El numero de TT que acaba de ingresr '
+                                        'ya existe en el lote %s, no puede '
+                                        'haber dos lotes con el mismo '
+                                        'TT. ' % chk.name))
 
     @api.multi
     def get_attributes(self, prod=False, internal=True):
