@@ -39,23 +39,29 @@ class ProductionLot(models.Model):
         help="Peso unitario del producto calculado en produccion, como la suma"
              "de los pesos de los componentes"
     )
+    done = fields.Boolean(
+        string='Terminado',
+        help='Marca que este lote esta terminado y no debe mostrarse en '
+             'fabricacion al elegir lotes para los componentes.'
+    )
 
     @api.onchange('tt')
     def check_tt(self):
         for rec in self:
-            stock_obj = self.env['stock.production.lot']
-            chk = stock_obj.search([('tt', '=', rec.tt)])
-            if chk:
-                names = chk.mapped('name')
-                names = ', '.join(names)
-                msg = _('El numero de TT que acaba de ingresar ya existe en '
-                        'el lote %s, no deberian existir numeros de TT '
-                        'duplicados') % names
-                mess = {
-                    'title': _('TT Duplicado'),
-                    'message': msg
-                }
-                return {'warning': mess}
+            if rec.tt:
+                stock_obj = self.env['stock.production.lot']
+                chk = stock_obj.search([('tt', '=', rec.tt)])
+                if chk:
+                    names = chk.mapped('name')
+                    names = ', '.join(names)
+                    msg = _('El numero de TT que acaba de ingresar ya existe '
+                            'en el lote %s, no deberian existir numeros de TT '
+                            'duplicados') % names
+                    mess = {
+                        'title': _('TT Duplicado'),
+                        'message': msg
+                    }
+                    return {'warning': mess}
 
     @api.multi
     def get_attributes(self, prod=False, internal=True):
