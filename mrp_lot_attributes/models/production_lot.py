@@ -40,17 +40,20 @@ class ProductionLot(models.Model):
              "de los pesos de los componentes"
     )
 
-    @api.constrains('tt')
+    @api.onchange('tt')
     def check_tt(self):
         for rec in self:
             stock_obj = self.env['stock.production.lot']
-            chk = stock_obj.search([('tt', '=', rec.tt),
-                                    ('id', '!=', rec.id)])
+            chk = stock_obj.search([('tt', '=', rec.tt)])
             if chk:
-                raise ValidationError(_('El numero de TT que acaba de ingresr '
-                                        'ya existe en el lote %s, no puede '
-                                        'haber dos lotes con el mismo '
-                                        'TT. ' % chk.name))
+                msg = _('El numero de TT que acaba de ingresar ya existe en '
+                        'el lote %s, no deberian existir numeros de TT '
+                        'duplicados') % chk.name
+                mess = {
+                    'title': _('TT Duplicado'),
+                    'message': msg
+                }
+                return {'warning': mess}
 
     @api.multi
     def get_attributes(self, prod=False, internal=True):
