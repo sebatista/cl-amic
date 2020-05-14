@@ -13,7 +13,8 @@
     "installable": True,
     "depends": [
         'l10n_ar_aeroo_stock',
-        'base'
+        'base',
+        'mrp_lot_attributes'
     ],
     "data": [
         'views/ir_sequence_view.xml',
