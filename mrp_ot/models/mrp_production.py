@@ -43,7 +43,26 @@ class MrpProduction(models.Model):
     def assign_ot_amic(self):
         """ Al marcar ordenes de produccion y darle al accion / Asignar OT Amic
             se trae una nueva secuencia y se marcan todas las ot con ella.
+
+            Si algunas estan en blanco y otras tienen ot iguales, entonces no
+            se trae una nueva secuencia sino que se marcan las que estan en
+            blanco con la secuencia comun
         """
+        # lista con todas las ot que han sido marcadas (incluso blancos)
+        ots = self.mapped('ot')
+
+        # removemos las que son iguales
+        ots = set(ots)
+
+        # esperamos que haya 2 y que una sea False (el blanco)
+        if len(ots) == 2 and False in ots:
+            #elimino el False
+            ots.discard(False)
+            # me queda la ot
+            ot = ots.pop()
+            return self.write({'ot': ot})
+
+        # no quedaron 2 o una no es False entonces sigo como antes
         for order in self:
             if order.ot:
                 raise UserError(_('La orden de trabajo %s ya tiene una OT '
