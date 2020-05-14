@@ -46,9 +46,11 @@ class ProductionLot(models.Model):
             stock_obj = self.env['stock.production.lot']
             chk = stock_obj.search([('tt', '=', rec.tt)])
             if chk:
+                names = chk.mapped('name')
+                names = ', '.join(names)
                 msg = _('El numero de TT que acaba de ingresar ya existe en '
                         'el lote %s, no deberian existir numeros de TT '
-                        'duplicados') % chk.name
+                        'duplicados') % names
                 mess = {
                     'title': _('TT Duplicado'),
                     'message': msg
