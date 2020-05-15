@@ -13,11 +13,13 @@
     "installable": True,
     "depends": [
         'l10n_ar_aeroo_stock',
-        'base'
+        'base',
+        'mrp_lot_attributes'
     ],
     "data": [
         'views/ir_sequence_view.xml',
         'report/invoice_report.xml',
         'views/voucher_number_view.xml',
+        'views/product_product_view.xml'
     ],
 }

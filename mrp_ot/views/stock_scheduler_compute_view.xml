@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- mover el ejecutar planificador al menu de fabricacion -->
+    <menuitem action="stock.action_procurement_compute"
+              id="stock.menu_procurement_compute"
+              parent="mrp.menu_mrp_manufacturing"
+              sequence="135"/>
+
+</odoo>

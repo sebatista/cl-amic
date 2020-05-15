@@ -29,6 +29,7 @@
                             <field name="remito_proveedor"/>
                             <field name="fecha_remito"/>
                             <field name="aceria"/>
+                            <field name="done"/>
                         </group>
                     </group>
                 </xpath>
@@ -56,6 +57,7 @@
                             <field name="remito_proveedor"/>
                             <field name="fecha_remito"/>
                             <field name="aceria"/>
+                            <field name="done"/>
                         </group>
                     </group>
                 </xpath>
