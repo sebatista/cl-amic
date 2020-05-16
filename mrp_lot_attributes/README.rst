@@ -48,7 +48,6 @@ del producto, entonces se toma ese peso en lugar del peso definido en el lote.
 Esto ultimo se usa para definir el peso del primer producto de la cadena de
 fabricacion o el producto desde donde se quiere empezar a definir pesos.
 
-
 **Table of contents**
 
 .. contents::
@@ -63,7 +62,7 @@ To configure this module, you need to:
 
 .. figure:: https://raw.githubusercontent.com/jobiols/cl-amic/11.0/mrp_lot_attributes/static/description/icon.png
    :alt: alternative description
-   :width: 600 px
+   :width: 60 px
 
 Usage
 =====

@@ -154,8 +154,29 @@ class MrpWorkorder(models.Model):
         super(MrpWorkorder, self).record_production()
 
         # poner el qty_producing en cero para obligar al operador a cargar el
-        # dato sino, el sistema pone el total que falta.
-        self.qty_producing = 0
+        # dato sino, el sistema pone el total que falta. Si estamos en done no
+        # se puede escribir porque odoo chequea que no le cambien una orden
+        # terminada.
+        if self.state != 'done':
+            self.qty_producing = 0
+
+    def _assign_default_final_lot_id(self):
+        """ FIX Si el operador ejecuta la ultima WO de la MO y la termina
+            poniendona en el estado 'done', cuando en la anterior se termina
+            odoo intentara poner el default_final_lot y fallara miserablemente
+            con la excepcion "No puede modificar la orden de trabajo
+            terminada."
+
+            Para arreglar eso sobreescribimos esta funcion y evitamos poner un
+            lote si esta en estado done.
+        """
+        if self.state != 'done':
+            spl_obj = self.env['stock.production.lot']
+            domain = [('use_next_on_work_order_id', '=', self.id)]
+            self.final_lot_id = spl_obj.search(domain,
+                                               order='create_date, id',
+                                               limit=1)
+
 
 #    def validate_component_qty(self):
 #        "" "
