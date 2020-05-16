@@ -154,8 +154,11 @@ class MrpWorkorder(models.Model):
         super(MrpWorkorder, self).record_production()
 
         # poner el qty_producing en cero para obligar al operador a cargar el
-        # dato sino, el sistema pone el total que falta.
-        self.qty_producing = 0
+        # dato sino, el sistema pone el total que falta. Si estamos en done no
+        # se puede escribir porque odoo chequea que no le cambien una orden
+        # terminada.
+        if self.state != 'done':
+            self.qty_producing = 0
 
 #    def validate_component_qty(self):
 #        "" "
