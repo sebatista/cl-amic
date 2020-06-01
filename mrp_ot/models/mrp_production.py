@@ -56,7 +56,7 @@ class MrpProduction(models.Model):
 
         # esperamos que haya 2 y que una sea False (el blanco)
         if len(ots) == 2 and False in ots:
-            #elimino el False
+            # elimino el False
             ots.discard(False)
             # me queda la ot
             ot = ots.pop()
@@ -66,7 +66,7 @@ class MrpProduction(models.Model):
         for order in self:
             if order.ot:
                 raise UserError(_('La orden de trabajo %s ya tiene una OT '
-                                'asignada' % order.name))
+                                  'asignada' % order.name))
             if order.state == 'done':
                 raise UserError(_('La orden de trabajo %s esta terminada, no '
                                   'se le puede asignar otra OT' % order.name))
@@ -99,14 +99,18 @@ class MrpProduction(models.Model):
             for wo in mo.workorder_ids:
                 lines.append('-%s-' % wo.name)
                 for al in wo.active_move_line_ids:
-                    lines.append('----materia prima -> %s Lote -> %s %s' % (al.product_id.name, al.lot_id.name if al.lot_id else '', al.lot_id.get_attributes() if al.lot_id else '')) # noqa
+                    lines.append('----materia prima -> %s Lote -> %s %s' % (
+                    al.product_id.name, al.lot_id.name if al.lot_id else '',
+                    al.lot_id.get_attributes() if al.lot_id else ''))  
                 if wo.worked_lot:
                     lines.append('----lote de salida: %s %s' % (
                         wo.worked_lot.name if wo.worked_lot else '',
-                        wo.worked_lot.get_attributes() if wo.worked_lot else '')) # noqa
+                        wo.worked_lot.get_attributes() if wo.worked_lot else ''))  # noqa
                 for tl in wo.time_ids:
                     if tl.operator_id:
-                        lines.append('----%s - %s / %s / %s / %s' % (tl.date_start,tl.date_end,tl.workcenter_id.name,tl.operator_id.name,tl.loss_id.name)) # noqa
+                        lines.append('----%s - %s / %s / %s / %s' % (
+                        tl.date_start, tl.date_end, tl.workcenter_id.name,
+                        tl.operator_id.name, tl.loss_id.name))  
 
 #            for sm in self.env['stock.move'].search([('ot', '=', self.ot)]):
 #                lines.append(sm.name)
@@ -140,8 +144,8 @@ class MrpProduction(models.Model):
 
     def _workorders_create(self, bom, bom_data):
         """
-        :param bom: in case of recursive boms: we could create work orders for child
-                    BoMs
+        :param bom: in case of recursive boms: we could create work orders for
+                    child BoMs
 
             Se copio este metodo para sobreescribirlo y poner qty_producing=0
         """
@@ -152,15 +156,17 @@ class MrpProduction(models.Model):
         if self.product_id.tracking == 'serial':
             quantity = 1.0
         else:
-            quantity = self.product_qty - sum(self.move_finished_ids.mapped('quantity_done'))
+            quantity = self.product_qty - sum(
+                self.move_finished_ids.mapped('quantity_done'))
             quantity = quantity if (quantity > 0) else 0
 
         for operation in bom.routing_id.operation_ids:
             # create workorder
-            cycle_number = math.ceil(bom_qty / operation.workcenter_id.capacity)  # TODO: float_round UP
+            cycle_number = math.ceil(
+                bom_qty / operation.workcenter_id.capacity)  # TODO: float_round UP # noqa
             duration_expected = (operation.workcenter_id.time_start +
                                  operation.workcenter_id.time_stop +
-                                 cycle_number * operation.time_cycle * 100.0 / operation.workcenter_id.time_efficiency)
+                                 cycle_number * operation.time_cycle * 100.0 / operation.workcenter_id.time_efficiency) # noqa
             workorder = workorders.create({
                 'name': operation.name,
                 'production_id': self.id,
@@ -175,12 +181,18 @@ class MrpProduction(models.Model):
                 workorders[-1].next_work_order_id = workorder.id
             workorders += workorder
 
-            # assign moves; last operation receive all unassigned moves (which case ?)
-            moves_raw = self.move_raw_ids.filtered(lambda move: move.operation_id == operation)
+            # assign moves; last operation receive all unassigned moves 
+            # (which case ?)
+            moves_raw = self.move_raw_ids.filtered(
+                lambda move: move.operation_id == operation)
             if len(workorders) == len(bom.routing_id.operation_ids):
-                moves_raw |= self.move_raw_ids.filtered(lambda move: not move.operation_id)
-            moves_finished = self.move_finished_ids.filtered(lambda move: move.operation_id == operation) #TODO: code does nothing, unless maybe by_products?
-            moves_raw.mapped('move_line_ids').write({'workorder_id': workorder.id})
+                moves_raw |= self.move_raw_ids.filtered(
+                    lambda move: not move.operation_id)
+            # TODO: code does nothing, unless maybe by_products?                    
+            moves_finished = self.move_finished_ids.filtered(
+                lambda move: move.operation_id == operation)  
+            moves_raw.mapped('move_line_ids').write(
+                {'workorder_id': workorder.id})
             (moves_finished + moves_raw).write({'workorder_id': workorder.id})
 
             workorder._generate_lot_ids()
