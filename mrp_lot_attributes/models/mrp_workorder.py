@@ -222,9 +222,6 @@ class MrpWorkorder(models.Model):
             lotes y ademas si es el primer lote de una ot le ponemos la OT
         """
         self.ensure_one()
-        if not self.ot:
-            raise UserError(_('La Orden de trabajo no tiene OT no se puede'
-                              'continuar.'))
 
         self.validate_producing()
         self.validate_lots()
