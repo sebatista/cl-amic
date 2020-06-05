@@ -1,0 +1,28 @@
+@startuml dependencias de modulos
+
+class mrp_easy_prod {
+}
+class mrp_lot_attributes {
+}
+class mrp_ot {
+}
+class mrp_production_cancel {
+}
+class pre_printed_stock_picking {
+}
+
+mrp_easy_prod -u-> odoo.mrp
+mrp_easy_prod -u-> odoo.hr
+mrp_lot_attributes -u-> odoo.stock
+mrp_lot_attributes -u-> odoo.mrp
+mrp_lot_attributes -u-> mrp_ot
+mrp_ot -u-> odoo.mrp
+mrp_ot -u-> odoo.product
+mrp_ot -u-> oca.web_widget_timepicker
+mrp_easy_prod --> mrp_ot
+mrp_ot -u-> odoo.stock
+mrp_production_cancel -u-> odoo.mrp
+pre_printed_stock_picking -u-> adhoc.l10n_ar_aeroo_stock
+pre_printed_stock_picking -u-> mrp_lot_attributes
+
+@enduml

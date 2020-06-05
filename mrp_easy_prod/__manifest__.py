@@ -21,7 +21,8 @@
     "depends": [
         'base',
         'mrp',
-        'hr'
+        'hr',
+        'mrp_ot'
     ],
     "data": [
         'security/ir.model.access.csv',

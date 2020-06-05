@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!-- modificar la vista de tiempos -->
+    <record id="mrp_production_workcenter_form_view_inherit2" model="ir.ui.view">
+        <field name="name">MRP LOT ATTRIBUTES modificar vista de tiempos</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
+        <field name="arch" type="xml">
+            <!-- Modificar la vista formulario del registro de horas de produccion -->
+            <xpath expr="//page/group[2]" position="replace">
+            <group>
+                <field name="time_ids" nolabel="1" 
+                       context="{'default_workcenter_id': workcenter_id}"/>
+
+            </group>
+
+
+                <!-- Add your fields here -->
+<!--
+                    <group>
+                        <field name="time_ids" nolabel="1" 
+                               context="{'default_workcenter_id': workcenter_id}">
+                            <! -  - Lista de registro de horas- - >
+                            <tree>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                                <field name="duration" widget="float_time" sum="Total duration"/>
+                                <field name="operator_id" string="Operador"/>
+                                <field name="qty" sum="Total producido"/>
+                                <field name="workcenter_id" invisible="1"/>
+                                <field name="loss_id" string="Eficiencia"/>
+                            </tree>
+                            
+                            <! - - Formulario de registro de horas - - >
+                            <form>
+                                <group>
+                                    <group>
+                                        <field name="date_start" invisible="False"/>
+                                        <field name="date_end" invisible="False"/>
+
+                                        <field name="date" required="True"/>
+                                        <field name="time_start" widget="float_time" required="True"/>
+                                        <field name="time_end" widget="float_time" required="True"/>
+                                    </group>
+                                    <group>
+                                        <field name="operator_id" required="True"/>
+                                        <field name="loss_id" string="Eficiencia"/>
+                                        <field name="qty" required="True"/>
+                                    </group>
+                                    <footer>
+                                        <button string="Guardar" class="btn-default" special="save"/>
+                                        <button string="Cancelar" class="btn-default" special="cancel"/>
+                                    </footer>
+                                </group>
+                            </form>
+
+                        </field>
+                    </group>
+-->                    
+            </xpath>            
+        </field>
+    </record>
+
+    <!-- model.name tree view -->
+    <record id="mrp_workcenter_productivity_view_tree" model="ir.ui.view">
+        <field name="name">MRP LOT ATTRIBUTES productivity tree</field>
+        <field name="model">mrp.workcenter.productivity</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="workorder_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <!--
+                <field name="duration" widget="float_time" sum="Total duration"/>
+                -->
+                <field name="operator_id" string="Operador"/>
+                <field name="qty" sum="Total producido"/>
+                <field name="workcenter_id" invisible="1"/>
+                <field name="loss_id" string="Eficiencia"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- model.name form view -->
+    <record id="oee_form_view" model="ir.ui.view">
+        <field name="name">MRP LOT ATTRIBUTES productivity form</field>
+        <field name="model">mrp.workcenter.productivity</field>
+        <field name="inherit_id" ref="mrp.oee_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="replace">
+                <form string="Parte de producción">
+                    <field name="date_start" invisible="1"/>
+                    <field name="date_end" invisible="1"/>
+                    <group>
+                        <field name="workcenter_id" />
+                        <field name="workorder_id" domain="[('workcenter_id','=', workcenter_id)]"/>
+                        <field name="qty_total"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="date" required="1"/>
+                            <field name="time_start" widget="float_time" required="1"/>
+                            <field name="time_end" widget="float_time" required="1"/>
+                        </group>
+                        <group>
+                            <field name="operator_id" required="1"/>
+                            <field name="loss_id" string="Eficiencia"/>
+                            <field name="qty" required="1"/>
+                        </group>
+                        <!--
+                        <footer>
+                            <button string="Guardar" type="object" name="button_save"/>
+                            <button string="Cancelar" special="object" name="button_cancel"/>
+                        </footer>
+                        -->
+                    </group>
+                </form>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- menu para editar partes de horas -->
+
+    <record id="mrp_workcenter_productivity_action" model="ir.actions.act_window">
+        <field name="name">Partes de producción</field>
+        <field name="res_model">mrp.workcenter.productivity</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para cargar un parte de producción.
+              </p><p>
+                Un parte de produccion indica la cantidad de horas que un
+                operador requirió para producir una cantidad determinada de 
+                piezas, o parte de ella.
+              </p>        
+        </field>
+    </record>
+
+    <menuitem id="productivity"
+              action="mrp_workcenter_productivity_action"
+              parent="mrp.menu_mrp_manufacturing"
+              sequence="135"/>
+
+</odoo>

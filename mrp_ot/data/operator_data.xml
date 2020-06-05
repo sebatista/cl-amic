@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="difference_operator" model="hr.employee">
+        <field name="name">Diferencia</field>
+    </record>
+
+</odoo>

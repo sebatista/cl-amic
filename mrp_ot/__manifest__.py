@@ -14,14 +14,15 @@
     'installable': True,
     'preloadable': True,
     'depends': [
+        'hr',
         'mrp',
         'product',
         'web_widget_timepicker',
-        'mrp_easy_prod',
         'stock'
     ],
     'data': [
         'data/ot_sequence_data.xml',
+        'data/operator_data.xml',
         'security/ir.model.access.csv',
         'report/ot_cover_report.xml',
         'views/product_view.xml',

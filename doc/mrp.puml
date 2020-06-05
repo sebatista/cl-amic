@@ -1,4 +1,5 @@
-@startuml
+@startuml amic
+
 class MrpProduction{
 product_id
 product_qty
@@ -11,8 +12,17 @@ move_raw_ids
 }
 
 class MrpWorkorder {
---
-active_move_line_ids
+    qty_produced: cantidad real producida
+    date_end: fecha final
+}
+
+class MrpWorkcenterProductivity {
+    date_start: datetime
+    date_end: datetime
+    duration: float
+    operator_id
+    workcenter_id
+    loss_id
 }
 
 class StockMoveLine {
@@ -28,6 +38,7 @@ active_move_line_ids
 }
 
 MrpWorkorder *-- StockMoveLine : active_move_line_ids
+MrpWorkorder --* MrpWorkcenterProductivity : time_ids
 MrpProduction --* MrpWorkorder : workorder_ids
 MrpProduction -* StockMove: move_raw_ids
 StockMove -* StockMoveLine: active_move_line_ids

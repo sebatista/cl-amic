@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
-oe --restore -d amic_test -c amic -f 2020_05_16_19_41_20.dump.zip
+# backup /var/odoo/backups/
+oe --restore -d amic_test -c amic -f test.dump.zip
+
+# no se linkea con wdb
+# se usan los fuentes bajados de la imagen
+# se usa la imagen debug
 
 sudo docker run --rm -it \
-    --link wdb \
     -v /odoo_ar/odoo-11.0/amic/config:/opt/odoo/etc/ \
     -v /odoo_ar/odoo-11.0/amic/data_dir:/opt/odoo/data \
     -v /odoo_ar/odoo-11.0/amic/sources:/opt/odoo/custom-addons \
@@ -12,5 +16,5 @@ sudo docker run --rm -it \
     -e WDB_SOCKET_SERVER=wdb \
     --link pg-amic:db \
     jobiols/odoo-jeo:11.0.debug -- \
-        -i  amic_default \
+        -i  mrp_easy_prod,mrp_lot_attributes,mrp_ot,mrp_production_cancel,pre_printed_stock_picking \
    --stop-after-init -d amic_test --test-enable

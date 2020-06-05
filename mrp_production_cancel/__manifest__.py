@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # https://apps.odoo.com/apps/modules/11.0/bi_mrp_production_cancel/
 {
     'name': 'Manufacturing Order Cancel/Reverse in Odoo',

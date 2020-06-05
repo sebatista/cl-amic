@@ -100,8 +100,9 @@ class MrpProduction(models.Model):
                 lines.append('-%s-' % wo.name)
                 for al in wo.active_move_line_ids:
                     lines.append('----materia prima -> %s Lote -> %s %s' % (
-                    al.product_id.name, al.lot_id.name if al.lot_id else '',
-                    al.lot_id.get_attributes() if al.lot_id else ''))  
+                        al.product_id.name,
+                        al.lot_id.name if al.lot_id else '',
+                        al.lot_id.get_attributes() if al.lot_id else ''))
                 if wo.worked_lot:
                     lines.append('----lote de salida: %s %s' % (
                         wo.worked_lot.name if wo.worked_lot else '',
@@ -109,13 +110,13 @@ class MrpProduction(models.Model):
                 for tl in wo.time_ids:
                     if tl.operator_id:
                         lines.append('----%s - %s / %s / %s / %s' % (
-                        tl.date_start, tl.date_end, tl.workcenter_id.name,
-                        tl.operator_id.name, tl.loss_id.name))  
+                            tl.date_start, tl.date_end, tl.workcenter_id.name,
+                            tl.operator_id.name, tl.loss_id.name))
 
-#            for sm in self.env['stock.move'].search([('ot', '=', self.ot)]):
-#                lines.append(sm.name)
-#                for ml in sp.move_lines:
-#                    lines.append(ml.product_id.name,ml.name)
+        # for sm in self.env['stock.move'].search([('ot', '=', self.ot)]):
+        #     lines.append(sm.name)
+        #     for ml in sp.move_lines:
+        #       lines.append(ml.product_id.name,ml.name)
 
         data['lines'] = lines
 
@@ -166,7 +167,7 @@ class MrpProduction(models.Model):
                 bom_qty / operation.workcenter_id.capacity)  # TODO: float_round UP # noqa
             duration_expected = (operation.workcenter_id.time_start +
                                  operation.workcenter_id.time_stop +
-                                 cycle_number * operation.time_cycle * 100.0 / operation.workcenter_id.time_efficiency) # noqa
+                                 cycle_number * operation.time_cycle * 100.0 / operation.workcenter_id.time_efficiency)  # noqa
             workorder = workorders.create({
                 'name': operation.name,
                 'production_id': self.id,
@@ -181,16 +182,16 @@ class MrpProduction(models.Model):
                 workorders[-1].next_work_order_id = workorder.id
             workorders += workorder
 
-            # assign moves; last operation receive all unassigned moves 
+            # assign moves; last operation receive all unassigned moves
             # (which case ?)
             moves_raw = self.move_raw_ids.filtered(
                 lambda move: move.operation_id == operation)
             if len(workorders) == len(bom.routing_id.operation_ids):
                 moves_raw |= self.move_raw_ids.filtered(
                     lambda move: not move.operation_id)
-            # TODO: code does nothing, unless maybe by_products?                    
+            # TODO: code does nothing, unless maybe by_products?
             moves_finished = self.move_finished_ids.filtered(
-                lambda move: move.operation_id == operation)  
+                lambda move: move.operation_id == operation)
             moves_raw.mapped('move_line_ids').write(
                 {'workorder_id': workorder.id})
             (moves_finished + moves_raw).write({'workorder_id': workorder.id})

@@ -30,26 +30,44 @@
 
             <!-- agregar los campos para cargar el seguimiento de tiempo aqui y otro panel para el rendimiento -->
             <xpath expr="//notebook/page/group" position="replace">
+
                 <group name="prod_panel">
                     <group name="left_prod_panel" string="Datos de produccion">
                         <field name="qty_producing" string="Cantidad a producir"
-                               attrs="{'readonly': ['|', ('product_tracking', '=', 'serial'), ('state', 'in', ('done', 'cancel'))]}"/>
-                        <field name="date_start1" string="Fecha de produccion"/>
-                        <label for="time_start" string="Horario de produccion"/>
-                        <div>
-                            <field name="time_start"
-                                   widget="timepicker"
-                                   options="{'datepicker': {'stepping': 1}}"
-                                   class="oe_inline"/> -
-                            <field name="time_end"
-                                   widget="timepicker"
-                                   options="{'datepicker': {'stepping': 1}}"
-                                   class="oe_inline"/>
-                        </div>
-                        <field name="operator_id" attrs="{'required': True}"/>
-                        <field name="final_lot_id" context="{'default_product_id': product_id}" domain="['|', '&amp;', ('product_id', '=', product_id), ('product_id.tracking', '!=', 'serial'), ('use_next_on_work_order_id', '=', id)]" attrs="{'invisible': [('product_tracking', '=', 'none')]}" groups="stock.group_production_lot"/>
+                               attrs="{'readonly': ['|', ('product_tracking', '=', 'serial'), 
+                                                         ('state', 'in', ('done', 'cancel'))]}"/>
+
+                        <field name="final_lot_id" 
+                            context="{'default_product_id': product_id}" 
+                            domain="['|', '&amp;', ('product_id', '=', product_id), 
+                                                   ('product_id.tracking', '!=', 'serial'), 
+                                                   ('use_next_on_work_order_id', '=', id)]" 
+                            attrs="{'invisible': [('product_tracking', '=', 'none')]}" 
+                            groups="stock.group_production_lot"/>
                         <field name="product_tracking" invisible="1"/>
+
+                        <!-- Registrar partes de produccion desde aqui. -->
+                        <field name="register_log"/>
+                        <div  attrs="{'invisible': [('register_log','=',False)]}">
+                            <group>
+                                <field name="date_start1" string="Fecha de produccion"/>
+                                <label for="time_start" string="Horario de produccion"/>
+                                <div>
+                                    <field name="time_start"
+                                        widget="timepicker"
+                                        options="{'datepicker': {'stepping': 1}}"
+                                        class="oe_inline"/> -
+                                    <field name="time_end"
+                                        widget="timepicker"
+                                        options="{'datepicker': {'stepping': 1}}"
+                                        class="oe_inline"/>
+                                </div>
+                                <field name="operator_id"/>
+                            </group>
+                        </div>
+
                     </group>
+                    <!--
                     <group name="right_prod_panel" string="Eficiencia">
                         <field name="standard_ef"/>
                         <field name="actual_ef"/>
@@ -59,7 +77,10 @@
                             <span> %</span>
                         </div>
                     </group>
+                    -->
+
                 </group>
+
             </xpath>
         </field>
     </record>
@@ -79,6 +100,6 @@
             </xpath>
 
         </field>
-    </record>
+        </record>
 
 </odoo>

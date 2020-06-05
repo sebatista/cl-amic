@@ -22,9 +22,11 @@
     ],
     "data": [
         "views/production_lot_views.xml",
-        "views/mrp_workorder_view.xml"
+        "views/mrp_workorder_view.xml",
+        "views/mrp_workcenter_productivity.xml",
     ],
     "demo": [
         "demo/mrp_demo.xml",
     ],
+    "sequence": 1
 }

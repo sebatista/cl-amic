@@ -1,6 +1,6 @@
 # For copyright and license notices, see __manifest__.py file in module root
 
-from odoo import fields, models, _
+from odoo import fields, models, api, _
 from odoo.exceptions import UserError
 import datetime as dt
 
@@ -12,6 +12,18 @@ class MrpWorkorder(models.Model):
         'stock.production.lot', 'Lote',
         help="lote que se trabajo en esta workorder, para poder buscar por OT"
     )
+
+    """
+    @api.multi
+    def write(self, vals):
+        import wdb;wdb.set_trace()
+        super(MrpWorkorder,self).write(vals)
+
+    @api.multi
+    def create(self,write):
+        import wdb;wdb.set_trace()
+        super(MrpWorkorder,self).create(vals)
+    """
 
     """
     @api.onchange('qty_producing')
@@ -84,25 +96,31 @@ class MrpWorkorder(models.Model):
         self.validate_lots()
         # self.validate_component_qty()
 
-        if not self.date_start1 or not self.time_start:
-            raise UserError(_('Por favor indique fecha de la produccion.'))
+        if self.register_log:
+            if not self.date_start1 or not self.time_start:
+                raise UserError(_('Por favor indique fecha de la produccion.'))
 
-        # aca le sumo 3 a las horas para pasar a utc a lo bruto.
-        hr = dt.timedelta(hours=self.time_start)
-        dy = dt.datetime.strptime(self.date_start1, '%Y-%m-%d')
-        ds = (hr + dy + dt.timedelta(hours=3)).strftime('%Y-%m-%d %H:%M')
+            # aca le sumo 3 a las horas para pasar a utc a lo bruto.
+            hr = dt.timedelta(hours=self.time_start)
+            dy = dt.datetime.strptime(self.date_start1, '%Y-%m-%d')
+            ds = (hr + dy + dt.timedelta(hours=3)).strftime('%Y-%m-%d %H:%M')
 
-        hr = dt.timedelta(hours=self.time_end)
-        dy = dt.datetime.strptime(self.date_start1, '%Y-%m-%d')
-        de = (hr + dy + dt.timedelta(hours=3)).strftime('%Y-%m-%d %H:%M')
+            hr = dt.timedelta(hours=self.time_end)
+            dy = dt.datetime.strptime(self.date_start1, '%Y-%m-%d')
+            de = (hr + dy + dt.timedelta(hours=3)).strftime('%Y-%m-%d %H:%M')
 
-        if ds >= de:
-            raise UserError(_('El fin de la produccion debe ser posterior al '
-                              'inicio.'))
+            if ds >= de:
+                raise UserError(_('El fin de la produccion debe ser '
+                                  'posterior al inicio.'))
+        else:
+            self.date_start = self.date_end = fields.Datetime.now()
+            ds = False
+            de = False
 
         # copio el lote de salida porque por alguna razon odoo luego lo borra
         self.worked_lot = self.final_lot_id
 
+        # poner el lost tipe en productive
         loss = self.env['mrp.workcenter.productivity.loss']
         loss_prod = loss.search([('loss_type', '=', 'productive')], limit=1)
 
@@ -177,27 +195,27 @@ class MrpWorkorder(models.Model):
                                                order='create_date, id',
                                                limit=1)
 
+        #    def validate_component_qty(self):
+        #        "" "
+        #            Obtener la lista de materiales para el producto a producir
+        #            Ver que cantidad de materia prima se requiere
+        #            Verificar que en los lotes de los productos a consumir
+        #            tenemos las
+        #            cantidades requeridas.
 
-#    def validate_component_qty(self):
-#        "" "
-#            Obtener la lista de materiales para el producto a producir
-#            Ver que cantidad de materia prima se requiere
-#            Verificar que en los lotes de los productos a consumir tenemos las
-#            cantidades requeridas.
+        #            Esto se hace solo en la operacion inicial que es donde se
+        #            consumen las manterias primas, en el resto de las
+        #            operaciones, el active_move_line_ids esta en False.
+        #        "" "
 
-#            Esto se hace solo en la operacion inicial que es donde se consumen
-#            las manterias primas, en el resto de las operaciones, el
-#            active_move_line_ids esta en False.
-#        "" "
-
-#        self.ensure_one()
-#        for mp in self.active_move_line_ids:
-#            if mp.product_lot_qty < mp.accum_qty:
-#                raise UserError(_('No te alcanza!!\n'
-#                                'Intentas consumir %s del lote %s que solo '
-#                                'tiene %s' % (mp.accum_qty,
-#                                              mp.lot_id.name,
-#                                              mp.product_lot_qty)))
+        #        self.ensure_one()
+        #        for mp in self.active_move_line_ids:
+        #            if mp.product_lot_qty < mp.accum_qty:
+        #                raise UserError(_('No te alcanza!!\n'
+        #                                'Intentas consumir %s del lote %s '
+        #                                'que solo tiene %s' % (mp.accum_qty,
+        #                                              mp.lot_id.name,
+        #                                              mp.product_lot_qty)))
 
     def button_start(self):
         """ Al arrancar la produccion hacemos el movimiento de los datos de
@@ -214,12 +232,12 @@ class MrpWorkorder(models.Model):
         # si el lote tiene una ot y si es distinta aviso.
         # TODO esto deberia chequear que sea el mismo producto, si es un
         # producto distinto se permite cambiar la OT
-#        if self.final_lot_id.ot and self.final_lot_id.ot != self.ot:
-#            raise UserError(_('Cuidado !!\n'
-#                              'El lote destino pertenece a la %s lo '
-#                              'cual no parece correcto ya que estamos '
-#                              'trabajando la %s.'
-#                              ' ') % (self.final_lot_id.ot, self.ot))
+        #        if self.final_lot_id.ot and self.final_lot_id.ot != self.ot:
+        #            raise UserError(_('Cuidado !!\n'
+        #                              'El lote destino pertenece a la %s lo '
+        #                             'cual no parece correcto ya que estamos '
+        #                              'trabajando la %s.'
+        #                              ' ') % (self.final_lot_id.ot, self.ot))
 
         # le pongo la ot al lote final
         self.final_lot_id.ot = self.ot
