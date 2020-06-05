@@ -47,19 +47,24 @@ class MrpWorkcenterProductivity(models.Model):
         return ret
 
     def adjust_time(self, values):
-        date = values.get('date') or self.date 
-        time_start = values.get('time_start') or self.time_start
-        time_end = values.get('time_end') or self.time_end
+        # TODO arreglar este parche
+        val = values
+        try:
+            date = values.get('date') or self.date
+            time_start = values.get('time_start') or self.time_start
+            time_end = values.get('time_end') or self.time_end
 
-        dt = fields.Datetime.from_string(date)
-        dts = dt + timedelta(hours=time_start)
-        dts = self.utc2local(dts)
-        values['date_start'] = fields.Datetime.to_string(dts)
+            dt = fields.Datetime.from_string(date)
+            dts = dt + timedelta(hours=time_start)
+            dts = self.utc2local(dts)
+            values['date_start'] = fields.Datetime.to_string(dts)
 
-        dte = dt + timedelta(hours=time_end)
-        dte = self.utc2local(dte)
-        values['date_end'] = fields.Datetime.to_string(dte)
-        return values
+            dte = dt + timedelta(hours=time_end)
+            dte = self.utc2local(dte)
+            values['date_end'] = fields.Datetime.to_string(dte)
+            return values
+        except Exception:
+            return val
 
     @api.model
     def create(self, values):
