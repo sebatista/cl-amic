@@ -108,15 +108,17 @@ class MrpWorkcenterProductivity(models.Model):
         """ Verificar las cantidades de piezas
         """
         for rec in self:
-            # me traigo la wo del primer registro
+            # me traigo la wo del ultimo registro, (son todos iguales)
             wo_id = rec.workorder_id
 
-        # me traigo la cantidad total
-        total_qty = wo_id.qty_produced
+        # si hay alguno, entonces verifico cantidades.
+        if wo_id:
+            # me traigo la cantidad total
+            total_qty = wo_id.qty_produced
 
-        # sumo la cantidad de todos los time_ids
-        qty = sum(wo_id.time_ids.mapped('qty'))
+            # sumo la cantidad de todos los time_ids
+            qty = sum(wo_id.time_ids.mapped('qty'))
 
-        if qty > total_qty:
-            raise UserError('La cantidad de piezas de las tareas supera '
-                            'la cantidad de piezas de la orden')
+            if qty > total_qty:
+                raise UserError('La cantidad de piezas de las tareas supera '
+                                'la cantidad de piezas de la orden')
