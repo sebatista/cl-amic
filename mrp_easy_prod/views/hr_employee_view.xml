@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <odoo>
     <record id="view_employee_form" model="ir.ui.view">
-        <field name="name">MRP_OT agregar planta al form de empleado</field>
+        <field name="name">MRP_EASY PROD agregar planta al form de empleado</field>
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
@@ -14,7 +14,7 @@
     </record>
 
     <record id="view_employee_tree" model="ir.ui.view">
-        <field name="name">MRP_OT agregar planta al tree de empleados</field>
+        <field name="name">MRP_EASY PROD agregar planta al tree de empleados</field>
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.view_employee_tree"/>
         <field name="arch" type="xml">

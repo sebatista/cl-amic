@@ -7,20 +7,21 @@ Manufacturing Order Cancel/Reverse in Odoo
    !! changes will be overwritten.                   !!
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-.. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
+.. |badge1| image:: https://img.shields.io/badge/maturity-Alpha-red.png
     :target: https://odoo-community.org/page/development-status
-    :alt: Beta
+    :alt: Alpha
 .. |badge2| image:: https://img.shields.io/badge/github-jobiols%2Fcl--amic-lightgray.png?logo=github
     :target: https://github.com/jobiols/cl-amic/tree/11.0/mrp_production_cancel
     :alt: jobiols/cl-amic
 
 |badge1| |badge2| 
 
-Esta aplicacion de Odoo se utiliza para cancelar la MO después de haber terminado
-y pasarla nuevamente an "Borrador", también actualiza las cantidades.
+Esta aplicacion se utiliza para cancelar la MO después de haberla terminado y
+para pasarla nuevamente an "Borrador", También actualiza las cantidades de
+stock.
 
-Es util revertir MO completo cuando sea necesario o cualquier error cometido
-en la orden de fabricación / producción.
+Es util revertir la MO completa cuando sea necesario corregir cualquier error
+cometido en la orden de fabricación / producción.
 
 También gestiona el flujo de trabajo inverso adecuado para el lote y el número
 de serie de materias primas y productos terminados. Si está administrando sus
@@ -44,6 +45,11 @@ Volver a Borrador
 
 Despues de cancelar la orden se puede volver a borrador para eliminarla o para
 modificarla y lanzarla nuevamente.
+
+.. IMPORTANT::
+   This is an alpha version, the data model and design can change at any time without warning.
+   Only for development or testing purpose, do not use in production.
+   `More details on development status <https://odoo-community.org/page/development-status>`_
 
 **Table of contents**
 
