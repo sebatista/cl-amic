@@ -111,8 +111,6 @@ class MrpWorkcenterProductivity(models.Model):
             # me traigo la wo del ultimo registro, (son todos iguales)
             wo_id = rec.workorder_id
 
-        # si hay alguno, entonces verifico cantidades.
-        if wo_id:
             # me traigo la cantidad total
             total_qty = wo_id.qty_produced
 
