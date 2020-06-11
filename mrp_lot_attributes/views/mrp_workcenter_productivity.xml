@@ -13,7 +13,6 @@
             <group>
                 <field name="time_ids" nolabel="1" 
                        context="{'default_workcenter_id': workcenter_id}"/>
-
             </group>
 
 
@@ -63,13 +62,15 @@
         </field>
     </record>
 
-    <!-- model.name tree view -->
+    <!-- mrp.workcenter.productivity tree view -->
     <record id="mrp_workcenter_productivity_view_tree" model="ir.ui.view">
         <field name="name">MRP LOT ATTRIBUTES productivity tree</field>
         <field name="model">mrp.workcenter.productivity</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="workorder_id"/>
+                <field name="ot"/>
+                <field name="workcenter"/>
+                <field name="workorder"/>
                 <field name="date_start"/>
                 <field name="date_end"/>
                 <!--
@@ -83,7 +84,24 @@
         </field>
     </record>
 
-    <!-- model.name form view -->
+    <!-- Mejorar la busqueda de partes de produccion -->
+    <record id="oee_search_view" model="ir.ui.view">
+        <field name="name">MRP LOT ATTRIBUTES partes search view</field>
+        <field name="model">mrp.workcenter.productivity</field>
+        <field name="inherit_id" ref="mrp.oee_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='workcenter_id']" position="after">
+                <field name="workorder_id"/>
+            </xpath>
+            <xpath expr="//field[@name='workcenter_id'][1]" position="replace"/>
+            <xpath expr="//filter[@name='workcenter_group']" position="after">
+                <filter string='Orden de Trabajo' name="workorder_group" context="{'group_by': 'workorder_id'}"/>
+                <filter string='Operador' name="operator_group" context="{'group_by': 'operator_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- mrp.workcenter.productivity form view -->
     <record id="oee_form_view" model="ir.ui.view">
         <field name="name">MRP LOT ATTRIBUTES productivity form</field>
         <field name="model">mrp.workcenter.productivity</field>
@@ -122,7 +140,6 @@
     </record>
 
     <!-- menu para editar partes de horas -->
-
     <record id="mrp_workcenter_productivity_action" model="ir.actions.act_window">
         <field name="name">Partes de producción</field>
         <field name="res_model">mrp.workcenter.productivity</field>

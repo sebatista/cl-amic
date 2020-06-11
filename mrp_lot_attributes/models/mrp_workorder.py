@@ -1,8 +1,8 @@
 # For copyright and license notices, see __manifest__.py file in module root
 
-from odoo import fields, models, api, _
-from odoo.exceptions import UserError
 import datetime as dt
+from odoo import fields, models, _
+from odoo.exceptions import UserError
 
 
 class MrpWorkorder(models.Model):
@@ -96,26 +96,21 @@ class MrpWorkorder(models.Model):
         self.validate_lots()
         # self.validate_component_qty()
 
-        if self.register_log:
-            if not self.date_start1 or not self.time_start:
-                raise UserError(_('Por favor indique fecha de la produccion.'))
+        if not self.date_start1 or not self.time_start:
+            raise UserError(_('Por favor indique fecha de la produccion.'))
 
-            # aca le sumo 3 a las horas para pasar a utc a lo bruto.
-            hr = dt.timedelta(hours=self.time_start)
-            dy = dt.datetime.strptime(self.date_start1, '%Y-%m-%d')
-            ds = (hr + dy + dt.timedelta(hours=3)).strftime('%Y-%m-%d %H:%M')
+        # aca le sumo 3 a las horas para pasar a utc a lo bruto.
+        hr = dt.timedelta(hours=self.time_start)
+        dy = dt.datetime.strptime(self.date_start1, '%Y-%m-%d')
+        ds = (hr + dy + dt.timedelta(hours=3)).strftime('%Y-%m-%d %H:%M')
 
-            hr = dt.timedelta(hours=self.time_end)
-            dy = dt.datetime.strptime(self.date_start1, '%Y-%m-%d')
-            de = (hr + dy + dt.timedelta(hours=3)).strftime('%Y-%m-%d %H:%M')
+        hr = dt.timedelta(hours=self.time_end)
+        dy = dt.datetime.strptime(self.date_start1, '%Y-%m-%d')
+        de = (hr + dy + dt.timedelta(hours=3)).strftime('%Y-%m-%d %H:%M')
 
-            if ds >= de:
-                raise UserError(_('El fin de la produccion debe ser '
-                                  'posterior al inicio.'))
-        else:
-            self.date_start = self.date_end = fields.Datetime.now()
-            ds = False
-            de = False
+        if ds >= de:
+            raise UserError(_('El fin de la produccion debe ser '
+                              'posterior al inicio.'))
 
         # copio el lote de salida porque por alguna razon odoo luego lo borra
         self.worked_lot = self.final_lot_id
@@ -222,6 +217,9 @@ class MrpWorkorder(models.Model):
             lotes y ademas si es el primer lote de una ot le ponemos la OT
         """
         self.ensure_one()
+        if not self.ot:
+            raise UserError(_('La Orden de trabajo no tiene OT no se puede'
+                              'continuar.'))
 
         self.validate_producing()
         self.validate_lots()

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # backup /var/odoo/backups/
-oe --restore -d amic_test -c amic -f test.dump.zip
+cp /odoo_ar/odoo-11.0/amic/backup_dir/test/amic_test.zip /odoo_ar/odoo-11.0/amic/backup_dir/
+oe --restore -d amic_test -c amic -f amic_test.zip
 
 # no se linkea con wdb
 # se usan los fuentes bajados de la imagen

@@ -37,4 +37,5 @@
             'pdf2image',
         ],
     },
+    "sequence": 1
 }

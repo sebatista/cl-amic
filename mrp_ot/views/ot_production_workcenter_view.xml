@@ -12,6 +12,13 @@
             </xpath>
             TODO FIXME hay que volver a poner esto
 -->
+            <!-- mostrar la ot dentro del formulario -->
+            <xpath expr="//group/group" position="after">
+                <group name="ot amic" class="oe_right">
+                  <h1><field name='ot'/></h1>
+                </group>
+            </xpath>
+
             <!-- quitar el usuario logeado y agregar el operador en el seguimiento de tiempo -->
             <field name="user_id" position="attributes">
                 <attribute name="invisible">1</attribute>
@@ -34,15 +41,15 @@
                 <group name="prod_panel">
                     <group name="left_prod_panel" string="Datos de produccion">
                         <field name="qty_producing" string="Cantidad a producir"
-                               attrs="{'readonly': ['|', ('product_tracking', '=', 'serial'), 
+                               attrs="{'readonly': ['|', ('product_tracking', '=', 'serial'),
                                                          ('state', 'in', ('done', 'cancel'))]}"/>
 
-                        <field name="final_lot_id" 
-                            context="{'default_product_id': product_id}" 
-                            domain="['|', '&amp;', ('product_id', '=', product_id), 
-                                                   ('product_id.tracking', '!=', 'serial'), 
-                                                   ('use_next_on_work_order_id', '=', id)]" 
-                            attrs="{'invisible': [('product_tracking', '=', 'none')]}" 
+                        <field name="final_lot_id"
+                            context="{'default_product_id': product_id}"
+                            domain="['|', '&amp;', ('product_id', '=', product_id),
+                                                   ('product_id.tracking', '!=', 'serial'),
+                                                   ('use_next_on_work_order_id', '=', id)]"
+                            attrs="{'invisible': [('product_tracking', '=', 'none')]}"
                             groups="stock.group_production_lot"/>
                         <field name="product_tracking" invisible="1"/>
 
