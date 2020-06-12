@@ -141,7 +141,7 @@
 
     <!-- menu para editar partes de horas -->
     <record id="mrp_workcenter_productivity_action" model="ir.actions.act_window">
-        <field name="name">MRP LOT ATTRIBUTES Partes de producción</field>
+        <field name="name">Partes de producción</field>
         <field name="res_model">mrp.workcenter.productivity</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>

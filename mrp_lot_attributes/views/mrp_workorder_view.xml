@@ -2,9 +2,7 @@
 <odoo>
     <!-- modificar vista de materias primas -->
     <record id="mrp_production_workcenter_form_view_inherit0" model="ir.ui.view">
-        <field name="name">MRP LOT ATTRIBUTES mejorar vista de materias
-            primas
-        </field>
+        <field name="name">MRP LOT ATTRIBUTES mejorar vista de materias primas</field>
         <field name="model">mrp.workorder</field>
         <field name="inherit_id"
                ref="mrp.mrp_production_workcenter_form_view_inherit"/>
@@ -39,9 +37,7 @@
     <!-- visualizamos el lote trabajado porque odoo lo desaparece cuando pongo
          HECHO en la tarea -->
     <record id="mrp_production_workcenter_form_view_inherit1" model="ir.ui.view">
-        <field name="name">MRP LOT ATTRIBUTES visualizar lote despues de
-            HECHO
-        </field>
+        <field name="name">MRP LOT ATTRIBUTES visualizar lote despues de HECHO</field>
         <field name="model">mrp.workorder</field>
         <field name="inherit_id"
                ref="mrp_ot.mrp_production_workcenter_form_view_inherit1"/>
@@ -57,9 +53,7 @@
 
     <!-- filtrar lote de componente para no traer marcados como hecho -->
     <record id="mrp_production_workcenter_form_view_inherit3" model="ir.ui.view">
-        <field name="name">MRP LOT ATTRIBUTES filtrar lotes en cero en los
-            componentes
-        </field>
+        <field name="name">MRP LOT ATTRIBUTES filtrar lotes en cero en los componentes</field>
         <field name="model">mrp.workorder</field>
         <field name="inherit_id"
                ref="mrp.mrp_production_workcenter_form_view_inherit"/>

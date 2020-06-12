@@ -4,7 +4,7 @@
 
 {
     "name": "MRP Lot Attributes",
-    "summary": "Add attributes to lot...",
+    "summary": "Agregar atributos a lote.",
     "version": "11.0.0.0.1",
     "development_status": "Beta",  # "Alpha|Beta|Production/Stable|Mature"
     "category": "Stock",
