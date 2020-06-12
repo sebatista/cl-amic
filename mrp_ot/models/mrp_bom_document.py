@@ -21,14 +21,14 @@ class MrpBomDocument(models.Model):
         ondelete='cascade'
     )
     active = fields.Boolean(
-        'Active',
+        'Activo',
         default=True
     )
-    priority = fields.Selection([
-        ('0', 'Normal'),
-        ('1', 'Bajo'),
-        ('2', 'Alto'),
-        ('3', 'Muy alto')],
+    priority = fields.Selection(
+        [('0', 'Normal'),
+         ('1', 'Bajo'),
+         ('2', 'Alto'),
+         ('3', 'Muy alto')],
         string="Prioridad",
         help='Define el orden cuando se muestran los documentos de la OT.'
     )

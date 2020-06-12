@@ -1,10 +1,8 @@
 <?xml version="1.0"?>
-<!-- Copyright 2019  - jeo Software
+<!-- Copyright 2020  - jeo Software
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 
 <odoo>
-<data>
-
     <record id="action_mrp_easy_wizard" model="ir.actions.act_window">
         <field name="name">Cargar datos de producción</field>
         <field name="res_model">mrp.wizard</field>
@@ -18,5 +16,4 @@
               groups="easy_prod_user"
               sequence="90"
               web_icon="mrp_easy_prod,static/src/img/descarga.png"/>
-</data>
 </odoo>

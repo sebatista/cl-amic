@@ -46,7 +46,7 @@ class MrpWizard(models.TransientModel):
 
         if not self.work_order_id:
             raise UserError(_('No hay ordenes de trabajo listas o en proceso '
-                              'en el centro %s' % self.workcenter_id.code))
+                              'en el centro %s') % self.workcenter_id.code)
 
         if not self.workcenter_id:
             raise UserError(_('Debe indicar cual es el centro de produccion'))

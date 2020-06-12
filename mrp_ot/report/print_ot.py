@@ -1,7 +1,8 @@
 # Copyright 2019 jeo Software
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from openerp import api, models
 import logging
+from openerp import api, models
+
 _logger = logging.getLogger(__name__)
 try:
     from pdf2image import convert_from_bytes

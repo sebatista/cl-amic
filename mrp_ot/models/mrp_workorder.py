@@ -1,7 +1,7 @@
 # For copyright and license notices, see __manifest__.py file in module root
 
-from odoo import fields, models, api
 from datetime import datetime
+from odoo import fields, models, api
 from pytz import timezone, utc
 
 

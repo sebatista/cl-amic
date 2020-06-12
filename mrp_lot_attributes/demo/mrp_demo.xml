@@ -1,20 +1,15 @@
 <?xml version="1.0" ?>
-<odoo>
-    <data noupdate="1">
-
-        <!-- Hay otro registro de producto con el mismo default code
-            hubo que cambiarle Delivery por Delivery1
-        -->
-        <record id="product_product_delivery_poste" model="product.product">
-            <field name="name">The Poste</field>
-            <field name="default_code">Delivery1</field>
-            <field name="type">service</field>
-            <field name="categ_id" ref="product.product_category_all"/>
-            <field name="sale_ok" eval="False"/>
-            <field name="purchase_ok" eval="False"/>
-            <field name="list_price">20.0</field>
-        </record>
-
-
-    </data>
+<odoo noupdate="1">
+    <!-- Hay otro registro de producto con el mismo default code
+        hubo que cambiarle Delivery por Delivery1
+    -->
+    <record id="product_product_delivery_poste" model="product.product">
+        <field name="name">The Poste</field>
+        <field name="default_code">Delivery1</field>
+        <field name="type">service</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="list_price">20.0</field>
+    </record>
 </odoo>

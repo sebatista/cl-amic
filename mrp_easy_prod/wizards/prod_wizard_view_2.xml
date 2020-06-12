@@ -3,7 +3,6 @@
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 
 <odoo>
-<data>
 <record id="mrp_wizard_model_view_form_2" model="ir.ui.view">
     <field name="name">MRP EASY PROD wizard 2</field>
     <field name="model">mrp.workorder</field>
@@ -150,5 +149,4 @@
         </form>
     </field>
 </record>
-</data>
 </odoo>

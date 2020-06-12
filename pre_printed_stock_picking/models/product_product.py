@@ -36,7 +36,7 @@ class ProductProduct(models.Model):
     )
 
 
-class ProductProduct(models.Model):
+class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     att_ot = fields.Boolean(
