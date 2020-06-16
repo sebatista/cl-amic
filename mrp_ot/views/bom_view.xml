@@ -3,20 +3,18 @@
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 
 <odoo>
-    <data>
-
-        <record id="mrp_bom_form_view" model="ir.ui.view">
-            <field name="name">MRP_OT datos de la ot</field>
-            <field name="model">mrp.bom</field>
-            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
-            <field name="arch" type="xml">
-                <xpath expr="//sheet/div/button" position="after">
-                    <button name="action_see_attachments" type="object"
-                            string="Doc OT"
-                            class="oe_stat_button" icon="fa-th-list"/>
-                </xpath>
-            </field>
-        </record>
+    <record id="mrp_bom_form_view" model="ir.ui.view">
+        <field name="name">MRP_OT datos de la ot</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/div/button" position="after">
+                <button name="action_see_attachments" type="object"
+                        string="Doc OT"
+                        class="oe_stat_button" icon="fa-th-list"/>
+            </xpath>
+        </field>
+    </record>
 
     <record id="view_document_file_kanban_mrp_ot" model="ir.ui.view">
         <field name="name">MRP OT adjuntos</field>
@@ -72,7 +70,4 @@
           </xpath>
         </field>
     </record>
-
-    </data>
-
 </odoo>
