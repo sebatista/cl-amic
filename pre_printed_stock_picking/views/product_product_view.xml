@@ -8,15 +8,15 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='sales']" position="inside">
                 <group name="select_attrib"
-                       string="Atributos a mostrar en remito al cliente">
+                   string="Atributos a mostrar en remito al cliente">
 
-                        <field name="att_ot"/>
-                        <field name="att_tt"/>
-                        <field name="att_colada"/>
-                        <field name="att_paquete"/>
-                        <field name="att_aceria"/>
-                        <field name="att_remito_proveedor"/>
-                        <field name="att_fecha_remito"/>
+                    <field name="att_ot"/>
+                    <field name="att_tt"/>
+                    <field name="att_colada"/>
+                    <field name="att_paquete"/>
+                    <field name="att_aceria"/>
+                    <field name="att_remito_proveedor"/>
+                    <field name="att_fecha_remito"/>
                 </group>
             </xpath>
         </field>

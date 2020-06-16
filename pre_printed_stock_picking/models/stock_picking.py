@@ -7,7 +7,14 @@ class StockPicking(models.Model):
     _inherit = "stock.picking"
 
     internal = fields.Boolean(
-        compute="_compute_internal"
+        compute="_compute_internal",
+        help='Indica si el movimiento es interno o sea se mueve a un proceso '
+             'tercerizado o si el movimiento es a un cliente.'
+    )
+    client_order_ref = fields.Char(
+        string="Orden de compra del cliente",
+        compute="_compute_client_order_ref",
+        readonly=True
     )
 
     @api.multi
@@ -17,3 +24,15 @@ class StockPicking(models.Model):
         """
         for reg in self:
             reg.internal = reg.location_dest_id.usage == 'internal'
+
+    @api.multi
+    def _compute_client_order_ref(self):
+        """ Busco la referencia del cliente en la SO, si es que la encuentro
+            y la pongo en la referencia de cliente de stock picking
+        """
+        so_obj = self.env['sale.order']
+        for rec in self:
+            if rec.origin:
+                _so = so_obj.search([('name', '=', rec.origin.strip())])
+                ref = 'OC: %s' % _so.client_order_ref if _so else "N/D"
+                rec.client_order_ref = ref

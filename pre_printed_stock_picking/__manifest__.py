@@ -22,4 +22,5 @@
         'views/voucher_number_view.xml',
         'views/product_product_view.xml'
     ],
+    'sequence': 1
 }

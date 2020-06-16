@@ -1,28 +1,26 @@
 <?xml version="1.0"?>
 
 <odoo>
-    <data>
-        <record id="sequence_view" model="ir.ui.view">
-            <field name="name">PRE PRINTED STOCK PICKING manual</field>
-            <field name="model">ir.sequence</field>
-            <field name="inherit_id" ref="base.sequence_view"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='code']" position="attributes">
-                    <attribute name="attrs">{'invisible':[('implementation', '=', 'manual')]}</attribute>
-                </xpath>
-                <xpath expr="//field[@name='padding']" position="attributes">
-                    <attribute name="attrs">{'invisible':[('implementation', '=', 'manual')]}</attribute>
-                </xpath>
-                <xpath expr="//field[@name='number_increment']" position="attributes">
-                    <attribute name="attrs">{'invisible':[('implementation', '=', 'manual')]}</attribute>
-                </xpath>
-                <xpath expr="//field[@name='number_next_actual']" position="attributes">
-                    <attribute name="attrs">{'invisible':[('implementation', '=', 'manual')]}</attribute>
-                </xpath>
-                <xpath expr="//field[@name='use_date_range']" position="attributes">
-                    <attribute name="attrs">{'invisible':[('implementation', '=', 'manual')]}</attribute>
-                </xpath>
-            </field>
-        </record>
-    </data>
+    <record id="sequence_view" model="ir.ui.view">
+        <field name="name">PRE PRINTED STOCK PICKING manual</field>
+        <field name="model">ir.sequence</field>
+        <field name="inherit_id" ref="base.sequence_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='code']" position="attributes">
+                <attribute name="attrs">{'invisible':[('implementation', '=', 'manual')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='padding']" position="attributes">
+                <attribute name="attrs">{'invisible':[('implementation', '=', 'manual')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='number_increment']" position="attributes">
+                <attribute name="attrs">{'invisible':[('implementation', '=', 'manual')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='number_next_actual']" position="attributes">
+                <attribute name="attrs">{'invisible':[('implementation', '=', 'manual')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='use_date_range']" position="attributes">
+                <attribute name="attrs">{'invisible':[('implementation', '=', 'manual')]}</attribute>
+            </xpath>
+        </field>
+    </record>
 </odoo>
