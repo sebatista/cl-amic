@@ -12,7 +12,6 @@ class MrpProduction(models.Model):
         related='product_id.product_tmpl_id.enable_ot',
         help='campo tecnico para habilitar el boton de imprimir la ot'
     )
-
     ot = fields.Char(
         string='OT Amic'
     )
@@ -59,8 +58,8 @@ class MrpProduction(models.Model):
             # elimino el False
             ots.discard(False)
             # me queda la ot
-            ot = ots.pop()
-            return self.write({'ot': ot})
+            _ot = ots.pop()
+            return self.write({'ot': _ot})
 
         # no quedaron 2 o una no es False entonces sigo como antes
         for order in self:
@@ -91,27 +90,28 @@ class MrpProduction(models.Model):
         mos = self.env['mrp.production'].search([('ot', '=', self.ot)],
                                                 order='create_date desc')
         lines = []
-        for mo in mos:
+        for _mo in mos:
             # MO y producto
-            lines.append('>> %s // %s <<' % (mo.name, mo.product_id.name))
+            lines.append('>> %s // %s <<' % (_mo.name, _mo.product_id.name))
             lines.append('-')
 
-            for wo in mo.workorder_ids:
-                lines.append('-%s-' % wo.name)
-                for al in wo.active_move_line_ids:
+            for _wo in _mo.workorder_ids:
+                lines.append('-%s-' % _wo.name)
+                for _al in _wo.active_move_line_ids:
                     lines.append('----materia prima -> %s Lote -> %s %s' % (
-                        al.product_id.name,
-                        al.lot_id.name if al.lot_id else '',
-                        al.lot_id.get_attributes() if al.lot_id else ''))
-                if wo.worked_lot:
+                        _al.product_id.name,
+                        _al.lot_id.name if _al.lot_id else '',
+                        _al.lot_id.get_attributes() if _al.lot_id else ''))
+                if _wo.worked_lot:
                     lines.append('----lote de salida: %s %s' % (
-                        wo.worked_lot.name if wo.worked_lot else '',
-                        wo.worked_lot.get_attributes() if wo.worked_lot else ''))  # noqa
-                for tl in wo.time_ids:
-                    if tl.operator_id:
+                        _wo.worked_lot.name if _wo.worked_lot else '',
+                        _wo.worked_lot.get_attributes() if _wo.worked_lot else ''))  # noqa
+                for _tl in _wo.time_ids:
+                    if _tl.operator_id:
                         lines.append('----%s - %s / %s / %s / %s' % (
-                            tl.date_start, tl.date_end, tl.workcenter_id.name,
-                            tl.operator_id.name, tl.loss_id.name))
+                            _tl.date_start, _tl.date_end,
+                            _tl.workcenter_id.name, _tl.operator_id.name,
+                            _tl.loss_id.name))
 
         # for sm in self.env['stock.move'].search([('ot', '=', self.ot)]):
         #     lines.append(sm.name)

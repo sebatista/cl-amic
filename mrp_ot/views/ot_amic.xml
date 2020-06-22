@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="production_OT_server_action" model="ir.actions.server">
-        <field name="name">MRP OT Asignar OT Amic</field>
+        <field name="name">Asignar OT Amic</field>
         <field name="model_id" ref="mrp.model_mrp_production"/>
         <field name="binding_model_id" ref="mrp.model_mrp_production"/>
         <field name="state">code</field>
