@@ -16,23 +16,20 @@ class MrpProduction(models.Model):
         string='OT Amic'
     )
 
-    @api.onchange('picking_type_id', 'routing_id')
-    def onchange_picking_type(self):
-        location = self.env.ref('stock.stock_location_stock')
-        try:
-            location.check_access_rule('read')
-        except (AttributeError, AccessError):
-            location = self.env['stock.warehouse'].search(
-                [('company_id', '=', self.env.user.company_id.id)],
-                limit=1).lot_stock_id
-        self.location_src_id = \
-            (self.routing_id.location_id.id or
-             self.picking_type_id.default_location_src_id.id or
-             location.id)
-
-        # cambiamos esto y ponemos el destino en el lugar donde dice el routing
-        # que tenemos la ubicacion de produccion
-        self.location_dest_id = self.routing_id.location_id.id or location.id
+    @api.model
+    def create(self, vals):
+        """ Cuando creamos una MO con los productos tildados make to order,
+            se crean al mismo tiempo las MO dependientes.
+            No se puede usar en onchange asi que lo parchamos aqui
+            Se le fuerza el location_dest_id y location_src_id a lo que dice
+            en el routing.
+        """
+        bom_id = self.env['mrp.bom'].search([('id', '=', vals.get('bom_id'))])
+        if bom_id and bom_id.routing_id:
+            routing_id = bom_id.routing_id
+            vals['location_dest_id'] = routing_id.location_id.id
+            vals['location_src_id'] = routing_id.location_id.id
+        return super(MrpProduction, self).create(vals)
 
     def clean_ot_amic(self):
         """ limpiar la ot
