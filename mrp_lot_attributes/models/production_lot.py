@@ -26,7 +26,7 @@ class ProductionLot(models.Model):
     fecha_remito = fields.Date(
     )
     aceria = fields.Char(
-
+        string='Proveedor'
     )
     unit_lot_weight = fields.Float(
         help="Peso unitario de los productos del lote en Kg.",
@@ -71,7 +71,7 @@ class ProductionLot(models.Model):
                 ret.append(rec.ot)
             if rec.aceria and \
                 (internal or (prod and prod.att_aceria)):
-                ret.append('Aceria=%s' % rec.aceria)
+                ret.append('Proveedor=%s' % rec.aceria)
             if rec.colada and \
                 (internal or (prod and prod.att_colada)):
                 ret.append('Colada=%s' % rec.colada)

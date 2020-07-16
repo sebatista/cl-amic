@@ -61,7 +61,7 @@ class ProductTemplate(models.Model):
     )
     att_aceria = fields.Boolean(
         help='Muestra este atributo en remito al cliente',
-        string='Aceria',
+        string='Proveedor',
         default=False
     )
     att_remito_proveedor = fields.Boolean(
