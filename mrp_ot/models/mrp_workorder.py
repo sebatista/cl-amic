@@ -33,11 +33,11 @@ class MrpWorkOrder(models.Model):
         string="Hora inicial",
         default=0.01
     )
-    register_log = fields.Boolean(
-        help="Al tildar esto se podrán registrar datos de produccion, horas, "
-             "cantidades, operador desde aqui.",
-        string="Registrar partes de producción"
-    )
+    # register_log = fields.Boolean(
+    #     help="Al tildar esto se podrán registrar datos de produccion, horas, "
+    #          "cantidades, operador desde aqui.",
+    #     string="Registrar partes de producción"
+    # )
 
     @api.model
     def _default_time_end(self):
@@ -58,9 +58,6 @@ class MrpWorkOrder(models.Model):
         readonly=True,
         string='Orden de Trabajo'
     )
-    """
-        Se elimina la eficiencia que se calculaba al cargar los datos de prod
-        porque ya no tiene sentido al no cargar las horas de inicio y fin.
 
     standard_ef = fields.Integer(
         help='Eficiencia standard para esta operacion en piezas por hora',
@@ -89,8 +86,8 @@ class MrpWorkOrder(models.Model):
 
     @api.depends('qty_producing', 'date_start1', 'time_end', 'time_start')
     def _compute_actual_ef(self):
-        "" " Calcular la eficiencia real en piezas/hora
-        "" "
+        """ Calcular la eficiencia real en piezas/hora
+        """
         pz = self.qty_producing
         t = self.time_end - self.time_start
 
@@ -99,8 +96,7 @@ class MrpWorkOrder(models.Model):
 
     @api.depends('operation_id.time_cycle_manual')
     def _compute_standard_ef(self):
-        "" " Calcular la eficiencia standard para esta operacion
-        "" "
+        """ Calcular la eficiencia standard para esta operacion
+        """
         tc = self.operation_id.time_cycle_manual
         self.standard_ef = 60 / tc if tc else 0
-    """
