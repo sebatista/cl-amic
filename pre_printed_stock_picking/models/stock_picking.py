@@ -34,5 +34,6 @@ class StockPicking(models.Model):
         for rec in self:
             if rec.origin:
                 _so = so_obj.search([('name', '=', rec.origin.strip())])
-                ref = 'OC: %s' % _so.client_order_ref if _so else "N/D"
+                ref = 'OC: %s' % _so.client_order_ref \
+                    if _so and _so.client_order_ref else "N/D"
                 rec.client_order_ref = ref
