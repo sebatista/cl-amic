@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Copyright 2019 jeo Software
+<!-- Copyright 2020 jeo Software
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 
 <odoo>
@@ -8,11 +8,19 @@
         <!-- Reporte Caratula de OT -->
         <template id="ot_cover_report_template">
             <t t-call="web.html_container">
-                <t t-call="web.external_layout">
+                <t t-call="web.internal_layout">
                     <div class="page">
-                        <center>
-                            <h1>Orden de Trabajo <span t-esc="data['ot']"/></h1>
-                        </center>
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="text-align:left;">
+                                    <h1>AMIC</h1>
+                                </td>
+                                <td style="text-align:right;">
+                                    <h1>Orden de Trabajo <span t-esc="data['ot']"/></h1>
+                                </td>
+                            </tr>
+                        </table>
+<!--
                         <div>
                         <div class="row">
                             <div class="col-md-6">
@@ -81,22 +89,26 @@
                         </div>
                         </t>
 
-                        <!--
+                        <! - -
                                             <p>Codigo <span t-esc="product_id.default_code"/></p>
                                             <p>Nombre <span t-esc="product_id.name"/></p>
                                             <t t-foreach="docs" t-as="o">
                                                 <span t-esc="o['campo1']"/>
                                             </t>
-                                            -->
+                                            - - >
+                    -->
                     </div>
 
                     <t t-foreach="attachs" t-as="i">
                         <div class="page">
-
-                    <p style="page-break-before:always;"></p>
-                    <span t-field="i.datas"
-                          t-options="{'widget':'image'}"
-                          class="media-object"/>
+                        <!--
+                            <p style="page-break-after:always;"></p>
+                        -->
+                            <center>
+                                <span t-field="i.datas" 
+                                      t-options="{'widget':'image'}" 
+                                      class="media-object"/>
+                            </center>
                         </div>
                     </t>
                 </t>
