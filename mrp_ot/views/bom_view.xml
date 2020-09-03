@@ -3,20 +3,34 @@
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 
 <odoo>
-    <data>
+    <record id="mrp_bom_form_view" model="ir.ui.view">
+        <field name="name">MRP_OT datos de la ot</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/div/button" position="after">
+                <button name="action_see_attachments" type="object"
+                        string="Doc OT"
+                        class="oe_stat_button" icon="fa-th-list"/>
+            </xpath>
+        </field>
+    </record>
 
-        <record id="mrp_bom_form_view" model="ir.ui.view">
-            <field name="name">MRP_OT datos de la ot</field>
-            <field name="model">mrp.bom</field>
-            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
-            <field name="arch" type="xml">
-                <xpath expr="//sheet/div/button" position="after">
-                    <button name="action_see_attachments" type="object"
-                            string="Doc OT"
-                            class="oe_stat_button" icon="fa-th-list"/>
-                </xpath>
-            </field>
-        </record>
+    <record id="view_document_file_tree_mrp_ot" model="ir.ui.view">
+        <field name="name">MRP OT adjuntos</field>
+        <field name="model">mrp.bom.document</field>
+        <field name="arch" type="xml">
+            <tree create="0">
+                <field name='sequence' widget="handle"/>
+                <field name='name'/>
+                <field name='mimetype'/>
+                <field name='res_name' string='Lista de materiales'/>
+                <field name='create_uid'/>
+                <field name='create_date'/>
+                <field name='product_code'/>
+            </tree>
+        </field>
+    </record>
 
     <record id="view_document_file_kanban_mrp_ot" model="ir.ui.view">
         <field name="name">MRP OT adjuntos</field>
@@ -28,7 +42,6 @@
                 <field name="type"/>
                 <field name="datas_fname"/>
                 <field name="name"/>
-                <field name="priority"/>
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click">
@@ -48,7 +61,7 @@
                                             <strong><field name="name"/></strong><br/>
                                             <field name="datas_fname"/><br/>
                                             <div class="mt8">
-                                                <field name="priority" widget="priority"/>
+                                                <field name="res_name"/>
                                             </div>
                                         </div>
                                     </div>
@@ -61,6 +74,7 @@
         </field>
     </record>
 
+
     <record id="view_document_form" model="ir.ui.view">
         <field name="name">MRP OT formulario</field>
         <field name="model">mrp.bom.document</field>
@@ -68,11 +82,45 @@
         <field name="mode">primary</field>
         <field name="arch" type="xml">
           <xpath expr="//field[@name='mimetype']" position="after">
-              <field name="priority" widget="priority"/>
+              <field name="sequence"/>
+              <field name="res_name" string='Lista de materiales'/>
+              <field name="product_code"/>
           </xpath>
         </field>
     </record>
 
-    </data>
+    <record id="action_mrp_bom_document" model="ir.actions.act_window">
+        <field name="name">Documentos Asociados a las OT</field>
+        <field name="res_model">mrp.bom.document</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Haga click aqui para subir los documentos de la OT.
+            </p><p>
+                Use esta caracteristica para almacenar documentos
+                tipo jpeg.
+            </p>        
+        </field>
+    </record>
 
+    <menuitem action="mrp_ot.action_mrp_bom_document"
+              id="mrp_ot.menu_bom_document"
+              parent="mrp.menu_mrp_manufacturing"
+              sequence="135"/>
+
+    <record id="mrp_bom_document_search" model="ir.ui.view">
+        <field name="name">mrp.bom.document..search</field>
+        <field name="model">mrp.bom.document</field>
+        <field name="arch" type="xml">
+            <search string="Operations">
+                <field string='Código del producto' name="product_code" />
+                <group expand='0' string='Group by...'>
+                    <filter string="Código del producto" name="resource" context="{'group_by': 'product_code'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
 </odoo>

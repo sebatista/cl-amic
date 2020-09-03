@@ -76,14 +76,9 @@ class OTCoverReport(models.AbstractModel):
     def get_report_values(self, docids, data=None):
 
         docids = [data['bom_id']]
-
-        # obtener una lista con los ids de todas las bom
         bom = self.env['mrp.bom'].browse(docids)
-        bom_ids = bom.get_all_ids()
-
-        domain = [('res_model', '=', 'mrp.bom'),
-                  ('res_id', 'in', bom_ids)]
-        attachs = self.env['ir.attachment'].search(domain)
+        domain = [('res_id', '=', bom.id)]
+        attachs = self.env['mrp.bom.document'].search(domain, order='sequence,id')
 
         return {
             'doc_ids': docids,

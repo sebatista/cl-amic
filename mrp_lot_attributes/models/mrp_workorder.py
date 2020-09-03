@@ -70,6 +70,10 @@ class MrpWorkorder(models.Model):
             raise UserError(_('La cantidad a fabricar debe ser 1 para este '
                               'producto'))
 
+        if self.time_end - self.time_start < 0.16:
+            raise UserError('La duracion no puede ser menor que 10 minutos.\n'
+                            'Revise el Horario de producción')
+
     def validate_lots(self):
         if ((self.production_id.product_id.tracking != 'none') and
                 not self.final_lot_id):
@@ -85,13 +89,15 @@ class MrpWorkorder(models.Model):
                 raise UserError(_('Por favor provea un lote para el '
                                   'componente'))
 
+        if not self.operator_id:
+            raise UserError(_('Se requiere ingresar un operador.'))
+
     def record_production(self):
         """ Crear un registro en mrp.workcenter.productivity
             Cargar el lote de salida con el peso de los lotes componentes
         """
 
         self.ensure_one()
-
         self.validate_producing()
         self.validate_lots()
         # self.validate_component_qty()
@@ -218,7 +224,7 @@ class MrpWorkorder(models.Model):
         """
         self.ensure_one()
         if not self.ot:
-            raise UserError(_('La Orden de trabajo no tiene OT no se puede'
+            raise UserError(_('La Orden de trabajo no tiene OT no se puede '
                               'continuar.'))
 
         self.validate_producing()

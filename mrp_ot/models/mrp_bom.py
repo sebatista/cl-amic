@@ -1,4 +1,4 @@
-# Copyright 2019 jeo Software
+# Copyright 2020 jeo Software
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import models
@@ -12,8 +12,8 @@ class MrpBom(models.Model):
         """
         domain = [('res_model', '=', 'mrp.bom'),
                   ('res_id', '=', self.id)]
-        attachment_view = self.env.ref(
-            'mrp_ot.view_document_file_kanban_mrp_ot')
+        attachment_view = self.env.ref('mrp_ot.view_document_file_kanban_mrp_ot')
+        attachment_tree_view = self.env.ref('mrp_ot.view_document_file_tree_mrp_ot')
         return {
             'name': 'Adjuntos',
             'domain': domain,
@@ -27,23 +27,9 @@ class MrpBom(models.Model):
                         Haga click aqui para subir los documentos de la OT.
                     </p><p>
                         Use esta caracteristica para almacenar documentos
-                        tipo PDF.
+                        tipo jpeg.
                     </p>''',
             'limit': 80,
             'context': "{'default_res_model': '%s','default_res_id': %d}" %
                        ('mrp.bom', self.id)
         }
-
-    def get_all_ids(self):
-        ids = []
-
-        def get_ids(bom):
-            ids.append(bom.id)
-            for mrp_bom_line in bom.bom_line_ids:
-                if mrp_bom_line.child_bom_id:
-                    bom = mrp_bom_line.child_bom_id
-                    get_ids(bom)
-
-        get_ids(self)
-
-        return ids

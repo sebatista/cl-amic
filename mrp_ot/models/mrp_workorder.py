@@ -3,6 +3,7 @@
 from datetime import datetime
 from odoo import fields, models, api
 from pytz import timezone, utc
+from odoo.exceptions import UserError
 
 
 class MrpWorkcenterProductivity(models.Model):
@@ -20,38 +21,40 @@ class MrpWorkOrder(models.Model):
     operator_id = fields.Many2one(
         'hr.employee',
         help='Operador que esta a cargo de la producción',
-        default=lambda self: self.env['hr.employee'].search(
-            [('name', '=', 'Diferencia')], limit=1),
+#        default=lambda self: self.env['hr.employee'].search(
+#            [('name', '=', 'Diferencia')], limit=1),
         string="Operador"
     )
     date_start1 = fields.Date(
-        help="Fecha de inicio de la produccion",
-        default=fields.Date.context_today
+        help="Fecha de inicio de la produccion"
     )
     time_start = fields.Float(
         help="Hora de inicio de la produccion",
         string="Hora inicial",
-        default=0.01
+        default=0.004
     )
+    # NO BORRAMOS ESTO PORQUE ESTOS TIPOS EN CUALQUIER MOMENTO ME PIDEN
+    # QUE LO VUELVA A PONER.
     # register_log = fields.Boolean(
     #     help="Al tildar esto se podrán registrar datos de produccion, horas, "
     #          "cantidades, operador desde aqui.",
     #     string="Registrar partes de producción"
     # )
 
-    @api.model
-    def _default_time_end(self):
-        """ Devuelve la hora actual en punto flotante localizada segun tz
-        """
-        now_utc = datetime.now(utc)
-        tz = timezone(self.env.user.tz) if self.env.user.tz else utc
-        now_local = now_utc.astimezone(tz)
-        return now_local.hour + now_local.minute / 60
+    # @api.model
+    # def _default_time_end(self):
+    #     """ Devuelve la hora actual en punto flotante localizada segun tz
+    #     """
+    #     now_utc = datetime.now(utc)
+    #     tz = timezone(self.env.user.tz) if self.env.user.tz else utc
+    #     now_local = now_utc.astimezone(tz)
+    #     return now_local.hour + now_local.minute / 60
 
     time_end = fields.Float(
         help="Hora de finalizacion de la produccion",
         string="Hora final",
-        default=_default_time_end
+        default=0.004
+#       default=_default_time_end
     )
     ot = fields.Char(
         related='production_id.ot',
