@@ -21,8 +21,8 @@
                     <group col="2">
                         <field name="ot" context="{'default_ot': 'xml_id'}"/>
                         <field name="tt"/>
-                        <field name="colada"/>
                         <field name="paquete"/>
+                        <field name="colada"/>
                     </group>
                     <group col="2">
                         <field name="remito_proveedor"/>

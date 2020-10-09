@@ -51,7 +51,8 @@
         </field>
     </record>
 
-    <!-- filtrar lote de componente para no traer marcados como hecho -->
+    <!-- filtrar lote de componente para no traer los marcados como hecho ni 
+         los que tienen cantid negativa-->
     <record id="mrp_production_workcenter_form_view_inherit3" model="ir.ui.view">
         <field name="name">MRP LOT ATTRIBUTES filtrar lotes en cero en los componentes</field>
         <field name="model">mrp.workorder</field>
@@ -61,8 +62,8 @@
             <xpath expr="//field[@name='lot_id']" position="attributes">
                 <attribute name="domain">[
                     ('product_id', '=', product_id),
-                    ('done', '=', False)
-                    ]
+                    ('product_qty', '>', 0),
+                    ('done', '=', False)                    ]
                 </attribute>
             </xpath>
         </field>
