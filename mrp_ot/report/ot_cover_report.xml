@@ -8,15 +8,39 @@
         <!-- Reporte Caratula de OT -->
         <template id="ot_cover_report_template">
             <t t-call="web.html_container">
-                <t t-call="web.internal_layout">
+                <t t-call="web.external_layout">
                     <div class="page">
+                        
                         <table style="width: 100%;">
                             <tr>
                                 <td style="text-align:left;">
-                                    <h1>AMIC</h1>
+                                    <h1><span t-esc="data['ot']"/></h1>
                                 </td>
                                 <td style="text-align:right;">
-                                    <h1>Orden de Trabajo <span t-esc="data['ot']"/></h1>
+                                    <table class="table">
+                                        <tr>
+                                            <td><span>Producir</span></td>
+                                            <td>
+                                                <span t-esc="data['final_product_name']"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="data['product_qty']"/>
+                                                <span t-esc="data['final_product_uom']"/>
+                                            </td>
+                                        </tr>
+                                        <t t-foreach="data['raw_data']" t-as="p">
+                                            <tr>
+                                                <td><span>Consumir</span></td>
+                                                <td>
+                                                    <span t-esc="p['product_name']"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="p['product_qty']"/>
+                                                    <span t-esc="p['product_uom']"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </table>
                                 </td>
                             </tr>
                         </table>

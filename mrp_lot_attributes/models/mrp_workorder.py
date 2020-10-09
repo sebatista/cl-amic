@@ -16,12 +16,10 @@ class MrpWorkorder(models.Model):
     """
     @api.multi
     def write(self, vals):
-        import wdb;wdb.set_trace()
         super(MrpWorkorder,self).write(vals)
 
     @api.multi
     def create(self,write):
-        import wdb;wdb.set_trace()
         super(MrpWorkorder,self).create(vals)
     """
 

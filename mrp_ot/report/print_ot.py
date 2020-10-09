@@ -75,6 +75,18 @@ class OTCoverReport(models.AbstractModel):
     @api.multi
     def get_report_values(self, docids, data=None):
 
+        """ Datos a imprimir
+                OT = data['ot']
+                producto_final = data['final_product_name']
+                product_qty = data['product_qty']
+                final_product_uom = data['final_product_uom']
+
+                raw_data = data['raw_data']
+                raw_data = [{'product_name':'materia prima uno',
+                             'product_qty': 123, 
+                             'product_uom': 'Un'}]
+        """
+       
         docids = [data['bom_id']]
         bom = self.env['mrp.bom'].browse(docids)
         domain = [('res_id', '=', bom.id)]

@@ -82,40 +82,43 @@ class MrpProduction(models.Model):
             'date_planned_start': self.date_planned_start,
             'product_qty': self.product_qty,
             'product_name': self.product_id.display_name,
+            'final_product_name': self.routing_id.name,
+            'final_product_uom': self.product_uom_id.name
         }
-        # todas las ordenes de trabajo
-        mos = self.env['mrp.production'].search([('ot', '=', self.ot)],
-                                                order='create_date desc')
-        lines = []
-        for _mo in mos:
-            # MO y producto
-            lines.append('>> %s // %s <<' % (_mo.name, _mo.product_id.name))
-            lines.append('-')
 
-            for _wo in _mo.workorder_ids:
-                lines.append('-%s-' % _wo.name)
-                for _al in _wo.active_move_line_ids:
-                    lines.append('----materia prima -> %s Lote -> %s %s' % (
-                        _al.product_id.name,
-                        _al.lot_id.name if _al.lot_id else '',
-                        _al.lot_id.get_attributes() if _al.lot_id else ''))
-                if _wo.worked_lot:
-                    lines.append('----lote de salida: %s %s' % (
-                        _wo.worked_lot.name if _wo.worked_lot else '',
-                        _wo.worked_lot.get_attributes() if _wo.worked_lot else ''))  # noqa
-                for _tl in _wo.time_ids:
-                    if _tl.operator_id:
-                        lines.append('----%s - %s / %s / %s / %s' % (
-                            _tl.date_start, _tl.date_end,
-                            _tl.workcenter_id.name, _tl.operator_id.name,
-                            _tl.loss_id.name))
+        # NO QUEREMOS DATOS SOLO EL ENCABEZADO
+        # todas las ordenes de trabajo
+        # mos = self.env['mrp.production'].search([('ot', '=', self.ot)],
+        #                                         order='create_date desc')
+        # lines = []
+        # for _mo in mos:
+        #     # MO y producto
+        #     lines.append('>> %s // %s <<' % (_mo.name, _mo.product_id.name))
+        #     lines.append('-')
+
+        #     for _wo in _mo.workorder_ids:
+        #         lines.append('-%s-' % _wo.name)
+        #         for _al in _wo.active_move_line_ids:
+        #             lines.append('----materia prima -> %s Lote -> %s %s' % (
+        #                 _al.product_id.name,produc        #                 _al.lot_id.name if _al.lot_id else '',
+        #                 _al.lot_id.get_attributes() if _al.lot_id else ''))
+        #         if _wo.worked_lot:
+        #             lines.append('----lote de salida: %s %s' % (
+        #                 _wo.worked_lot.name if _wo.worked_lot else '',
+        #                 _wo.worked_lot.get_attributes() if _wo.worked_lot else ''))  # noqa
+        #         for _tl in _wo.time_ids:
+        #             if _tl.operator_id:
+        #                 lines.append('----%s - %s / %s / %s / %s' % (
+        #                     _tl.date_start, _tl.date_end,
+        #                     _tl.workcenter_id.name, _tl.operator_id.name,
+        #                     _tl.loss_id.name))
 
         # for sm in self.env['stock.move'].search([('ot', '=', self.ot)]):
         #     lines.append(sm.name)
         #     for ml in sp.move_lines:
         #       lines.append(ml.product_id.name,ml.name)
 
-        data['lines'] = lines
+        # data['lines'] = lines
 
         # lista de materiales
         # self.bom_id
@@ -131,7 +134,13 @@ class MrpProduction(models.Model):
         # self.workorder_ids.final_lot_id
 
         # productos a consumir
-        # self.workorder_ids.move_raw_ids
+        data['raw_data'] = []
+        for raw_prod in self.workorder_ids.move_raw_ids:
+            data['raw_data'].append({
+                'product_name': raw_prod.product_id.name,
+                'product_qty': raw_prod.product_uom_qty,
+                'product_uom': raw_prod.product_uom.name
+            })
 
         # lotes de los productos a consumir.
         # self.workorder_ids.move_raw_ids.active_move_line_ids.lot_name
