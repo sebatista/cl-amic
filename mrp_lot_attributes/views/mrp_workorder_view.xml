@@ -62,8 +62,7 @@
             <xpath expr="//field[@name='lot_id']" position="attributes">
                 <attribute name="domain">[
                     ('product_id', '=', product_id),
-                    ('product_qty', '>', 0),
-                    ('done', '=', False)                    ]
+                    ('invisible', '=', False)]
                 </attribute>
             </xpath>
         </field>
