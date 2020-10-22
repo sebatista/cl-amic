@@ -50,11 +50,11 @@ class MrpProduction(models.Model):
         # removemos las que son iguales
         ots = set(ots)
 
-        # esperamos que haya 2 y que una sea False (el blanco)
-        if len(ots) == 2 and False in ots:
-            # elimino el False
-            ots.discard(False)
-            # me queda la ot
+        # esperamos que haya 2 y que una sea vacia
+        if len(ots) == 2 and '' in ots:
+            # elimino la ot vacia
+            ots.discard('')
+            # me queda la ot que no es vacia
             _ot = ots.pop()
             return self.write({'ot': _ot})
 

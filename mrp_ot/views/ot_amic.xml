@@ -7,15 +7,14 @@
         <field name="state">code</field>
         <field name="code">records.assign_ot_amic()</field>
     </record>
-<!--
+
     <record id="production_OT_clean_server_action" model="ir.actions.server">
-        <field name="name">MRP: Limpiar OT Amic</field>
+        <field name="name">Limpiar OT Amic</field>
         <field name="model_id" ref="mrp.model_mrp_production"/>
         <field name="binding_model_id" ref="mrp.model_mrp_production"/>
         <field name="state">code</field>
         <field name="code">records.clean_ot_amic()</field>
     </record>
-    -->
 
     <!-- busqueda por ot en la orden de fabricacion -->
         <record id="view_mrp_production_filter" model="ir.ui.view">
