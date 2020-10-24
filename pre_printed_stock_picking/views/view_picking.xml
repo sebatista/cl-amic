@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Agregar tildes para seleccionar atributos a mostrar en remito al cliente -->
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="name">PRE PRINTED STOCK PICKING fecha de entrega</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='is_quantity_done_editable']" position="after">
+                <field name="date_expected" widget="date"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
