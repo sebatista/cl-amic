@@ -67,8 +67,8 @@
                                     options="{'datepicker': {'stepping': 1}}"
                                     class="oe_inline"/>
                             </div>
-                            <!-- TODO Ojo aca el departamento esta harcodeado -->
-                            <field name="operator_id" domain="[('department_id','=',23)]"/>
+                            <!-- TODO Ojo aca el departamento esta harcodeado produccion y terceros -->
+                            <field name="operator_id" domain="[('department_id','in',[23,25])]"/>
                         </group>
                     </group>
                     <!-- eficiencia -->
