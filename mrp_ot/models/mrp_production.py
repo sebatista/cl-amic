@@ -135,12 +135,13 @@ class MrpProduction(models.Model):
 
         # productos a consumir
         data['raw_data'] = []
-        for raw_prod in self.workorder_ids.move_raw_ids:
-            data['raw_data'].append({
-                'product_name': raw_prod.product_id.name,
-                'product_qty': raw_prod.product_uom_qty,
-                'product_uom': raw_prod.product_uom.name
-            })
+        for wo in self.workorder_ids:
+            for raw_prod in wo.move_raw_ids:
+                data['raw_data'].append({
+                    'product_name': raw_prod.product_id.name,
+                    'product_qty': raw_prod.product_uom_qty,
+                    'product_uom': raw_prod.product_uom.name
+                })
 
         # lotes de los productos a consumir.
         # self.workorder_ids.move_raw_ids.active_move_line_ids.lot_name
