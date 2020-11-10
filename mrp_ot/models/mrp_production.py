@@ -34,7 +34,7 @@ class MrpProduction(models.Model):
     def clean_ot_amic(self):
         """ limpiar la ot
         """
-        return self.write({'ot': ''})
+        return self.write({'ot': False})
 
     def assign_ot_amic(self):
         """ Al marcar ordenes de produccion y darle al accion / Asignar OT Amic
@@ -51,9 +51,11 @@ class MrpProduction(models.Model):
         ots = set(ots)
 
         # esperamos que haya 2 y que una sea vacia
-        if len(ots) == 2 and '' in ots:
+        # La vacia lee como False, antes estaba como '' porque en un momento venia asi
+        # no se porque.
+        if len(ots) == 2 and False in ots:
             # elimino la ot vacia
-            ots.discard('')
+            ots.discard(False)
             # me queda la ot que no es vacia
             _ot = ots.pop()
             return self.write({'ot': _ot})
