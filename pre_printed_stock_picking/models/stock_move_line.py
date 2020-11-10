@@ -10,7 +10,7 @@ class StockMoveLine(models.Model):
 
     product_weight = fields.Float(
         string='peso neto del producto',
-        related='lot_id.produced_lot_weight',
+        related='lot_id.unit_lot_weight',
         help='Campo tecnico para poder imprimir el peso del producto en el '
              'remito'
     )
@@ -23,7 +23,7 @@ class StockMoveLine(models.Model):
         string='Descripcion del producto para el cliente',
         related='move_id.name'
     )
-    
+
     @api.multi
     def _compute_boxes(self):
         for rec in self:
