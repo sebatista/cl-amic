@@ -119,20 +119,13 @@
                     <group>
                         <group>
                             <field name="date" required="1"/>
-                            <field name="time_start" widget="float_time" required="1"/>
-                            <field name="time_end" widget="float_time" required="1"/>
+                            <field name="time_start" widget="timepicker" required="1"/>
+                            <field name="time_end" widget="timepicker" required="1"/>
                         </group>
                         <group>
                             <field name="operator_id" required="1"/>
                             <field name="loss_id" string="Eficiencia"/>
-                            <field name="qty" required="1"/>
                         </group>
-                        <!--
-                        <footer>
-                            <button string="Guardar" type="object" name="button_save"/>
-                            <button string="Cancelar" special="object" name="button_cancel"/>
-                        </footer>
-                        -->
                     </group>
                 </form>
             </xpath>
