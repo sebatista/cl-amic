@@ -100,21 +100,35 @@ class MrpWorkorder(models.Model):
         self.validate_lots()
         # self.validate_component_qty()
 
-        if not self.date_start1 or not self.time_start:
-            raise UserError(_('Por favor indique fecha de la produccion.'))
+        # Tener en cuenta si es un operario o es un tercero porque los tiempos se
+        # calculan de distinta forma.
 
-        # aca le sumo 3 a las horas para pasar a utc a lo bruto.
-        hr = dt.timedelta(hours=self.time_start)
-        dy = dt.datetime.strptime(self.date_start1, '%Y-%m-%d')
-        ds = (hr + dy + dt.timedelta(hours=3)).strftime('%Y-%m-%d %H:%M')
+        if self.department_id.id == 23: # operarios
+            if not self.date_start1 or not self.time_start:
+                raise UserError(_('Por favor indique fecha de la produccion.'))
 
-        hr = dt.timedelta(hours=self.time_end)
-        dy = dt.datetime.strptime(self.date_start1, '%Y-%m-%d')
-        de = (hr + dy + dt.timedelta(hours=3)).strftime('%Y-%m-%d %H:%M')
+            # aca le sumo 3 a las horas para pasar a utc a lo bruto.
+            hr = dt.timedelta(hours=self.time_start)
+            dy = dt.datetime.strptime(self.date_start1, '%Y-%m-%d')
+            ds = (hr + dy + dt.timedelta(hours=3)).strftime('%Y-%m-%d %H:%M')
 
-        if ds >= de:
-            raise UserError(_('El fin de la produccion debe ser '
-                              'posterior al inicio.'))
+            hr = dt.timedelta(hours=self.time_end)
+            dy = dt.datetime.strptime(self.date_start1, '%Y-%m-%d')
+            de = (hr + dy + dt.timedelta(hours=3)).strftime('%Y-%m-%d %H:%M')
+
+            if ds >= de:
+                raise UserError(_('El fin de la produccion debe ser '
+                                'posterior al inicio.'))
+
+        elif self.department_id.id == 25: # terceros
+            # aca le sumo 3 a las horas para pasar a utc a lo bruto.
+            ds = dt.datetime.strptime(self.date_start1, '%Y-%m-%d')
+            ds += dt.timedelta(hours=3)
+            de = dt.datetime.strptime(self.date_end1, '%Y-%m-%d')
+            de += dt.timedelta(hours=3)
+        else:
+            raise UserError('Por favor copie este error y envielo a soporte,\n'
+                            'self=%s' % str(self))
 
         # copio el lote de salida porque por alguna razon odoo luego lo borra
         self.worked_lot = self.final_lot_id
@@ -168,7 +182,7 @@ class MrpWorkorder(models.Model):
             if move_line.product_id.tracking != 'none':
                 self.final_lot_id.propagate_from(move_line.lot_id)
 
-        super(MrpWorkorder, self).record_production()
+        ret = super(MrpWorkorder, self).record_production()
 
         # poner el qty_producing en cero para obligar al operador a cargar el
         # dato sino, el sistema pone el total que falta. Si estamos en done no
@@ -176,6 +190,8 @@ class MrpWorkorder(models.Model):
         # terminada.
         if self.state != 'done':
             self.qty_producing = 0
+
+        return ret
 
     def _assign_default_final_lot_id(self):
         """ FIX Si el operador ejecuta la ultima WO de la MO y la termina
@@ -241,4 +257,4 @@ class MrpWorkorder(models.Model):
         # le pongo la ot al lote final
         self.final_lot_id.ot = self.ot
 
-        super().button_start()
+        return super().button_start()

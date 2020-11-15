@@ -2,5 +2,17 @@
     "restructuredtext.confPath": "",
     "python.linting.pylintEnabled": true,
     "python.linting.pydocstyleEnabled": false,
-    "python.linting.enabled": true
+    "python.linting.enabled": true,
+    "sqltools.connections": [
+        {
+            "database": "amic_prod",
+            "driver": "PostgreSQL",
+            "name": "amic_prod",
+            "password": "odoo",
+            "port": 5432,
+            "previewLimit": 50,
+            "server": "localhost",
+            "username": "odoo"
+        }
+    ]
 }

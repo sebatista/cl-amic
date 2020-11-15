@@ -21,12 +21,14 @@ class MrpWorkOrder(models.Model):
     operator_id = fields.Many2one(
         'hr.employee',
         help='Operador que esta a cargo de la producción',
-#        default=lambda self: self.env['hr.employee'].search(
-#            [('name', '=', 'Diferencia')], limit=1),
         string="Operador"
     )
     date_start1 = fields.Date(
         help="Fecha de inicio de la produccion"
+    )
+    date_end1 = fields.Date(
+        help="Fecha de fin de la produccion se usa solo para terceros",
+        default=False
     )
     time_start = fields.Float(
         help="Hora de inicio de la produccion",
@@ -54,14 +56,12 @@ class MrpWorkOrder(models.Model):
         help="Hora de finalizacion de la produccion",
         string="Hora final",
         default=0.004
-#       default=_default_time_end
     )
     ot = fields.Char(
         related='production_id.ot',
         readonly=True,
         string='Orden de Trabajo'
     )
-
     standard_ef = fields.Integer(
         help='Eficiencia standard para esta operacion en piezas por hora',
         string='Standard pz/h',
@@ -80,6 +80,11 @@ class MrpWorkOrder(models.Model):
         compute='_compute_efficiency',
         readonly=True
     )
+    department_id = fields.Many2one(
+        'hr.department',
+        related="operator_id.department_id",
+        help="Campo tecnico para determinar como se cargan las horas en el parte"
+    )
 
     @api.depends('actual_ef', 'standard_ef')
     def _compute_efficiency(self):
@@ -87,12 +92,28 @@ class MrpWorkOrder(models.Model):
         se = self.standard_ef
         self.efficiency = (ae / se) * 100 if se else 0
 
-    @api.depends('qty_producing', 'date_start1', 'time_end', 'time_start')
+    @api.depends('qty_producing', 'date_start1', 'time_end', 'time_start',
+                 'department_id', 'date_end1')
     def _compute_actual_ef(self):
-        """ Calcular la eficiencia real en piezas/hora
+        """ Calcular la eficiencia real en piezas/hora teniendo en cuenta si son
+            procesos de terceros o procesos internos.
         """
         pz = self.qty_producing
-        t = self.time_end - self.time_start
+        if self.department_id.id == 23: # operarios
+            t = self.time_end - self.time_start
+
+        elif self.department_id.id == 25: # terceros
+            try:
+                ds = datetime.strptime(self.date_start1,"%Y-%m-%d")
+                de = datetime.strptime(self.date_end1,"%Y-%m-%d")
+                t = (de - ds).days * 24
+            except:
+                t = 0
+
+            if t < 0:
+                raise UserError('La fecha inicial debe ser anterior a la final')
+        else:
+            t = 0
 
         # piezas / hora
         self.actual_ef = (pz / t) if t else 0

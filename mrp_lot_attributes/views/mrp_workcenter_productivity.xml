@@ -10,54 +10,10 @@
         <field name="arch" type="xml">
             <!-- Modificar la vista formulario del registro de horas de produccion -->
             <xpath expr="//page/group[2]" position="replace">
-            <group>
-                <field name="time_ids" nolabel="1" 
-                       context="{'default_workcenter_id': workcenter_id}"/>
-            </group>
-
-
-                <!-- Add your fields here -->
-<!--
-                    <group>
-                        <field name="time_ids" nolabel="1" 
-                               context="{'default_workcenter_id': workcenter_id}">
-                            <! -  - Lista de registro de horas- - >
-                            <tree>
-                                <field name="date_start"/>
-                                <field name="date_end"/>
-                                <field name="duration" widget="float_time" sum="Total duration"/>
-                                <field name="operator_id" string="Operador"/>
-                                <field name="qty" sum="Total producido"/>
-                                <field name="workcenter_id" invisible="1"/>
-                                <field name="loss_id" string="Eficiencia"/>
-                            </tree>
-                            
-                            <! - - Formulario de registro de horas - - >
-                            <form>
-                                <group>
-                                    <group>
-                                        <field name="date_start" invisible="False"/>
-                                        <field name="date_end" invisible="False"/>
-
-                                        <field name="date" required="True"/>
-                                        <field name="time_start" widget="float_time" required="True"/>
-                                        <field name="time_end" widget="float_time" required="True"/>
-                                    </group>
-                                    <group>
-                                        <field name="operator_id" required="True"/>
-                                        <field name="loss_id" string="Eficiencia"/>
-                                        <field name="qty" required="True"/>
-                                    </group>
-                                    <footer>
-                                        <button string="Guardar" class="btn-default" special="save"/>
-                                        <button string="Cancelar" class="btn-default" special="cancel"/>
-                                    </footer>
-                                </group>
-                            </form>
-
-                        </field>
-                    </group>
--->                    
+                <group>
+                    <field name="time_ids" nolabel="1" 
+                        context="{'default_workcenter_id': workcenter_id}"/>
+                </group>
             </xpath>            
         </field>
     </record>
@@ -73,9 +29,6 @@
                 <field name="workorder"/>
                 <field name="date_start"/>
                 <field name="date_end"/>
-                <!--
-                <field name="duration" widget="float_time" sum="Total duration"/>
-                -->
                 <field name="operator_id" string="Operador"/>
                 <field name="qty" sum="Total producido"/>
                 <field name="workcenter_id" invisible="1"/>

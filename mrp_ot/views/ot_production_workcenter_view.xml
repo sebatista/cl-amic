@@ -12,7 +12,7 @@
             </xpath>
             TODO FIXME hay que volver a poner esto
 -->
-            <!-- mostrar la ot dentro del formulario -->
+            <!-- mostrar la ot dentro del formulario arriba a la derecha-->
             <xpath expr="//group/group" position="after">
                 <group name="ot amic" class="oe_right">
                   <h1><field name='ot'/></h1>
@@ -39,7 +39,8 @@
             <xpath expr="//notebook/page/group" position="replace">
 
                 <group name="prod_panel" col="3">
-                    <group name="left_prod_panel"  colspan="2">
+                    <group name="left_prod_panel" colspan="2">
+                        <field name="department_id" invisible="1"/>
                         <group name='Datos producción' string="Datos de producción">
                             <field name="qty_producing" string="Cantidad a producir"
                                 attrs="{'readonly': ['|', ('product_tracking', '=', 'serial'),
@@ -54,8 +55,14 @@
                                 groups="stock.group_production_lot"/>
                             <field name="product_tracking" invisible="1"/>
                         </group>
-                        <group name='Datos administrativos' string="Partes de producción">
-                            <field name="date_start1" string="Fecha de producción"/>
+                        <!-- Partes de produccion para operarios -->
+                        <!-- TODO Ojo aca el departamento esta harcodeado produccion y terceros -->
+                        <group name='Datos administrativos de operarios' 
+                            string="Partes de operadores" 
+                            attrs="{'invisible': [('department_id', '=', 25)]}">
+                            <field name="date_start1" 
+                                   attrs="{'required': True}"
+                                   string="Fecha de producción"/>
                             <label for="time_start" string="Horario de producción"/>
                             <div>
                                 <field name="time_start"
@@ -67,8 +74,20 @@
                                     options="{'datepicker': {'stepping': 1}}"
                                     class="oe_inline"/>
                             </div>
-                            <!-- TODO Ojo aca el departamento esta harcodeado produccion y terceros -->
                             <field name="operator_id" domain="[('department_id','in',[23,25])]"/>
+                        </group>
+                        <!-- Partes de produccion para terceros -->
+                        <!-- TODO Ojo aca el departamento esta harcodeado produccion y terceros -->
+                        <group name='Datos administrativos de terceros' 
+                            string="Partes de terceros" 
+                            attrs="{'invisible': [('department_id', '=', 23)]}">
+                            <field name="date_start1" 
+                                   attrs="{'required': True}"
+                                   string="Fecha de inicio"/>
+                            <field name="date_end1" 
+                                   attrs="{'required': True}"
+                                   string="Fecha de fin"/>
+                            <field name="operator_id" string="Tercero" domain="[('department_id','in',[23,25])]"/>
                         </group>
                     </group>
                     <!-- eficiencia -->
