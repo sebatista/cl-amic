@@ -85,7 +85,7 @@
                                    attrs="{'required': True}"
                                    string="Fecha de inicio"/>
                             <field name="date_end1" 
-                                   attrs="{'required': True}"
+                                   attrs="{'required': [('department_id', '=', 25)]}"
                                    string="Fecha de fin"/>
                             <field name="operator_id" string="Tercero" domain="[('department_id','in',[23,25])]"/>
                         </group>
