@@ -50,7 +50,7 @@ class ProductionLot(models.Model):
     )
 
     @api.multi
-    @api.onchange('product_qty','done')
+    @api.onchange('product_qty', 'done')
     def _compute_invisible(self):
         for rec in self:
             rec.invisible = rec.product_qty <= 0 or rec.done
