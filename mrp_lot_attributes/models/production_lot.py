@@ -38,22 +38,22 @@ class ProductionLot(models.Model):
         help="Peso unitario del producto calculado en produccion, como la suma"
              "de los pesos de los componentes"
     )
-    done = fields.Boolean(
-        string='Terminado',
-        help='Marca que este lote esta terminado y no debe mostrarse en '
-             'fabricacion al elegir lotes para los componentes.'
-    )
-    invisible = fields.Boolean(
-        help="Campo tecnico para definir si el lote es visible o no al seleccionarlo",
-        compute="_compute_invisible",
-        store=True
-    )
+    # done = fields.Boolean(
+    #     string='Terminado',
+    #     help='Marca que este lote esta terminado y no debe mostrarse en '
+    #          'fabricacion al elegir lotes para los componentes.'
+#   )
+    # invisible = fields.Boolean(
+    #     help="Campo tecnico para definir si el lote es visible o no al seleccionarlo",
+    #     compute="_compute_invisible",
+    #     store=True
+    # )
 
-    @api.multi
-    @api.onchange('product_qty', 'done')
-    def _compute_invisible(self):
-        for rec in self:
-            rec.invisible = rec.product_qty <= 0 or rec.done
+    # @api.multi
+    # @api.onchange('product_qty', 'done')
+    # def _compute_invisible(self):
+    #     for rec in self:
+    #         rec.invisible = rec.product_qty <= 0 or rec.done
 
     @api.onchange('tt')
     def check_tt(self):
