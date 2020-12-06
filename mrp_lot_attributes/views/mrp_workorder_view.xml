@@ -68,4 +68,20 @@
         </field>
     </record>
 -->
+
+<!-- quitarle el drop down a la seleccion de lotes de la materia prima -->
+    <record id="mrp_production_workcenter_form_view_inherit_3" model="ir.ui.view">
+        <field name="name">MRP LOT ATTRIBUTES para que escriban el lote sin elejir</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='lot_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='lot_id']" position="after">
+                <field name="lot_char"/>
+            </xpath>
+        </field>
+    </record>
+
 </odoo>

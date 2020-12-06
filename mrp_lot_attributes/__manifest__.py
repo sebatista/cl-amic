@@ -5,7 +5,7 @@
 {
     "name": "MRP Lot Attributes",
     "summary": "Agregar atributos a lote.",
-    "version": "11.0.1.0.5",
+    "version": "11.0.1.0.6",
     "development_status": "Beta",  # "Alpha|Beta|Production/Stable|Mature"
     "category": "Stock",
     "website": "https://github.com/jobiols/cl-amic",
